@@ -1064,7 +1064,7 @@ async function verificarCodigoNaURL() {
         if (!doc) return;
         const exp = doc.data_validade && new Date(doc.data_validade) < new Date();
         const img = doc.imagem_url && doc.imagem_url.trim();
-        const urlQR = `${window.location.origin}/cliente07/consulta?codigo=${doc.codigo}`;
+        const urlQR = `${window.location.origin}/?codigo=${doc.codigo}`;
         const fmt = iso => iso ? new Date(iso).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}) : 'N/A';
         
         document.getElementById('modalBody').innerHTML = `
