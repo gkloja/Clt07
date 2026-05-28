@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Gov.br — Validação Oficial de Documentos</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    
+    <style>
+        :root {
+            --blue: #1351B4;
+            --blue-dark: #0C326F;
+            --blue-light: #1B6DE0;
+            --green: #0F7B3A;
+            --green-light: #16A34A;
+            --red: #D92525;
+            --orange: #F28C28;
+            --purple: #7B2CBF;
+            --teal: #0B8C7A;
+            --yellow: #FFD700;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F5F7;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --white: #FFFFFF;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 50px rgba(0,0,0,0.15);
+            --radius-sm: 8px;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 26px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-900);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+        }
+
+        /* ========== BACKGROUND GLOBAL COM IMAGENS VISÍVEIS ========== */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=75') right 5% bottom 15% / 320px no-repeat,
+                url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=75') left 3% top 12% / 280px no-repeat,
+                url('https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=75') right 8% top 30% / 260px no-repeat,
+                url('https://images.unsplash.com/photo-1589391886645-d51941baf7fb?w=800&q=75') left 5% bottom 25% / 240px no-repeat,
+                url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=75') center 50% / 220px no-repeat,
+                url('https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=600&q=75') right 12% top 55% / 200px no-repeat;
+            opacity: 0.04;
+            filter: grayscale(20%) brightness(1.1);
+        }
+
+        /* ========== TOPBAR ========== */
+        .topbar {
+            background: #0A0A0A;
+            padding: 4px 0;
+            font-size: 9px;
+            color: rgba(255,255,255,0.55);
+            position: relative;
+            z-index: 100;
+        }
+        .topbar .container {
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        .topbar a { color: inherit; text-decoration: none; font-size: 9px; font-weight: 500; }
+        .topbar a:hover { color: white; }
+        .topbar .sep { color: rgba(255,255,255,0.15); margin: 0 5px; }
+        .topbar-actions { display: flex; gap: 3px; }
+        .topbar-actions button {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.6);
+            padding: 3px 7px;
+            border-radius: 3px;
+            font-size: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+        .topbar-actions button:hover { background: rgba(255,255,255,0.12); color: white; }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: linear-gradient(135deg, #1351B4, #1B6DE0);
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            box-shadow: 0 4px 20px rgba(19,81,180,0.3);
+        }
+        .header .container {
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .brand { display: flex; align-items: center; gap: 8px; }
+        .flag {
+            width: 38px; height: 38px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            flex-shrink: 0;
+        }
+        .brand h2 { font-size: 18px; font-weight: 800; color: white; line-height: 1; }
+        .brand h2 span { color: var(--yellow); }
+        .brand small { font-size: 8px; color: rgba(255,255,255,0.65); font-weight: 500; display: block; }
+        .header-badges { display: flex; gap: 5px; flex-wrap: wrap; }
+        .hbadge {
+            font-size: 8px; color: white;
+            background: rgba(255,255,255,0.08);
+            padding: 4px 10px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+        }
+        .hbadge i { color: var(--yellow); font-size: 9px; }
+
+        /* ========== HERO COM FUNDO DE INSTITUIÇÕES ========== */
+        .hero {
+            position: relative;
+            z-index: 10;
+            padding: 70px 0 120px;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1400&q=85') center/cover no-repeat,
+                url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=80') right 30% center/50% no-repeat;
+            opacity: 0.25;
+            filter: brightness(0.5) saturate(0.6);
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg, 
+                rgba(12,50,111,0.92) 0%, 
+                rgba(19,81,180,0.8) 40%, 
+                rgba(27,109,224,0.85) 70%,
+                rgba(12,50,111,0.9) 100%);
+        }
+        .hero-overlay-pattern {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.04;
+            background-image: 
+                repeating-linear-gradient(45deg, white 0px, white 1px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(-45deg, white 0px, white 1px, transparent 1px, transparent 20px);
+        }
+        .hero .container {
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-text { max-width: 560px; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.12);
+            color: var(--yellow);
+            padding: 6px 14px;
+            border-radius: 25px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            border: 1px solid rgba(255,215,0,0.25);
+            backdrop-filter: blur(8px);
+        }
+        .hero-badge i { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
+        .hero-text h1 {
+            font-size: 42px;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 14px;
+            letter-spacing: -1px;
+        }
+        .hero-text h1 em {
+            font-style: normal;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-text p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.78);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+        .btn-hero {
+            padding: 13px 24px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-family: 'Inter', sans-serif;
+            border: none;
+        }
+        .btn-hero.gold {
+            background: linear-gradient(135deg, #FFD700, #FFB800);
+            color: #0C326F;
+            box-shadow: 0 6px 22px rgba(255,215,0,0.3);
+        }
+        .btn-hero.gold:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255,215,0,0.4); }
+        .btn-hero.ghost {
+            background: rgba(255,255,255,0.06);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(8px);
+        }
+        .btn-hero.ghost:hover { background: rgba(255,255,255,0.15); border-color: white; }
+        .hero-stats { display: flex; gap: 25px; }
+        .hero-stat { text-align: center; color: white; }
+        .hero-stat .num { font-size: 30px; font-weight: 900; color: var(--yellow); line-height: 1; }
+        .hero-stat .lbl { font-size: 9px; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 3px; }
+        .hero-card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(15px);
+            border-radius: var(--radius-xl);
+            padding: 30px 26px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            animation: float 5s ease-in-out infinite;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+        @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+        .hero-card .shield-big {
+            font-size: 50px;
+            color: var(--yellow);
+            display: block;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 4px 15px rgba(255,215,0,0.3));
+        }
+        .hero-card h4 { color: white; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+        .hero-card p { color: rgba(255,255,255,0.45); font-size: 10px; margin-bottom: 14px; }
+        .fake-input {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 9px 16px;
+            border-radius: 25px;
+            color: rgba(255,255,255,0.4);
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        /* ========== SERVIÇOS ========== */
+        .services {
+            background: white;
+            padding: 50px 0;
+            position: relative;
+            z-index: 10;
+            margin-top: -55px;
+            border-radius: 30px 30px 0 0;
+            box-shadow: 0 -12px 30px rgba(0,0,0,0.04);
+        }
+        .services .container { max-width: 1340px; margin: 0 auto; padding: 0 16px; }
+        .section-head {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .section-head .head-icon {
+            width: 44px; height: 44px;
+            background: #E8F0FE;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            color: var(--blue);
+            margin-bottom: 10px;
+        }
+        .section-head h3 { font-size: 24px; font-weight: 800; color: var(--gray-900); margin-bottom: 4px; }
+        .section-head p { color: var(--gray-500); font-size: 12px; }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 10px;
+            margin-bottom: 35px;
+        }
+        .svc-card {
+            background: var(--gray-50);
+            border: 2px solid transparent;
+            border-radius: var(--radius);
+            padding: 20px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .svc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #D1E0FF; background: white; }
+        .svc-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; transform: scaleX(0); transition: transform 0.3s; }
+        .svc-card:hover::after { transform: scaleX(1); }
+        .svc-card.edu::after { background: linear-gradient(90deg, #1351B4, #1B6DE0); }
+        .svc-card.saude::after { background: linear-gradient(90deg, #0F7B3A, #16A34A); }
+        .svc-card.legal::after { background: linear-gradient(90deg, #7B2CBF, #9B4DE0); }
+        .svc-card.geral::after { background: linear-gradient(90deg, #F28C28, #FFB800); }
+        .svc-icon {
+            width: 46px; height: 46px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 10px; font-size: 18px; transition: var(--transition);
+        }
+        .svc-card:hover .svc-icon { transform: scale(1.1); }
+        .svc-icon.blue { background: #E8F0FE; color: #1351B4; }
+        .svc-icon.green { background: #E8F5E9; color: #0F7B3A; }
+        .svc-icon.purple { background: #F3E8FF; color: #7B2CBF; }
+        .svc-icon.orange { background: #FFF3E0; color: #F28C28; }
+        .svc-icon.teal { background: #E0F2F1; color: #0B8C7A; }
+        .svc-icon.red { background: #FFEBEE; color: #D92525; }
+        .svc-card h4 { font-size: 11px; font-weight: 700; color: var(--gray-800); margin-bottom: 2px; }
+        .svc-card p { font-size: 9px; color: var(--gray-400); }
+
+        /* SEARCH */
+        .search-box-section {
+            background: linear-gradient(135deg, #F0F4FF, #E8F0FE);
+            border-radius: var(--radius-lg);
+            padding: 28px 20px;
+            text-align: center;
+            border: 2px solid #D1E0FF;
+            position: relative;
+            overflow: hidden;
+        }
+        .search-box-section h3 { font-size: 16px; color: var(--blue); margin-bottom: 4px; position: relative; }
+        .search-box-section > p { color: var(--gray-500); font-size: 11px; margin-bottom: 16px; position: relative; }
+        .search-row { display: flex; gap: 6px; max-width: 480px; margin: 0 auto; flex-wrap: wrap; justify-content: center; position: relative; }
+        .search-row input {
+            flex: 1; min-width: 150px;
+            padding: 11px 16px;
+            border: 2px solid #D1D5DB;
+            border-radius: 50px;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            background: white;
+        }
+        .search-row input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(19,81,180,0.04); }
+        .search-row input::placeholder { font-family: 'Inter', sans-serif; letter-spacing: 0; color: #BBB; }
+        .btn-search {
+            padding: 11px 20px;
+            background: var(--blue);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 3px 10px rgba(19,81,180,0.25);
+            transition: var(--transition);
+        }
+        .btn-search:hover { background: var(--blue-dark); transform: translateY(-1px); }
+        .btn-qr {
+            padding: 11px 14px;
+            background: white;
+            color: var(--blue);
+            border: 2px solid var(--blue);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+        }
+        .btn-qr:hover { background: #E8F0FE; }
+
+        /* ========== DOCUMENTOS ========== */
+        .docs-section {
+            padding: 50px 0;
+            background: var(--gray-100);
+            position: relative;
+            z-index: 10;
+        }
+        .docs-section .container { max-width: 1340px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 2; }
+        .filtros { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 20px; justify-content: center; }
+        .filtro-btn {
+            padding: 7px 14px;
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 25px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            color: var(--gray-600);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+        .filtro-btn:hover { border-color: var(--blue); color: var(--blue); }
+        .filtro-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
+        .filtro-btn .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+        
+        .docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+        .doc-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #E5E7EB;
+        }
+        .doc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #D1E0FF; }
+        .doc-topbar { height: 2px; }
+        .doc-topbar.edu { background: var(--blue); }
+        .doc-topbar.saude { background: var(--green); }
+        .doc-topbar.legal { background: var(--purple); }
+        .doc-topbar.outros { background: var(--orange); }
+        .doc-thumb { width: 100%; height: 150px; object-fit: cover; display: none; }
+        .doc-thumb.show { display: block; }
+        .doc-body { padding: 12px; }
+        .doc-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .doc-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; flex-shrink: 0;
+        }
+        .doc-icon.edu { background: #E8F0FE; color: #1351B4; }
+        .doc-icon.saude { background: #E8F5E9; color: #0F7B3A; }
+        .doc-icon.legal { background: #F3E8FF; color: #7B2CBF; }
+        .doc-icon.outros { background: #FFF3E0; color: #F28C28; }
+        .doc-name { font-weight: 700; font-size: 12px; color: var(--gray-800); }
+        .doc-cat { font-size: 9px; color: var(--gray-400); }
+        .doc-line { display: flex; justify-content: space-between; font-size: 10px; padding: 3px 0; }
+        .doc-line .lbl { color: var(--gray-400); text-transform: uppercase; font-weight: 700; font-size: 7px; }
+        .doc-line .val { font-weight: 600; }
+        .doc-excerpt { background: #fafafa; padding: 6px 8px; border-radius: 6px; font-size: 9px; color: var(--gray-500); margin-top: 6px; }
+        .doc-code { display: inline-block; font-family: 'Courier New', monospace; font-size: 9px; background: #f0f4ff; color: var(--blue); padding: 2px 7px; border-radius: 4px; margin-top: 5px; }
+        .doc-footer { padding: 8px 12px; background: #fafafa; display: flex; justify-content: space-between; align-items: center; }
+        .status-tag { font-size: 8px; font-weight: 700; padding: 2px 7px; border-radius: 12px; display: flex; align-items: center; gap: 3px; }
+        .status-tag.ok { background: #E8F5E9; color: #0F7B3A; }
+        .status-tag.exp { background: #FFEBEE; color: #D92525; }
+        .btn-card { background: var(--blue); color: white; border: none; padding: 4px 10px; border-radius: 15px; font-size: 9px; cursor: pointer; }
+
+        /* ========== POPULARES ========== */
+        .popular { padding: 50px 0; background: white; position: relative; z-index: 10; }
+        .popular .container { max-width: 1340px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 2; }
+        .popular-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+        .pop-card {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 14px;
+            display: flex; align-items: center; gap: 10px;
+            cursor: pointer; transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        .pop-card:hover { background: white; border-color: #D1E0FF; transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .pop-rank { font-size: 24px; font-weight: 900; color: #D1D5DB; min-width: 30px; text-align: center; }
+        .pop-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+        .pop-info h4 { font-size: 11px; font-weight: 700; }
+        .pop-info p { font-size: 9px; color: var(--gray-400); }
+        .pop-code { font-size: 8px; background: #eee; padding: 1px 5px; border-radius: 3px; font-family: monospace; }
+
+        /* ========== INSTITUIÇÕES ========== */
+        .institutions {
+            padding: 50px 0;
+            background: var(--gray-100);
+            position: relative;
+            z-index: 10;
+        }
+        .institutions::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.025;
+            background: 
+                url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=75') left center/25% no-repeat,
+                url('https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=500&q=75') right center/22% no-repeat;
+        }
+        .institutions .container { max-width: 1340px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 2; }
+        .inst-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+        .inst-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            height: 180px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        .inst-card:hover { transform: scale(1.04); box-shadow: var(--shadow-xl); z-index: 5; }
+        .inst-card img { width: 100%; height: 100%; object-fit: cover; }
+        .inst-card .label {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 12px 10px;
+            color: white;
+        }
+        .inst-card .label h5 { font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+        .inst-card .label p { font-size: 8px; opacity: 0.7; margin-top: 1px; }
+        .inst-card.wide { grid-column: span 2; }
+
+        /* ========== DEPOIMENTOS ========== */
+        .testimonials {
+            padding: 55px 0;
+            background: linear-gradient(160deg, #0C326F, #1351B4, #1B6DE0);
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+        .testimonials .container { max-width: 1340px; margin: 0 auto; padding: 0 16px; position: relative; }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+        .test-card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            padding: 20px 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: var(--transition);
+        }
+        .test-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-3px); }
+        .test-stars { color: var(--yellow); font-size: 12px; margin-bottom: 8px; }
+        .test-card blockquote { font-size: 11px; line-height: 1.5; opacity: 0.8; margin-bottom: 14px; font-style: italic; padding-left: 10px; border-left: 2px solid rgba(255,215,0,0.3); }
+        .test-user { display: flex; align-items: center; gap: 8px; }
+        .test-user img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--yellow); }
+        .test-user .avatar-alt { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; border: 2px solid var(--yellow); background: rgba(255,255,255,0.15); }
+        .test-user-info strong { font-size: 11px; display: block; }
+        .test-user-info span { font-size: 9px; opacity: 0.5; }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #060606;
+            color: rgba(255,255,255,0.45);
+            padding: 40px 0 25px;
+            position: relative;
+            z-index: 10;
+        }
+        .footer .container { max-width: 1340px; margin: 0 auto; padding: 0 16px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; margin-bottom: 25px; padding-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .footer-col h5 { color: white; font-size: 11px; margin-bottom: 10px; font-weight: 700; }
+        .footer-col a { display: block; color: inherit; text-decoration: none; font-size: 10px; margin-bottom: 5px; }
+        .footer-col a:hover { color: var(--yellow); }
+        .footer-bottom { text-align: center; font-size: 9px; opacity: 0.25; }
+        .footer-bottom .f-logo { font-size: 16px; font-weight: 800; color: white; margin-bottom: 4px; }
+        .footer-bottom .f-logo span { color: var(--yellow); }
+
+        /* ========== MODAL ========== */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); backdrop-filter: blur(6px); z-index: 5000; justify-content: center; align-items: center; padding: 16px; }
+        .modal-dialog { background: white; border-radius: var(--radius-lg); max-width: 600px; width: 100%; max-height: 85vh; overflow-y: auto; animation: modalIn 0.3s ease; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .modal-hdr { background: var(--blue); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 5; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+        .modal-hdr h4 { color: white; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+        .modal-hdr h4 i { color: var(--yellow); }
+        .modal-close-btn { background: rgba(255,255,255,0.1); border: none; color: white; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+        .modal-close-btn:hover { background: rgba(255,255,255,0.2); }
+        .modal-body { padding: 16px; }
+        .v-status { display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 11px; margin-bottom: 14px; }
+        .v-status.valid { background: #E8F5E9; color: #0F7B3A; }
+        .v-status.expired { background: #FFEBEE; color: #D92525; }
+        .v-img-box { background: #f8f8f8; border-radius: 10px; padding: 12px; text-align: center; margin-bottom: 14px; border: 2px dashed #ddd; }
+        .v-img-box img { max-width: 100%; max-height: 250px; border-radius: 6px; }
+        .v-qr-box { background: #fafafa; border-radius: 10px; padding: 14px; text-align: center; margin-bottom: 14px; }
+        .v-qr-inner { display: inline-block; background: white; padding: 8px; border-radius: 8px; box-shadow: var(--shadow-sm); }
+        .v-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px; }
+        .v-cell { background: #f8f8f8; padding: 6px 10px; border-radius: 6px; }
+        .v-cell .l { font-size: 7px; text-transform: uppercase; color: #aaa; font-weight: 700; letter-spacing: 0.3px; }
+        .v-cell .v { font-weight: 700; color: #333; font-size: 10px; }
+        .v-stamp { background: linear-gradient(135deg, #1351B4, #0C326F); color: white; padding: 16px; border-radius: 10px; text-align: center; margin-top: 10px; }
+        .v-stamp i { font-size: 24px; color: var(--yellow); display: block; margin-bottom: 6px; }
+        .v-stamp strong { font-size: 12px; }
+        .btn-modal-close { width: 100%; padding: 11px; background: var(--blue); color: white; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; margin-top: 10px; font-family: 'Inter', sans-serif; }
+        .btn-modal-close:hover { background: var(--blue-dark); }
+        .btn-consultar-outro { width: 100%; padding: 11px; background: white; color: var(--blue); border: 2px solid var(--blue); border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; margin-top: 8px; font-family: 'Inter', sans-serif; }
+        .btn-consultar-outro:hover { background: #E8F0FE; }
+        
+        .loading-inline { display: none; text-align: center; padding: 40px; grid-column: 1/-1; }
+        .loading-inline.active { display: block; }
+        .spinner { width: 32px; height: 32px; border: 3px solid #e0e0e0; border-top-color: var(--blue); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .hero .container { grid-template-columns: 1fr; }
+            .hero-card { display: none; }
+            .inst-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+            .inst-card.wide { grid-column: span 1; }
+        }
+        @media (max-width: 768px) {
+            .hero-text h1 { font-size: 28px; }
+            .hero { padding: 50px 0 90px; }
+            .hero-btns { flex-direction: column; }
+            .btn-hero { width: 100%; justify-content: center; }
+            .docs-grid { grid-template-columns: 1fr; }
+            .inst-grid { grid-template-columns: 1fr 1fr; }
+            .v-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 480px) {
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .popular-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .inst-grid { grid-template-columns: 1fr 1fr; }
+            .header-badges { display: none; }
+            .hero-stats { gap: 15px; }
+            .hero-stat .num { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="container">
+        <div><a href="#">🇧🇷 Brasil</a><span class="sep">|</span><a href="#">Acessibilidade</a><span class="sep">|</span><a href="#">Transparência</a></div>
+        <div class="topbar-actions">
+            <button onclick="ajustarFonte(1)">A+</button>
+            <button onclick="ajustarFonte(-1)">A-</button>
+            <button>🌙</button>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container">
+        <div class="brand">
+            <div class="flag">🇧🇷</div>
+            <div><h2>Gov<span>.br</span></h2><small>Validação Oficial</small></div>
+        </div>
+        <div class="header-badges">
+            <span class="hbadge"><i class="fas fa-shield-check"></i> Autenticidade</span>
+            <span class="hbadge"><i class="fas fa-lock"></i> Criptografado</span>
+            <span class="hbadge"><i class="fas fa-qrcode"></i> QR Code</span>
+        </div>
+    </div>
+</header>
+
+<!-- HERO COM FUNDO DE INSTITUIÇÕES -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay-pattern"></div>
+    <div class="container">
+        <div class="hero-text">
+            <div class="hero-badge"><i class="fas fa-shield-alt"></i> Sistema Oficial do Governo Federal</div>
+            <h1>Validação de Documentos <em>100% Digital</em></h1>
+            <p>Consulte a autenticidade de qualquer documento oficial registrado na base nacional. Simples, rápido e seguro.</p>
+            <div class="hero-btns">
+                <button class="btn-hero gold" onclick="irParaConsulta()"><i class="fas fa-search"></i> Consultar Agora</button>
+                <button class="btn-hero ghost" onclick="irParaDocumentos()"><i class="fas fa-list"></i> Ver Documentos</button>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat"><div class="num">+50mil</div><div class="lbl">Validados</div></div>
+                <div class="hero-stat"><div class="num">99.9%</div><div class="lbl">Precisão</div></div>
+                <div class="hero-stat"><div class="num">24/7</div><div class="lbl">Disponível</div></div>
+            </div>
+        </div>
+        <div class="hero-card">
+            <i class="fas fa-shield-haltered shield-big"></i>
+            <h4>Validação Instantânea</h4>
+            <p>Digite o código do documento</p>
+            <div class="fake-input">DOC-XXXXXX</div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="services" id="servicos">
+    <div class="container">
+        <div class="section-head">
+            <div class="head-icon"><i class="fas fa-star"></i></div>
+            <h3>Serviços Mais Acessados</h3>
+            <p>Clique para filtrar e consultar documentos</p>
+        </div>
+        <div class="services-grid">
+            <div class="svc-card edu" onclick="filtrarEConsultar('Educação')"><div class="svc-icon blue"><i class="fas fa-graduation-cap"></i></div><h4>Certificados</h4><p>Ensino Médio e Fundamental</p></div>
+            <div class="svc-card saude" onclick="filtrarEConsultar('Saúde')"><div class="svc-icon green"><i class="fas fa-heartbeat"></i></div><h4>Atestados Médicos</h4><p>Consultas e exames</p></div>
+            <div class="svc-card legal" onclick="filtrarEConsultar('Legal')"><div class="svc-icon purple"><i class="fas fa-scale-balanced"></i></div><h4>Jurídicos</h4><p>Procurações e alvarás</p></div>
+            <div class="svc-card geral" onclick="irParaConsulta()"><div class="svc-icon orange"><i class="fas fa-id-card"></i></div><h4>Diplomas</h4><p>Superior e Técnico</p></div>
+            <div class="svc-card legal" onclick="irParaConsulta()"><div class="svc-icon teal"><i class="fas fa-fire-extinguisher"></i></div><h4>Alvarás</h4><p>Bombeiros e Sanitário</p></div>
+            <div class="svc-card saude" onclick="irParaConsulta()"><div class="svc-icon red"><i class="fas fa-building-columns"></i></div><h4>INSS</h4><p>Laudos periciais</p></div>
+        </div>
+        <div class="search-box-section" id="consultar">
+            <h3><i class="fas fa-magnifying-glass"></i> Consulte um Documento</h3>
+            <p>Digite o código de autenticação</p>
+            <div class="search-row">
+                <input type="text" id="codigoConsulta" placeholder="Ex: DOC-EDU001">
+                <button class="btn-search" onclick="consultarDocumento()"><i class="fas fa-shield-check"></i> Validar</button>
+                <button class="btn-qr" onclick="mostrarInfoQR()"><i class="fas fa-qrcode"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DOCUMENTOS -->
+<section class="docs-section" id="documentos">
+    <div class="container">
+        <div class="section-head"><div class="head-icon"><i class="fas fa-folder-tree"></i></div><h3>Base Nacional de Documentos</h3><p>Documentos públicos. Privados só pelo código.</p></div>
+        <div class="filtros" id="filtrosBar"></div>
+        <div class="loading-inline" id="loadingDocs"><div class="spinner"></div><p style="color:#999;">Carregando...</p></div>
+        <div class="docs-grid" id="docsGrid"></div>
+    </div>
+</section>
+
+<!-- POPULARES -->
+<section class="popular">
+    <div class="container">
+        <div class="section-head"><div class="head-icon"><i class="fas fa-trophy"></i></div><h3>Mais Consultados</h3></div>
+        <div class="popular-grid" id="popularGrid"></div>
+    </div>
+</section>
+
+<!-- INSTITUIÇÕES -->
+<section class="institutions">
+    <div class="container">
+        <div class="section-head"><div class="head-icon"><i class="fas fa-handshake"></i></div><h3>Instituições Parceiras</h3><p>Órgãos que confiam no Gov.br</p></div>
+        <div class="inst-grid">
+            <div class="inst-card wide"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=500&q=80" alt="Planalto" loading="lazy"><div class="label"><h5>🏛️ Palácio do Planalto</h5><p>Governo Federal</p></div></div>
+            <div class="inst-card"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=300&q=80" alt="SUS" loading="lazy"><div class="label"><h5>🏥 SUS</h5><p>Sistema Único</p></div></div>
+            <div class="inst-card"><img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=300&q=80" alt="UPA" loading="lazy"><div class="label"><h5>🚑 UPA 24h</h5><p>Pronto Atendimento</p></div></div>
+            <div class="inst-card"><img src="https://images.unsplash.com/photo-1582139329536-e7284fece509?w=300&q=80" alt="Bombeiros" loading="lazy"><div class="label"><h5>🔥 Bombeiros</h5><p>Alvarás</p></div></div>
+            <div class="inst-card"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=300&q=80" alt="Clínica" loading="lazy"><div class="label"><h5>💚 Amor e Saúde</h5><p>Rede de Clínicas</p></div></div>
+            <div class="inst-card"><img src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=300&q=80" alt="Família" loading="lazy"><div class="label"><h5>👨‍👩‍👧‍👦 Clínica da Família</h5><p>Comunitário</p></div></div>
+            <div class="inst-card wide"><img src="https://images.unsplash.com/photo-1589391886645-d51941baf7fb?w=500&q=80" alt="Prefeitura" loading="lazy"><div class="label"><h5>🏛️ Prefeituras</h5><p>Governos Locais</p></div></div>
+            <div class="inst-card"><img src="https://images.unsplash.com/photo-1562774053-701939374585?w=300&q=80" alt="Universidade" loading="lazy"><div class="label"><h5>🎓 Universidades</h5><p>Diplomas</p></div></div>
+            <div class="inst-card"><img src="https://images.unsplash.com/photo-1584483766114-2cea6facdf57?w=300&q=80" alt="Vigilância" loading="lazy"><div class="label"><h5>🔬 Vig. Sanitária</h5><p>Alvarás</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials">
+    <div class="container">
+        <div class="section-head"><div class="head-icon" style="background:rgba(255,255,255,0.12); color:#FFD700;"><i class="fas fa-comments"></i></div><h3 style="color:white;">O Que Dizem</h3></div>
+        <div class="testimonials-grid">
+            <div class="test-card"><div class="test-stars">★★★★★</div><blockquote>"Validei meu diploma em segundos! O QR Code é incrível."</blockquote><div class="test-user"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=face" alt="Maria" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="avatar-alt" style="display:none;">MS</div><div class="test-user-info"><strong>Maria Silva</strong><span>Professora • SP</span></div></div></div>
+            <div class="test-card"><div class="test-stars">★★★★★</div><blockquote>"Valido procurações e alvarás diariamente. Economiza horas!"</blockquote><div class="test-user"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Ricardo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="avatar-alt" style="display:none;">RO</div><div class="test-user-info"><strong>Dr. Ricardo Oliveira</strong><span>Advogado • CE</span></div></div></div>
+            <div class="test-card"><div class="test-stars">★★★★★</div><blockquote>"Uso na clínica para atestados e alvarás. Agilidade total!"</blockquote><div class="test-user"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face" alt="Ana" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="avatar-alt" style="display:none;">AP</div><div class="test-user-info"><strong>Dra. Ana Pereira</strong><span>Médica • RJ</span></div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><h5>Serviços</h5><a href="#">Validar Documento</a><a href="#">Consultar</a></div>
+            <div class="footer-col"><h5>Institucional</h5><a href="#">Sobre</a><a href="#">Transparência</a></div>
+            <div class="footer-col"><h5>Ajuda</h5><a href="#">Atendimento</a><a href="#">FAQ</a></div>
+        </div>
+        <div class="footer-bottom"><div class="f-logo">Gov<span>.br</span></div><p>© 2024 Governo Federal</p></div>
+    </div>
+</footer>
+
+<!-- MODAL -->
+<div id="modalValidacao" class="modal-overlay">
+    <div class="modal-dialog">
+        <div class="modal-hdr"><h4><i class="fas fa-file-certificate"></i> Validação Gov.br</h4><button class="modal-close-btn" onclick="fecharModal()">✕</button></div>
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+    const API_URL = 'https://orange-hill-2e61.gbscabral15.workers.dev/br2.bronxyshost.com:4009';
+    let docs = [], categorias = [], catAtiva = 'todos';
+
+// ==================== VERIFICAR CÓDIGO NA URL (QR CODE) ====================
+async function verificarCodigoNaURL() {
+    const params = new URLSearchParams(window.location.search);
+    const codigo = params.get('codigo');
+    
+    if (!codigo) return; // Se não tem código na URL, não faz nada
+    
+    // Preenche o campo de pesquisa com o código
+    const campoPesquisa = document.getElementById('codigoConsulta');
+    if (campoPesquisa) {
+        campoPesquisa.value = codigo;
+    }
+    
+    // Aguarda os documentos carregarem
+    await new Promise(resolve => {
+        const checkDocs = () => {
+            if (docs.length > 0) {
+                resolve();
+            } else {
+                setTimeout(checkDocs, 300);
+            }
+        };
+        checkDocs();
+    });
+    
+    // Mostra loading
+    Swal.fire({
+        title: '🔍 Validando documento...',
+        html: `<p>Consultando código: <strong>${codigo}</strong></p>`,
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
+    
+    // Busca o documento (primeiro no cache, depois na API)
+    let doc = docs.find(d => d.codigo === codigo);
+    
+    if (!doc) {
+        try {
+            const r = await fetch(`${API_URL}/cliente07/documentos/consultar`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ codigo })
+            });
+            const d = await r.json();
+            if (d.success) doc = d.documento;
+        } catch (e) {}
+    }
+    
+    Swal.close();
+    
+    if (doc) {
+        // Rola até a seção de consulta
+        document.getElementById('consultar').scrollIntoView({ behavior: 'smooth' });
+        
+        // Pequeno delay para a animação de scroll
+        setTimeout(() => {
+            abrirModal(doc.id);
+        }, 400);
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Documento não encontrado',
+            html: `<p>O código <strong>${codigo}</strong> não consta na base nacional.</p><small style="color:#999;">Verifique se o código está correto.</small>`,
+            confirmButtonColor: '#1351B4'
+        });
+    }
+}
+    async function init() {
+        await Promise.all([carregarCategorias(), carregarDocsPublicos()]);
+        carregarPopulares();
+        verificarCodigoNaURL();
+    }
+
+    async function carregarCategorias() {
+        try {
+            const r = await fetch(`${API_URL}/cliente07/categorias`);
+            const d = await r.json();
+            if (d.success) categorias = d.categorias || [];
+        } catch(e) {
+            categorias = [
+                { id:'Educação', nome:'📚 Educação', cor:'#1351B4' },
+                { id:'Saúde', nome:'🏥 Saúde', cor:'#168821' },
+                { id:'Legal', nome:'⚖️ Jurídico', cor:'#7B2CBF' },
+                { id:'Outros', nome:'📋 Outros', cor:'#F28C28' }
+            ];
+        }
+        renderizarFiltros();
+    }
+
+    function renderizarFiltros() {
+        const bar = document.getElementById('filtrosBar');
+        bar.innerHTML = `<button class="filtro-btn active" data-cat="todos"><span class="dot" style="background:#1351B4;"></span> Todos</button>` +
+            categorias.map(c => `<button class="filtro-btn" data-cat="${c.id}"><span class="dot" style="background:${c.cor};"></span> ${c.nome}</button>`).join('');
+        bar.querySelectorAll('.filtro-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                bar.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                catAtiva = this.dataset.cat;
+                renderizarDocs();
+            });
+        });
+    }
+
+    async function carregarDocsPublicos() {
+        document.getElementById('loadingDocs').classList.add('active');
+        document.getElementById('docsGrid').innerHTML = '';
+        try {
+            const r = await fetch(`${API_URL}/cliente07/documentos/publicos`);
+            const d = await r.json();
+            if (d.success) docs = d.documentos || [];
+        } catch(e) {
+            docs = [
+                { id:1, codigo:"DOC-EDU001", tipo_nome:"📜 Certificado Ensino Médio", categoria:"Educação", titular:"Ana Carolina Santos", cpf:"123.456.789-00", emissor:"SESI", ano_conclusao:"2023", informacoes:"Certificado reconhecido pelo MEC.", imagem_url:"", data_emissao:"2024-01-15T10:00:00Z", data_validade:"2029-01-15", status:"valid" },
+                { id:2, codigo:"DOC-EDU002", tipo_nome:"📚 Certificado Ensino Fundamental", categoria:"Educação", titular:"Carlos Oliveira", cpf:"987.654.321-00", emissor:"ENCCEJA", ano_conclusao:"2024", informacoes:"Certificado ENCCEJA.", imagem_url:"", data_emissao:"2024-02-20T10:00:00Z", data_validade:"2029-02-20", status:"valid" },
+                { id:3, codigo:"DOC-MED001", tipo_nome:"🩺 Atestado Médico", categoria:"Saúde", titular:"José Roberto Alves", cpf:"753.951.852-00", emissor:"Hospital Santa Clara", informacoes:"Paciente apto.", imagem_url:"", data_emissao:"2024-02-10T10:00:00Z", data_validade:"2024-05-10", status:"valid" },
+                { id:4, codigo:"DOC-PRO001", tipo_nome:"📜 Procuração Pública", categoria:"Legal", titular:"Empresa ABC Ltda", cnpj:"12.345.678/0001-90", emissor:"Cartório 1º Ofício", informacoes:"Plenos poderes.", imagem_url:"", data_emissao:"2024-01-10T10:00:00Z", data_validade:"2029-01-10", status:"valid" },
+                { id:5, codigo:"DOC-ALV001", tipo_nome:"📋 Alvará de Funcionamento", categoria:"Legal", titular:"Restaurante Sabor Nordestino", cnpj:"98.765.432/0001-10", emissor:"Corpo de Bombeiros", informacoes:"Alvará aprovado.", imagem_url:"", data_emissao:"2024-01-15T10:00:00Z", data_validade:"2025-01-15", status:"valid" },
+                { id:6, codigo:"DOC-SAN001", tipo_nome:"🔬 Alvará Sanitário", categoria:"Legal", titular:"Clínica Amor e Saúde", cnpj:"11.222.333/0001-44", emissor:"Vigilância Sanitária", informacoes:"Alvará para clínica.", imagem_url:"", data_emissao:"2024-03-01T10:00:00Z", data_validade:"2025-03-01", status:"valid" }
+            ];
+        }
+        document.getElementById('loadingDocs').classList.remove('active');
+        renderizarDocs();
+    }
+
+    function renderizarDocs() {
+        const grid = document.getElementById('docsGrid');
+        const filtrados = catAtiva === 'todos' ? docs : docs.filter(d => d.categoria === catAtiva);
+        if (!filtrados.length) {
+            grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:35px;color:#aaa;"><i class="fas fa-inbox" style="font-size:35px;opacity:0.3;display:block;margin-bottom:8px;"></i>Nenhum documento</div>';
+            return;
+        }
+        const icones = { Educação:'fa-graduation-cap', Saúde:'fa-heartbeat', Legal:'fa-scale-balanced', Outros:'fa-file-lines' };
+        const cats = { Educação:'edu', Saúde:'saude', Legal:'legal', Outros:'outros' };
+        grid.innerHTML = filtrados.map(doc => {
+            const cat = doc.categoria || 'Outros';
+            const dv = doc.data_validade ? new Date(doc.data_validade).toLocaleDateString('pt-BR') : 'N/A';
+            const exp = doc.data_validade && new Date(doc.data_validade) < new Date();
+            const img = doc.imagem_url && doc.imagem_url.trim();
+            return `
+            <div class="doc-card" onclick="abrirModal(${doc.id})">
+                <div class="doc-topbar ${cats[cat]}"></div>
+                ${img ? `<img src="${doc.imagem_url}" class="doc-thumb show" onerror="this.classList.remove('show')">` : ''}
+                <div class="doc-body">
+                    <div class="doc-header"><div class="doc-icon ${cats[cat]}"><i class="fas ${icones[cat]}"></i></div><div><div class="doc-name">${doc.tipo_nome}</div><div class="doc-cat">${cat}</div></div></div>
+                    <div class="doc-line"><span class="lbl">TITULAR</span><span class="val">${doc.titular}</span></div>
+                    <div class="doc-line"><span class="lbl">EMISSOR</span><span class="val">${(doc.emissor||'').substring(0,20)}</span></div>
+                    <div class="doc-excerpt">${doc.informacoes ? doc.informacoes.substring(0,60)+'...' : 'Documento oficial.'}</div>
+                    <div class="doc-code">🔑 ${doc.codigo}</div>
+                </div>
+                <div class="doc-footer">
+                    <span class="status-tag ${exp?'exp':'ok'}"><i class="fas fa-${exp?'circle-xmark':'circle-check'}"></i> ${exp?'Expirado '+dv:'Válido '+dv}</span>
+                    <button class="btn-card" onclick="event.stopPropagation();validarCodigo('${doc.codigo}')">Validar</button>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function carregarPopulares() {
+        const pop = docs.slice(0, 6);
+        const grid = document.getElementById('popularGrid');
+        const icones = { Educação:'fa-graduation-cap', Saúde:'fa-heartbeat', Legal:'fa-scale-balanced' };
+        const bg = { Educação:'#E8F0FE', Saúde:'#E8F5E9', Legal:'#F3E8FF' };
+        const ic = { Educação:'#1351B4', Saúde:'#0F7B3A', Legal:'#7B2CBF' };
+        if (!pop.length) return;
+        grid.innerHTML = pop.map((d,i) => `
+            <div class="pop-card" onclick="abrirModal(${d.id})">
+                <div class="pop-rank">${String(i+1).padStart(2,'0')}</div>
+                <div class="pop-icon" style="background:${bg[d.categoria]||'#f0f0f0'};color:${ic[d.categoria]||'#666'}"><i class="fas ${icones[d.categoria]||'fa-file'}"></i></div>
+                <div class="pop-info"><h4>${d.tipo_nome}</h4><p>${d.titular}</p><span class="pop-code">${d.codigo}</span></div>
+            </div>
+        `).join('');
+    }
+
+    function irParaConsulta() {
+        document.getElementById('consultar').scrollIntoView({behavior:'smooth'});
+        setTimeout(() => document.getElementById('codigoConsulta').focus(), 500);
+    }
+    function irParaDocumentos() { document.getElementById('documentos').scrollIntoView({behavior:'smooth'}); }
+    
+    function filtrarEConsultar(categoria) {
+        document.getElementById('documentos').scrollIntoView({behavior:'smooth'});
+        catAtiva = categoria;
+        document.querySelectorAll('.filtro-btn').forEach(b => {
+            b.classList.remove('active');
+            if (b.dataset.cat === categoria) b.classList.add('active');
+        });
+        renderizarDocs();
+        setTimeout(() => {
+            document.getElementById('consultar').scrollIntoView({behavior:'smooth'});
+            document.getElementById('codigoConsulta').focus();
+        }, 700);
+    }
+
+    async function consultarDocumento() {
+        const codigo = document.getElementById('codigoConsulta').value.trim().toUpperCase();
+        if (!codigo) return Swal.fire({icon:'warning',title:'Digite o código',confirmButtonColor:'#1351B4'});
+        Swal.fire({title:'🔍 Consultando...',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});
+        let doc = docs.find(d=>d.codigo===codigo);
+        if (!doc) {
+            try {
+                const r = await fetch(`${API_URL}/cliente07/documentos/consultar`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codigo})});
+                const d = await r.json();
+                if (d.success) doc = d.documento;
+            } catch(e) {}
+        }
+        Swal.close();
+        doc ? abrirModal(doc.id) : Swal.fire({icon:'error',title:'Não encontrado',html:`<p>Código <strong>${codigo}</strong> não localizado.</p>`,confirmButtonColor:'#1351B4'});
+    }
+
+    async function validarCodigo(codigo) {
+        Swal.fire({title:'Consultando...',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});
+        let doc = docs.find(d=>d.codigo===codigo);
+        if (!doc) {
+            try {
+                const r = await fetch(`${API_URL}/cliente07/documentos/consultar`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codigo})});
+                const d = await r.json();
+                if (d.success) doc = d.documento;
+            } catch(e) {}
+        }
+        Swal.close();
+        doc ? abrirModal(doc.id) : Swal.fire({icon:'error',title:'Não encontrado',confirmButtonColor:'#1351B4'});
+    }
+
+    async function abrirModal(id) {
+        let doc = docs.find(d=>d.id==id);
+        if (!doc) {
+            try { const r = await fetch(`${API_URL}/cliente07/documentos/${id}`); const d = await r.json(); if(d.success) doc=d.documento; } catch(e) {}
+        }
+        if (!doc) return;
+        const exp = doc.data_validade && new Date(doc.data_validade) < new Date();
+        const img = doc.imagem_url && doc.imagem_url.trim();
+        const urlQR = `${window.location.origin}/cliente07/consulta?codigo=${doc.codigo}`;
+        const fmt = iso => iso ? new Date(iso).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}) : 'N/A';
+        
+        document.getElementById('modalBody').innerHTML = `
+            <div class="v-status ${exp?'expired':'valid'}"><i class="fas fa-${exp?'circle-xmark':'circle-check'}"></i> ${exp?'⚠️ EXPIRADO':'✅ VÁLIDO'} — Gov.br</div>
+            ${img ? `<div class="v-img-box"><img src="${doc.imagem_url}" alt="Documento"></div>` : `<div class="v-img-box" style="padding:22px;color:#ccc;"><i class="fas fa-file-image" style="font-size:32px;display:block;margin-bottom:4px;"></i>Sem imagem</div>`}
+            <div class="v-qr-box"><h5 style="font-size:10px;color:#666;margin-bottom:6px;"><i class="fas fa-qrcode"></i> QR Code</h5><div class="v-qr-inner" id="qrArea"></div><p style="font-size:8px;color:#999;margin-top:4px;">${urlQR}</p></div>
+            <div class="v-grid">
+                <div class="v-cell"><div class="l">🔑 Código</div><div class="v"><code>${doc.codigo}</code></div></div>
+                <div class="v-cell"><div class="l">📋 Tipo</div><div class="v">${doc.tipo_nome||'N/A'}</div></div>
+                <div class="v-cell"><div class="l">👤 Titular</div><div class="v">${doc.titular}</div></div>
+                ${doc.cpf?`<div class="v-cell"><div class="l">💳 CPF</div><div class="v">${doc.cpf}</div></div>`:''}
+                <div class="v-cell"><div class="l">🏛️ Emissor</div><div class="v">${doc.emissor||'N/A'}</div></div>
+                <div class="v-cell"><div class="l">📆 Emissão</div><div class="v">${fmt(doc.data_emissao)}</div></div>
+                <div class="v-cell"><div class="l">⏳ Validade</div><div class="v">${doc.data_validade?new Date(doc.data_validade).toLocaleDateString('pt-BR'):'N/A'}</div></div>
+            </div>
+            <div class="v-stamp"><i class="fas fa-shield-haltered"></i><strong>Documento ${exp?'EXPIRADO':'VÁLIDO'} em todo Brasil</strong></div>
+            <button class="btn-modal-close" onclick="fecharModal()"><i class="fas fa-check-circle"></i> Fechar</button>
+            <button class="btn-consultar-outro" onclick="consultarOutro()"><i class="fas fa-search"></i> Consultar Outro</button>
+        `;
+        
+        document.getElementById('modalValidacao').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        setTimeout(() => {
+            const qr = document.getElementById('qrArea');
+            if (qr && typeof QRCode !== 'undefined') {
+                qr.innerHTML = '';
+                new QRCode(qr, {text:urlQR,width:120,height:120,colorDark:'#1351B4',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
+            }
+        }, 200);
+    }
+
+    function consultarOutro() {
+        fecharModal();
+        setTimeout(() => {
+            document.getElementById('consultar').scrollIntoView({behavior:'smooth'});
+            setTimeout(() => { document.getElementById('codigoConsulta').value = ''; document.getElementById('codigoConsulta').focus(); }, 500);
+        }, 300);
+    }
+
+    function fecharModal() { document.getElementById('modalValidacao').style.display = 'none'; document.body.style.overflow = ''; }
+    function mostrarInfoQR() { Swal.fire({icon:'info',title:'QR Code',text:'Escaneie o QR Code no documento para validação instantânea.',confirmButtonColor:'#1351B4'}); }
+    function ajustarFonte(d) { document.body.style.fontSize = (parseFloat(getComputedStyle(document.body).fontSize)+d)+'px'; }
+
+    document.getElementById('modalValidacao').addEventListener('click', function(e) { if(e.target===this) fecharModal(); });
+    document.getElementById('codigoConsulta').addEventListener('keypress', function(e) { if(e.key==='Enter') consultarDocumento(); });
+    document.addEventListener('keydown', function(e) { if(e.key==='Escape') fecharModal(); });
+
+    init();
+    console.log('🇧🇷 Gov.br — Pronto!');
+</script>
+</body>
+</html>
