@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     
     <style>
         :root {
@@ -237,6 +238,158 @@
             .search-hero::before { font-size: 45px; letter-spacing: -2px; }
             .search-hero { min-height: 140px; padding: 16px; }
         }
+        /* ========== INSTITUIÇÕES PARCEIRAS ========== */
+.parceiros-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+}
+.parceiro-card {
+    background: var(--white);
+    border: 2px solid var(--gray-20);
+    border-radius: var(--radius);
+    padding: 18px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-height: 140px;
+}
+.parceiro-card:hover {
+    border-color: var(--blue);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+}
+.parceiro-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.parceiro-img img, .parceiro-img svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.parceiro-card h4 {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-80);
+}
+.parceiro-card p {
+    font-size: 8px;
+    color: var(--gray-50);
+}
+
+/* Modal de instituição */
+.modal-instituicao {
+    text-align: center;
+}
+.modal-instituicao .inst-logo-grande {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.modal-instituicao .inst-logo-grande img,
+.modal-instituicao .inst-logo-grande svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.modal-instituicao h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--gray-90);
+    margin-bottom: 4px;
+}
+.modal-instituicao .inst-tipo {
+    font-size: 10px;
+    color: var(--blue);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+.modal-instituicao .inst-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    text-align: left;
+    margin-top: 12px;
+}
+.modal-instituicao .inst-info-item {
+    background: #F8FAFC;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-20);
+}
+.modal-instituicao .inst-info-item .lbl {
+    font-size: 7px;
+    text-transform: uppercase;
+    color: var(--gray-60);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    margin-bottom: 3px;
+}
+.modal-instituicao .inst-info-item .val {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--gray-80);
+}
+.modal-instituicao .inst-desc {
+    font-size: 11px;
+    color: var(--gray-60);
+    line-height: 1.6;
+    margin-top: 10px;
+    text-align: left;
+}
+/* Botão Ver Mais */
+.ver-mais-container {
+    text-align: center;
+    padding: 16px 0;
+}
+.btn-ver-mais {
+    padding: 10px 24px;
+    background: var(--white);
+    color: var(--blue);
+    border: 1.5px solid var(--blue);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-ver-mais:hover {
+    background: var(--blue-light);
+    border-color: var(--blue-dark);
+    color: var(--blue-dark);
+}
+.docs-escondidos {
+    display: none;
+}
+.docs-escondidos.show {
+    display: table-row-group;
+}
+tr.doc-escondida {
+    /* Já controlado pelo style.display no JS */
+}
     </style>
 </head>
 <body>
@@ -252,11 +405,10 @@
 
 <nav class="nav-bar"><div class="inner">
     <a href="#servicos" class="active" data-target="servicos">Serviços</a>
-    <a href="#solicitar" data-target="solicitar">Solicitar Documentos</a>
     <a href="#documentos" data-target="documentos">Base de Documentos</a>
+    <a href="#parceiros" data-target="parceiros">Instituições Parceiras</a>
     <a href="#ajuda" data-target="ajuda">Ajuda</a>
 </div></nav>
-
 <main class="main" id="conteudo">
     
     <nav class="breadcrumb"><a href="#">Início</a><span class="arr">›</span><a href="#">Serviços</a><span class="arr">›</span><span class="cur">Validação de Documentos</span></nav>
@@ -275,66 +427,99 @@
             </div>
         </div>
     </div>
-    
-    <!-- SOLICITAR DOCUMENTOS -->
-    <div class="section" id="solicitar">
-        <div class="section-hdr"><h2><i class="fas fa-file-signature"></i> Solicitar Documentos</h2></div>
-        <p style="font-size:11px;color:var(--gray-60);margin-bottom:14px;">Escolha o documento desejado e acompanhe todo o processo de emissão.</p>
-        
-        <div class="svc-grid" id="docsSolicitarGrid" style="margin-bottom:16px;"></div>
-        
-        <div class="form-box" id="formContainer" style="display:none;">
-            <h3 id="formTitulo"><i class="fas fa-file"></i> <span id="formTituloNome">Solicitar Documento</span></h3>
-            <p class="form-sub" id="formPrazo"></p>
-            <form id="formSolic" onsubmit="enviarSolicitacao(event)">
-                <input type="hidden" id="solicTipo">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="camposComuns"></div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;" id="camposEspecificos"></div>
-                <button type="submit" class="btn-solid gold" style="width:100%;padding:12px;border-radius:8px;justify-content:center;font-size:12px;margin-top:12px;"><i class="fas fa-paper-plane"></i> Enviar Solicitação</button>
-            </form>
+
+<!-- SERVIÇOS -->
+<div class="section" id="servicos">
+    <div class="section-hdr"><h2><i class="fas fa-star"></i> Serviços Disponíveis</h2></div>
+    <p style="font-size:10px;color:var(--gray-60);margin-bottom:10px;">Clique em um serviço para ver exemplos de documentos disponíveis para validação.</p>
+    <div class="svc-grid">
+        <div class="svc-card" onclick="mostrarExemplos('Educação')">
+            <div class="svc-icon blue"><i class="fas fa-graduation-cap"></i></div>
+            <h3>Certificados e Diplomas</h3>
+            <p>Ensino Fundamental, Médio, Técnico e Superior</p>
+        </div>
+        <div class="svc-card" onclick="mostrarExemplos('Saúde')">
+            <div class="svc-icon green"><i class="fas fa-heartbeat"></i></div>
+            <h3>Atestados Médicos</h3>
+            <p>Consultas, exames, laudos e aptidão física</p>
+        </div>
+        <div class="svc-card" onclick="mostrarExemplos('Documentos Pessoais')">
+            <div class="svc-icon orange"><i class="fas fa-id-card"></i></div>
+            <h3>Documentos Pessoais</h3>
+            <p>RG, CNH, Certidões e Título de Eleitor</p>
+        </div>
+        <div class="svc-card" onclick="mostrarExemplos('Legal')">
+            <div class="svc-icon purple"><i class="fas fa-scale-balanced"></i></div>
+            <h3>Documentos Jurídicos</h3>
+            <p>Alvarás, Procurações e Licenças</p>
+        </div>
+        <div class="svc-card" onclick="mostrarExemplos('Cursos')">
+            <div class="svc-icon teal"><i class="fas fa-building-columns"></i></div>
+            <h3>Cursos e Qualificações</h3>
+            <p>SESI, SENAI e cursos técnicos</p>
+        </div>
+        <div class="svc-card" onclick="irParaConsulta()">
+            <div class="svc-icon red"><i class="fas fa-search"></i></div>
+            <h3>Consulta por Código</h3>
+            <p>Valide qualquer documento pelo código</p>
         </div>
     </div>
-    
-    <!-- SERVIÇOS -->
-    <div class="section" id="servicos">
-        <div class="section-hdr"><h2><i class="fas fa-star"></i> Serviços Disponíveis</h2></div>
-        <div class="svc-grid">
-            <div class="svc-card" onclick="filtrarEConsultar('Educação')"><div class="svc-icon blue"><i class="fas fa-graduation-cap"></i></div><h3>Certificados e Diplomas</h3><p>Ensino Fundamental, Médio e Superior</p></div>
-            <div class="svc-card" onclick="filtrarEConsultar('Saúde')"><div class="svc-icon green"><i class="fas fa-heartbeat"></i></div><h3>Atestados Médicos</h3><p>Consultas, exames e laudos</p></div>
-            <div class="svc-card" onclick="irParaSolicitar()"><div class="svc-icon orange"><i class="fas fa-id-card"></i></div><h3>Solicitar Documentos</h3><p>RG, CNH, Certidões e mais</p></div>
-            <div class="svc-card" onclick="filtrarEConsultar('Documentos Pessoais')"><div class="svc-icon teal"><i class="fas fa-folder-open"></i></div><h3>Documentos Pessoais</h3><p>RG, CNH e Certidões</p></div>
-            <div class="svc-card" onclick="filtrarEConsultar('Legal')"><div class="svc-icon purple"><i class="fas fa-scale-balanced"></i></div><h3>Documentos Jurídicos</h3><p>Alvarás e Procurações</p></div>
-            <div class="svc-card" onclick="irParaConsulta()"><div class="svc-icon red"><i class="fas fa-clipboard-list"></i></div><h3>Protocolos</h3><p>Acompanhe seus pedidos</p></div>
-        </div>
+</div>
+
+<!-- EXEMPLOS DE DOCUMENTOS -->
+<div class="section" id="secaoExemplos" style="display:none;">
+    <div class="section-hdr">
+        <h2><i class="fas fa-file-lines"></i> <span id="exemplosTitulo">Exemplos de Documentos</span></h2>
     </div>
+    <p style="font-size:9px;color:var(--orange);margin-bottom:12px;background:#FFF8E1;padding:8px 12px;border-radius:6px;border:1px solid #FFE082;">
+        <i class="fas fa-info-circle"></i> <strong>Exemplos demonstrativos.</strong> Estes são documentos de exemplo para você conhecer o sistema. Clique em qualquer um para ver como funciona a validação.
+    </p>
+    <div class="svc-grid" id="exemplosGrid"></div>
+</div>
     
     <!-- DOCUMENTOS -->
     <div class="section" id="documentos">
         <div class="table-box"><div class="table-top"><h2><i class="fas fa-database"></i> Base Nacional de Documentos</h2><div class="filter-chips" id="filtrosChips"></div></div>
-            <div class="table-wrap">
-                <table><thead><tr><th>Código</th><th>Tipo</th><th>Categoria</th><th>Titular</th><th>Emissor</th><th>Validade</th><th>Situação</th><th></th></tr></thead>
-                    <tbody id="docsTableBody"><tr><td colspan="8" style="text-align:center;padding:24px;"><i class="fas fa-spinner fa-pulse"></i> Carregando...</td></tr></tbody>
-                </table>
-                <div class="docs-cards" id="docsCards"></div>
-            </div>
+<div class="table-wrap">
+    <table>
+        <thead><tr><th>Código</th><th>Tipo</th><th>Categoria</th><th>Titular</th><th>Emissor</th><th>Validade</th><th>Situação</th><th></th></tr></thead>
+        <tbody id="docsTableBody">
+            <tr><td colspan="8" style="text-align:center;padding:24px;"><i class="fas fa-spinner fa-pulse"></i> Carregando...</td></tr>
+        </tbody>
+    </table>
+    <div class="ver-mais-container" id="verMaisContainer" style="display:none;">
+        <p style="font-size:9px;color:var(--gray-60);margin-bottom:8px;" id="txtVerMais"></p>
+        <button class="btn-ver-mais" id="btnVerMais" onclick="toggleVerMais()">
+            <i class="fas fa-chevron-down"></i> Ver Mais Documentos
+        </button>
+    </div>
+</div>
+<div class="docs-cards" id="docsCards"></div>
         </div>
     </div>
+    <!-- INSTITUIÇÕES PARCEIRAS -->
+<div class="section" id="parceiros">
+    <div class="section-hdr"><h2><i class="fas fa-handshake"></i> Instituições Parceiras</h2></div>
+    <p style="font-size:10px;color:var(--gray-60);margin-bottom:14px;">
+        Instituições de ensino que confiam no sistema GOV.BR para validação de documentos oficiais. Clique em cada uma para saber mais.
+    </p>
+    <div class="parceiros-grid" id="parceirosGrid"></div>
+</div>
     
     <!-- STATS -->
     <div class="stats-band"><h2>Desempenho dos Serviços</h2><div class="stats-grid"><div class="stat-item"><div class="num" id="statServicos">0</div><div class="lbl">Serviços no Portal</div></div><div class="stat-item"><div class="num">92%</div><div class="lbl">Serviços Digitais</div></div><div class="stat-item"><div class="num">24/7</div><div class="lbl">Disponível</div></div><div class="stat-item"><div class="num" id="statDocs">0</div><div class="lbl">Documentos</div></div></div></div>
     
-    <!-- AJUDA -->
-    <div class="section" id="ajuda"><div class="help-box"><h3><i class="fas fa-info-circle"></i> Dúvidas Frequentes</h3><div class="help-grid">
-        <div class="help-item"><i class="fas fa-search"></i><div><strong>Como validar?</strong> Digite o código ou clique em qualquer documento.</div></div>
-        <div class="help-item"><i class="fas fa-file-signature"></i><div><strong>Solicitar documentos?</strong> Escolha o tipo e preencha o formulário.</div></div>
-        <div class="help-item"><i class="fas fa-clock"></i><div><strong>Acompanhar?</strong> Use o protocolo para ver o andamento.</div></div>
-        <div class="help-item"><i class="fas fa-phone"></i><div><strong>Ajuda?</strong> Ligue <strong>0800-978-2334</strong></div></div>
-    </div></div></div>
-    
+<!-- AJUDA -->
+<div class="section" id="ajuda"><div class="help-box"><h3><i class="fas fa-info-circle"></i> Dúvidas Frequentes</h3><div class="help-grid">
+    <div class="help-item"><i class="fas fa-search"></i><div><strong>Como validar?</strong> Digite o código no campo de busca ou clique em qualquer documento da lista.</div></div>
+    <div class="help-item"><i class="fas fa-qrcode"></i><div><strong>QR Code?</strong> Escaneie o QR Code no documento para validação instantânea.</div></div>
+    <div class="help-item"><i class="fas fa-shield-alt"></i><div><strong>É oficial?</strong> Todos os documentos são autenticados pelo sistema GOV.BR.</div></div>
+    <div class="help-item"><i class="fas fa-phone"></i><div><strong>Precisa de ajuda?</strong> Ligue <strong>0800-978-2334</strong> ou acesse <strong>falabr.cgu.gov.br</strong></div></div>
+</div></div></div>
 </main>
 
 <footer class="footer"><div class="inner"><div class="footer-grid">
-    <div class="footer-col"><h4>Serviços</h4><a href="#consultar">Validar Documento</a><a href="#solicitar">Solicitar Documentos</a><a href="#documentos">Base de Dados</a></div>
+<div class="footer-col"><h4>Serviços</h4><a href="#consultar">Validar Documento</a><a href="#documentos">Base de Dados</a></div>
     <div class="footer-col"><h4>Institucional</h4><a href="#">Órgãos do Governo</a><a href="#">Acesso à Informação</a><a href="#">Transparência</a></div>
     <div class="footer-col"><h4>Atendimento</h4><a href="https://falabr.cgu.gov.br" target="_blank">Fala.BR</a><a href="#">Central 0800</a><a href="#">FAQ</a></div>
     <div class="footer-col"><h4>Redes Sociais</h4><a href="#"><i class="fab fa-instagram"></i> Instagram</a><a href="#"><i class="fab fa-facebook"></i> Facebook</a></div>
@@ -346,196 +531,244 @@
     const API_BASE = 'https://orange-hill-2e61.gbscabral15.workers.dev/br2.bronxyshost.com:4009';
     let docs = [], catAtiva = 'todas';
     
-    // ==================== TIPOS DE DOCUMENTOS PARA SOLICITAÇÃO (ORDEM ALFABÉTICA) ====================
-    const TIPOS_SOLICITACAO = [
-        { id: 'certidao_casamento', nome: '💍 Certidão de Casamento', icone: 'fa-ring', cor: 'purple', prazo: '7 dias', emissor: 'Cartório de Registro Civil' },
-        { id: 'certidao_nascimento', nome: '👶 Certidão de Nascimento', icone: 'fa-baby', cor: 'blue', prazo: '7 dias', emissor: 'Cartório de Registro Civil' },
-        { id: 'certidao_obito', nome: '🕊️ Certidão de Óbito', icone: 'fa-dove', cor: 'red', prazo: '5 dias', emissor: 'Cartório de Registro Civil' },
-        { id: 'cnh', nome: '🚗 CNH (Carteira de Habilitação)', icone: 'fa-car', cor: 'orange', prazo: '45 dias', emissor: 'DETRAN' },
-        { id: 'rg', nome: '🪪 RG (Carteira de Identidade)', icone: 'fa-id-card', cor: 'blue', prazo: '30 dias', emissor: 'SSP' },
-        { id: 'titulo_eleitor', nome: '🗳️ Título de Eleitor', icone: 'fa-check-to-slot', cor: 'teal', prazo: '10 dias', emissor: 'TRE' },
-        { id: 'uniao_estavel', nome: '💑 Declaração de União Estável', icone: 'fa-heart', cor: 'purple', prazo: '15 dias', emissor: 'Cartório de Notas' }
-    ];
+
+// ==================== EXEMPLOS DE DOCUMENTOS ====================
+const EXEMPLOS_POR_CATEGORIA = {
+    'Educação': [
+        { nome: '📜 Certificado de Ensino Médio', desc: 'SESI - Conclusão do Ensino Médio', codigo: 'DOC-EDU001', icone: 'fa-graduation-cap', cor: 'blue' },
+        { nome: '📚 Certificado de Ensino Fundamental', desc: 'ENCCEJA - Certificação Nacional', codigo: 'DOC-EDU002', icone: 'fa-book', cor: 'blue' },
+        { nome: '🎓 Diploma de Curso Técnico', desc: 'IFCE - Técnico em Informática', codigo: 'DOC-DIP001', icone: 'fa-award', cor: 'blue' },
+        { nome: '🎓 Diploma Superior', desc: 'UNIFOR - Bacharel em Direito', codigo: 'DOC-SUP001', icone: 'fa-user-graduate', cor: 'blue' }
+    ],
+    'Saúde': [
+        { nome: '🩺 Atestado Médico', desc: 'Hospital Santa Clara - Consulta', codigo: 'DOC-MED001', icone: 'fa-heartbeat', cor: 'green' },
+        { nome: '🏊 Atestado de Aptidão Física', desc: 'Clínica FisioSaúde - Piscina', codigo: 'DOC-APT001', icone: 'fa-person-swimming', cor: 'green' },
+        { nome: '📄 Laudo Médico INSS', desc: 'Perícia Médica - Auxílio Doença', codigo: 'DOC-LAU001', icone: 'fa-file-medical', cor: 'green' },
+        { nome: '🏥 Clínica da Família', desc: 'UBS - Atendimento Familiar', codigo: 'DOC-CLI001', icone: 'fa-house-medical', cor: 'green' }
+    ],
+    'Documentos Pessoais': [
+        { nome: '🪪 Carteira de Identidade (RG)', desc: 'SSP-SP - Em processo de emissão', codigo: 'RG-ABC12', icone: 'fa-id-card', cor: 'orange' },
+        { nome: '👶 Certidão de Nascimento', desc: 'Cartório de Registro Civil', codigo: 'CERT-NASC-XY3Z', icone: 'fa-baby', cor: 'orange' },
+        { nome: '🗳️ Título de Eleitor', desc: 'TRE - Emissão Digital', codigo: 'TITULO-K9M2', icone: 'fa-check-to-slot', cor: 'orange' }
+    ],
+    'Legal': [
+        { nome: '📋 Alvará de Funcionamento', desc: 'Corpo de Bombeiros - Restaurante', codigo: 'DOC-ALV001', icone: 'fa-clipboard-list', cor: 'purple' },
+        { nome: '📜 Procuração Pública', desc: 'Cartório 1º Ofício - Plenos Poderes', codigo: 'DOC-PRO001', icone: 'fa-file-contract', cor: 'purple' },
+        { nome: '👨‍👧 Guarda de Menor', desc: 'Vara da Infância - Guarda Compartilhada', codigo: 'DOC-GUA001', icone: 'fa-child', cor: 'purple' }
+    ],
+    'Cursos': [
+        { nome: '🔧 Curso SENAI', desc: 'Técnico em Eletrotécnica', codigo: 'DOC-SENAI001', icone: 'fa-gear', cor: 'teal' },
+        { nome: '🏭 Curso SESI', desc: 'Assistente Administrativo', codigo: 'DOC-SESI001', icone: 'fa-industry', cor: 'teal' },
+        { nome: '🎓 Diploma Técnico', desc: 'IFCE - Informática', codigo: 'DOC-DIP001', icone: 'fa-laptop-code', cor: 'teal' }
+    ]
+};
+
+function mostrarExemplos(categoria) {
+    const exemplos = EXEMPLOS_POR_CATEGORIA[categoria] || [];
+    const secao = document.getElementById('secaoExemplos');
+    const grid = document.getElementById('exemplosGrid');
+    const titulo = document.getElementById('exemplosTitulo');
     
-    function renderizarDocsSolicitar() {
-        document.getElementById('docsSolicitarGrid').innerHTML = TIPOS_SOLICITACAO.map(t => `
-            <div class="svc-card" onclick="selecionarTipoDoc('${t.id}')" id="card-solic-${t.id}" style="border:2px solid transparent;">
-                <div class="svc-icon ${t.cor}"><i class="fas ${t.icone}"></i></div>
-                <h3>${t.nome}</h3>
-                <p>⏱️ Prazo: ${t.prazo} | ${t.emissor}</p>
+    titulo.textContent = `Exemplos de Documentos — ${categoria}`;
+    
+    if (exemplos.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:#999;">Nenhum exemplo disponível para esta categoria.</div>';
+    } else {
+        grid.innerHTML = exemplos.map(ex => `
+            <div class="svc-card" onclick="buscarExemplo('${ex.codigo}')" style="border:2px dashed var(--gray-30);">
+                <div class="svc-icon ${ex.cor}"><i class="fas ${ex.icone}"></i></div>
+                <h3>${ex.nome}</h3>
+                <p>${ex.desc}</p>
+                <small style="color:var(--blue);font-family:monospace;font-size:8px;">📋 ${ex.codigo}</small>
             </div>
         `).join('');
     }
     
-    function selecionarTipoDoc(tipo) {
-        const info = TIPOS_SOLICITACAO.find(t => t.id === tipo);
-        document.querySelectorAll('#docsSolicitarGrid .svc-card').forEach(c => c.style.borderColor = 'transparent');
-        document.getElementById(`card-solic-${tipo}`).style.borderColor = 'var(--blue)';
-        
-        document.getElementById('formContainer').style.display = 'block';
-        document.getElementById('formTituloNome').textContent = info.nome;
-        document.getElementById('formPrazo').textContent = `⏱️ Prazo estimado: ${info.prazo} | Órgão emissor: ${info.emissor}`;
-        document.getElementById('solicTipo').value = tipo;
-        
-        // Campos comuns
-        document.getElementById('camposComuns').innerHTML = `
-            <div class="fg"><label>Nome Completo *</label><input type="text" id="sNome" required></div>
-            <div class="fg"><label>CPF *</label><input type="text" id="sCPF" required></div>
-            <div class="fg"><label>Data de Nascimento *</label><input type="date" id="sNasc" required></div>
-            <div class="fg"><label>Email</label><input type="email" id="sEmail"></div>
-        `;
-        
-        // Campos específicos
-        let especificos = '';
-        if (tipo === 'rg') {
-            especificos = `
-                <div class="fg"><label>Nome da Mãe *</label><input type="text" id="sMae" required></div>
-                <div class="fg"><label>Nome do Pai</label><input type="text" id="sPai"></div>
-                <div class="fg"><label>Estado (UF) *</label><select id="sUF" required><option value="">Selecione...</option><option>SP</option><option>RJ</option><option>MG</option><option>BA</option><option>CE</option><option>PE</option><option>RS</option><option>PR</option><option>DF</option></select></div>
-                <div class="fg"><label>Endereço Completo *</label><input type="text" id="sEndereco" required></div>
-            `;
-        } else if (tipo === 'cnh') {
-            especificos = `
-                <div class="fg"><label>Categoria *</label><select id="sCatCNH" required><option value="A">A - Moto</option><option value="B" selected>B - Carro</option><option value="AB">AB - Moto e Carro</option></select></div>
-                <div class="fg"><label>Estado (UF) *</label><select id="sUF" required><option value="">Selecione...</option><option>SP</option><option>RJ</option><option>MG</option><option>BA</option><option>CE</option></select></div>
-                <div class="fg"><label>Endereço *</label><input type="text" id="sEndereco" required></div>
-                <div class="fg"><label>Telefone</label><input type="text" id="sTel"></div>
-            `;
-        } else if (tipo === 'certidao_nascimento') {
-            especificos = `
-                <div class="fg"><label>Nome da Mãe *</label><input type="text" id="sMae" required></div>
-                <div class="fg"><label>Nome do Pai</label><input type="text" id="sPai"></div>
-                <div class="fg"><label>Cidade de Nascimento *</label><input type="text" id="sCidade" required></div>
-                <div class="fg"><label>UF de Nascimento *</label><select id="sUF" required><option value="">Selecione...</option><option>SP</option><option>RJ</option><option>MG</option><option>BA</option><option>CE</option></select></div>
-            `;
-        } else if (tipo === 'certidao_casamento') {
-            especificos = `
-                <div class="fg"><label>Nome do Cônjuge *</label><input type="text" id="sConjuge" required></div>
-                <div class="fg"><label>CPF do Cônjuge</label><input type="text" id="sCPFConjuge"></div>
-                <div class="fg"><label>Data do Casamento *</label><input type="date" id="sData" required></div>
-                <div class="fg"><label>Regime de Bens</label><select id="sRegime"><option>Comunhão Parcial</option><option>Comunhão Universal</option><option>Separação Total</option></select></div>
-            `;
-        } else if (tipo === 'certidao_obito') {
-            especificos = `
-                <div class="fg"><label>Nome do Falecido *</label><input type="text" id="sFalecido" required></div>
-                <div class="fg"><label>Data do Falecimento *</label><input type="date" id="sData" required></div>
-                <div class="fg"><label>Cidade do Falecimento *</label><input type="text" id="sCidade" required></div>
-                <div class="fg"><label>UF do Falecimento *</label><select id="sUF" required><option value="">Selecione...</option><option>SP</option><option>RJ</option><option>MG</option><option>BA</option><option>CE</option></select></div>
-            `;
-        } else if (tipo === 'uniao_estavel') {
-            especificos = `
-                <div class="fg"><label>Nome do Companheiro(a) *</label><input type="text" id="sConjuge" required></div>
-                <div class="fg"><label>CPF do Companheiro(a)</label><input type="text" id="sCPFConjuge"></div>
-                <div class="fg"><label>Início da União *</label><input type="date" id="sData" required></div>
-                <div class="fg"><label>Regime de Bens</label><select id="sRegime"><option>Comunhão Parcial</option><option>Comunhão Universal</option><option>Separação Total</option></select></div>
-            `;
-        } else if (tipo === 'titulo_eleitor') {
-            especificos = `
-                <div class="fg"><label>Município Eleitoral *</label><input type="text" id="sCidade" required></div>
-                <div class="fg"><label>UF *</label><select id="sUF" required><option value="">Selecione...</option><option>SP</option><option>RJ</option><option>MG</option><option>BA</option><option>CE</option></select></div>
-                <div class="fg"><label>Zona Eleitoral</label><input type="text" id="sZona"></div>
-                <div class="fg"><label>Seção Eleitoral</label><input type="text" id="sSecao"></div>
-            `;
-        }
-        document.getElementById('camposEspecificos').innerHTML = especificos;
-        document.getElementById('formContainer').scrollIntoView({behavior:'smooth'});
+    secao.style.display = 'block';
+    secao.scrollIntoView({behavior:'smooth'});
+}
+
+function buscarExemplo(codigo) {
+    document.getElementById('codigoInput').value = codigo;
+    document.getElementById('consultar').scrollIntoView({behavior:'smooth'});
+    setTimeout(() => consultarDocumento(), 400);
+}
+    // ==================== INSTITUIÇÕES PARCEIRAS ====================
+const INSTITUICOES = [
+    {
+        id: 'estacio',
+        nome: 'Universidade Estácio de Sá',
+        sigla: 'ESTÁCIO',
+        tipo: 'Universidade Privada',
+        cor: '#1A3A6B',
+        corGradiente: 'linear-gradient(135deg, #1A3A6B, #2B5CB0)',
+        fundacao: '1970',
+        sede: 'Rio de Janeiro, RJ',
+        campus: '90+ unidades em todo Brasil',
+        alunos: '500.000+ alunos',
+        cursos: 'Graduação, Pós, Mestrado e Doutorado',
+        site: 'estacio.br',
+        descricao: 'Uma das maiores universidades do Brasil, a Estácio oferece ensino de qualidade há mais de 50 anos, com cursos presenciais e a distância reconhecidos pelo MEC.',
+        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#1A3A6B" rx="8"/><text x="100" y="48" text-anchor="middle" fill="white" font-size="20" font-weight="900" font-family="Arial">ESTÁCIO</text><text x="100" y="65" text-anchor="middle" fill="#FFD700" font-size="8" font-weight="600" font-family="Arial">UNIVERSIDADE</text></svg>`
+    },
+    {
+        id: 'anhanguera',
+        nome: 'Universidade Anhanguera',
+        sigla: 'ANHANGUERA',
+        tipo: 'Universidade Privada',
+        cor: '#E8611A',
+        corGradiente: 'linear-gradient(135deg, #E8611A, #F0823A)',
+        fundacao: '1994',
+        sede: 'Campinas, SP',
+        campus: '70+ unidades em todo Brasil',
+        alunos: '400.000+ alunos',
+        cursos: 'Graduação, Pós-Graduação, Tecnólogos',
+        site: 'anhanguera.com',
+        descricao: 'A Anhanguera é uma das maiores instituições de ensino superior do país, oferecendo educação de qualidade com infraestrutura moderna e professores qualificados.',
+        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#E8611A" rx="8"/><text x="100" y="46" text-anchor="middle" fill="white" font-size="16" font-weight="900" font-family="Arial">ANHANGUERA</text><text x="100" y="63" text-anchor="middle" fill="#FFF" font-size="7" font-weight="600" font-family="Arial">UNIVERSIDADE</text></svg>`
+    },
+    {
+        id: 'ifrj',
+        nome: 'Instituto Federal do Rio de Janeiro',
+        sigla: 'IFRJ',
+        tipo: 'Instituto Federal',
+        cor: '#006837',
+        corGradiente: 'linear-gradient(135deg, #006837, #009444)',
+        fundacao: '2008',
+        sede: 'Rio de Janeiro, RJ',
+        campus: '15 campi',
+        alunos: '25.000+ alunos',
+        cursos: 'Técnicos, Graduação, Pós-Graduação',
+        site: 'ifrj.edu.br',
+        descricao: 'O IFRJ oferece educação profissional, científica e tecnológica gratuita, com cursos técnicos integrados ao ensino médio, graduações e pós-graduações.',
+        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#006837" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFRJ</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
+    },
+    {
+        id: 'ifsp',
+        nome: 'Instituto Federal de São Paulo',
+        sigla: 'IFSP',
+        tipo: 'Instituto Federal',
+        cor: '#1E6B3E',
+        corGradiente: 'linear-gradient(135deg, #1E6B3E, #2D9A5A)',
+        fundacao: '1909',
+        sede: 'São Paulo, SP',
+        campus: '37 campi',
+        alunos: '55.000+ alunos',
+        cursos: 'Técnicos, Graduação, Pós-Graduação',
+        site: 'ifsp.edu.br',
+        descricao: 'O IFSP é uma das instituições mais tradicionais de ensino técnico e tecnológico do Brasil, com mais de um século de história e excelência em educação.',
+        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#1E6B3E" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFSP</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
+    },
+    {
+        id: 'ifrs',
+        nome: 'Instituto Federal do Rio Grande do Sul',
+        sigla: 'IFRS',
+        tipo: 'Instituto Federal',
+        cor: '#8B0000',
+        corGradiente: 'linear-gradient(135deg, #8B0000, #B22222)',
+        fundacao: '2008',
+        sede: 'Porto Alegre, RS',
+        campus: '17 campi',
+        alunos: '30.000+ alunos',
+        cursos: 'Técnicos, Graduação, Pós-Graduação',
+        site: 'ifrs.edu.br',
+        descricao: 'O IFRS é referência em educação profissional no sul do país, oferecendo cursos gratuitos de qualidade em diversas áreas do conhecimento.',
+        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#8B0000" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFRS</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
+    },
+    {
+        id: 'ifba',
+        nome: 'Instituto Federal da Bahia',
+        sigla: 'IFBA',
+        tipo: 'Instituto Federal',
+        cor: '#0033A0',
+        corGradiente: 'linear-gradient(135deg, #0033A0, #0055CC)',
+        fundacao: '1910',
+        sede: 'Salvador, BA',
+        campus: '22 campi',
+        alunos: '40.000+ alunos',
+        cursos: 'Técnicos, Graduação, Pós-Graduação',
+        site: 'ifba.edu.br',
+        descricao: 'O IFBA é uma das mais antigas instituições de ensino técnico do Brasil, com mais de 110 anos formando profissionais para o mercado de trabalho.',
+        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#0033A0" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFBA</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
+    },
+    {
+        id: 'ifmg',
+        nome: 'Instituto Federal de Minas Gerais',
+        sigla: 'IFMG',
+        tipo: 'Instituto Federal',
+        cor: '#4A148C',
+        corGradiente: 'linear-gradient(135deg, #4A148C, #7B1FA2)',
+        fundacao: '2008',
+        sede: 'Belo Horizonte, MG',
+        campus: '18 campi',
+        alunos: '28.000+ alunos',
+        cursos: 'Técnicos, Graduação, Pós-Graduação',
+        site: 'ifmg.edu.br',
+        descricao: 'O IFMG oferece ensino gratuito de qualidade em Minas Gerais, com cursos que atendem às demandas do mercado e contribuem para o desenvolvimento regional.',
+        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#4A148C" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFMG</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
+    },
+    {
+        id: 'ifms',
+        nome: 'Instituto Federal de Mato Grosso do Sul',
+        sigla: 'IFMS',
+        tipo: 'Instituto Federal',
+        cor: '#00695C',
+        corGradiente: 'linear-gradient(135deg, #00695C, #00897B)',
+        fundacao: '2008',
+        sede: 'Campo Grande, MS',
+        campus: '10 campi',
+        alunos: '18.000+ alunos',
+        cursos: 'Técnicos, Graduação, Pós-Graduação',
+        site: 'ifms.edu.br',
+        descricao: 'O IFMS promove educação profissional e tecnológica no Mato Grosso do Sul, formando cidadãos capacitados para o mundo do trabalho.',
+        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#00695C" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFMS</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
     }
+];
+
+function renderizarInstituicoes() {
+    document.getElementById('parceirosGrid').innerHTML = INSTITUICOES.map(inst => `
+        <div class="parceiro-card" onclick="abrirModalInstituicao('${inst.id}')">
+            <div class="parceiro-img" style="background:${inst.corGradiente};">
+                ${inst.svgLogo}
+            </div>
+            <h4>${inst.nome}</h4>
+            <p>${inst.tipo}</p>
+        </div>
+    `).join('');
+}
+
+function abrirModalInstituicao(id) {
+    const inst = INSTITUICOES.find(i => i.id === id);
+    if (!inst) return;
     
-    function getEtapas(tipo) {
-        const etapas = {
-            'rg': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Análise Documental',ok:false,data:null},{nome:'Coleta de Biometria',ok:false,data:null},{nome:'Conferência de Dados',ok:false,data:null},{nome:'Emissão do RG',ok:false,data:null},{nome:'Disponível para Retirada',ok:false,data:null}],
-            'cnh': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Exame Médico',ok:false,data:null},{nome:'Prova Teórica',ok:false,data:null},{nome:'Prova Prática',ok:false,data:null},{nome:'Emissão da CNH',ok:false,data:null}],
-            'certidao_nascimento': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Busca no Registro',ok:false,data:null},{nome:'Localização do Assento',ok:false,data:null},{nome:'Emissão da Certidão',ok:false,data:null},{nome:'Disponível',ok:false,data:null}],
-            'certidao_casamento': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Busca no Registro',ok:false,data:null},{nome:'Localização do Assento',ok:false,data:null},{nome:'Emissão da Certidão',ok:false,data:null},{nome:'Disponível',ok:false,data:null}],
-            'certidao_obito': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Busca no Registro',ok:false,data:null},{nome:'Localização do Assento',ok:false,data:null},{nome:'Emissão da Certidão',ok:false,data:null},{nome:'Disponível',ok:false,data:null}],
-            'uniao_estavel': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Análise de Documentos',ok:false,data:null},{nome:'Entrevista',ok:false,data:null},{nome:'Emissão da Declaração',ok:false,data:null},{nome:'Disponível',ok:false,data:null}],
-            'titulo_eleitor': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Verificação TRE',ok:false,data:null},{nome:'Validação de Dados',ok:false,data:null},{nome:'Emissão do Título',ok:false,data:null},{nome:'Disponível para Download',ok:false,data:null}]
-        };
-        return etapas[tipo] || [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Em Processamento',ok:false,data:null},{nome:'Finalizado',ok:false,data:null}];
-    }
-    
-    function getPrazoDias(tipo) {
-        const prazos = { rg:30, cnh:45, certidao_nascimento:7, certidao_casamento:7, certidao_obito:5, uniao_estavel:15, titulo_eleitor:10 };
-        return prazos[tipo] || 15;
-    }
-    
-    async function enviarSolicitacao(e) {
-        e.preventDefault();
-        const tipo = document.getElementById('solicTipo').value;
-        const nome = document.getElementById('sNome').value.trim();
-        const cpf = document.getElementById('sCPF').value.trim();
-        const nasc = document.getElementById('sNasc').value;
-        const info = TIPOS_SOLICITACAO.find(t => t.id === tipo);
-        
-        if (!nome || !cpf || !nasc) {
-            Swal.fire({icon:'warning',title:'Campos obrigatórios',text:'Preencha Nome, CPF e Nascimento.',confirmButtonColor:'#1351B4'});
-            return;
-        }
-        
-        Swal.fire({title:'Enviando...',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});
-        
-        const prefixos = {rg:'RG',cnh:'CNH',certidao_nascimento:'CERT-NASC',certidao_casamento:'CERT-CAS',certidao_obito:'CERT-OBT',uniao_estavel:'UNIAO',titulo_eleitor:'TITULO'};
-        const num = Math.random().toString(36).substring(2,6).toUpperCase();
-        const codigo = `${prefixos[tipo]||'DOC'}-${num}`;
-        const novoId = Date.now();
-        const dias = getPrazoDias(tipo);
-        
-        const novoDoc = {
-            id: novoId,
-            codigo: codigo,
-            tipo: tipo,
-            tipo_nome: info.nome,
-            categoria: 'Documentos Pessoais',
-            titular: nome,
-            cpf: cpf,
-            nascimento: nasc,
-            emissor: info.emissor,
-            informacoes: `${info.nome} solicitado via GOV.BR.`,
-            data_emissao: new Date().toISOString(),
-            data_validade: new Date(Date.now() + 10*365*24*60*60*1000).toISOString().split('T')[0],
-            status: 'solicitado',
-            publico: true,
-            rast: true,
-            etapas: getEtapas(tipo),
-            prev: new Date(Date.now() + dias*24*60*60*1000).toLocaleDateString('pt-BR')
-        };
-        
-        // Tentar API
-        try {
-            const resp = await fetch(`${API_BASE}/cliente07/solicitar`, {
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({...novoDoc, rastreamento:{etapas:novoDoc.etapas.map(e=>({nome:e.nome,concluida:e.ok,data:e.data}))}, previsao_entrega:novoDoc.prev})
-            });
-            const data = await resp.json();
-            if(data.success) {
-                novoDoc.id = data.documento.id;
-                novoDoc.codigo = data.documento.codigo;
-            }
-        } catch(er) { console.log('API offline, usando fallback local'); }
-        
-        docs.unshift(novoDoc);
-        document.getElementById('statDocs').textContent = docs.length;
-        document.getElementById('statServicos').textContent = docs.length;
-        
-        Swal.close();
-        Swal.fire({
-            icon:'success',
-            title:'✅ Solicitado!',
-            html:`<div style="text-align:left;font-size:12px;line-height:1.8;"><p><strong>📋 Protocolo:</strong> <span style="font-family:monospace;background:#f0f0f0;padding:3px 8px;border-radius:4px;">${codigo}</span></p><p><strong>👤 Titular:</strong> ${nome}</p><p><strong>📅 Previsão:</strong> ${novoDoc.prev}</p><p style="color:#666;font-size:10px;">Guarde o protocolo para acompanhar.</p></div>`,
-            confirmButtonColor:'#1351B4',
-            confirmButtonText:'Acompanhar Agora'
-        }).then(r => {
-            if(r.isConfirmed) { renderAll(); carregarFiltros(); setTimeout(()=>openModalDoc(novoId),300); }
-        });
-        
-        document.getElementById('formSolic').reset();
-        document.getElementById('formContainer').style.display = 'none';
-        document.querySelectorAll('#docsSolicitarGrid .svc-card').forEach(c => c.style.borderColor = 'transparent');
-        renderAll();
-        carregarFiltros();
-    }
-    
+    Swal.fire({
+        html: `
+            <div class="modal-instituicao">
+                <div class="inst-logo-grande" style="background:${inst.corGradiente};">
+                    ${inst.svgLogo}
+                </div>
+                <h3>${inst.nome}</h3>
+                <div class="inst-tipo">${inst.tipo}</div>
+                <div class="inst-desc">${inst.descricao}</div>
+                <div class="inst-info">
+                    <div class="inst-info-item"><div class="lbl">Fundação</div><div class="val">${inst.fundacao}</div></div>
+                    <div class="inst-info-item"><div class="lbl">Sede</div><div class="val">${inst.sede}</div></div>
+                    <div class="inst-info-item"><div class="lbl">Campus</div><div class="val">${inst.campus}</div></div>
+                    <div class="inst-info-item"><div class="lbl">Alunos</div><div class="val">${inst.alunos}</div></div>
+                    <div class="inst-info-item"><div class="lbl">Cursos</div><div class="val">${inst.cursos}</div></div>
+                    <div class="inst-info-item"><div class="lbl">Site</div><div class="val" style="color:var(--blue);">${inst.site}</div></div>
+                </div>
+            </div>
+        `,
+        showConfirmButton: true,
+        confirmButtonText: 'Fechar',
+        confirmButtonColor: '#1351B4',
+        width: '520px',
+        customClass: { popup: 'swal-instituicao' }
+    });
+}
+
+
     // ==================== API ====================
     async function carregarDocumentos() {
         try {
@@ -546,7 +779,46 @@
             console.log('API offline');
             docs = [
                 { id:1, codigo:"DOC-EDU001", tipo_nome:"📜 Certificado Ensino Médio", categoria:"Educação", titular:"Ana Carolina Santos", emissor:"Secretaria de Educação - SP", data_emissao:"2024-01-15T10:00:00Z", data_validade:"2029-01-15", status:"valid", rast:false },
-                { id:2, codigo:"RG-ABC12", tipo_nome:"🪪 Carteira de Identidade (RG)", categoria:"Documentos Pessoais", titular:"Carlos Oliveira", emissor:"SSP-SP", data_emissao:"2024-02-20T10:00:00Z", data_validade:"2034-02-20", status:"solicitado", rast:true, etapas:[{nome:"Solicitação Recebida",ok:true,data:"20/02/2024"},{nome:"Análise Documental",ok:true,data:"22/02/2024"},{nome:"Coleta de Biometria",ok:true,data:"25/02/2024"},{nome:"Emissão do RG",ok:false,data:null},{nome:"Disponível para Retirada",ok:false,data:null}], prev:"05/03/2024" }
+                { id:2, codigo:"RG-ABC12", tipo_nome:"🪪 Carteira de Identidade (RG)", categoria:"Documentos Pessoais", titular:"Carlos Oliveira", emissor:"SSP-SP", data_emissao:"2024-02-20T10:00:00Z", data_validade:"2034-02-20", status:"solicitado", rast:true, etapas:[{nome:"Solicitação Recebida",ok:true,data:"20/02/2024"},{nome:"Análise Documental",ok:true,data:"22/02/2024"},{nome:"Coleta de Biometria",ok:true,data:"25/02/2024"},{nome:"Emissão do RG",ok:false,data:null},{nome:"Disponível para Retirada",ok:false,data:null}], prev:"05/03/2024" },
+                
+              // Adicione estes documentos de exemplo de certificados e cursos:
+{ id:10, codigo:"DOC-EDU010", tipo:"certificado_ensino_medio", tipo_nome:"📜 Certificado de Conclusão do Ensino Médio", categoria:"Educação", 
+  titular:"Maria Eduarda Silva", cpf:"111.222.333-44", rg:"11.222.333-4", nascimento:"2005-08-20",
+  instituicao:"SESI - Serviço Social da Indústria", endereco_instituicao:"Av. Paulista, 1000 - São Paulo/SP",
+  grau_formacao:"Ensino Médio Completo", ano_conclusao:"2023", carga_horaria:"2.400 horas",
+  reconhecimento:"MEC - Portaria nº 1.234/2024",
+  emissor:"SESI - Serviço Social da Indústria",
+  informacoes:"Certificado de conclusão do Ensino Médio reconhecido pelo MEC.",
+  data_emissao:"2023-12-15T10:00:00Z", data_validade:"2028-12-15", status:"valid", rast:false },
+
+{ id:11, codigo:"DOC-EDU011", tipo:"certificado_ensino_fundamental", tipo_nome:"📚 Certificado de Conclusão do Ensino Fundamental", categoria:"Educação",
+  titular:"João Pedro Oliveira", cpf:"222.333.444-55", rg:"22.333.444-5", nascimento:"2009-03-10",
+  instituicao:"SESI - Escola de Educação Básica", endereco_instituicao:"Rua das Flores, 500 - Rio de Janeiro/RJ",
+  grau_formacao:"Ensino Fundamental Completo", ano_conclusao:"2023", carga_horaria:"1.600 horas",
+  reconhecimento:"MEC - Certificação Nacional",
+  emissor:"SESI - Escola de Educação Básica",
+  informacoes:"Certificado de conclusão do Ensino Fundamental.",
+  data_emissao:"2023-12-20T10:00:00Z", data_validade:"2028-12-20", status:"valid", rast:false },
+
+{ id:12, codigo:"DOC-SENAI001", tipo:"senai_certificado", tipo_nome:"🔧 Certificado de Curso SENAI", categoria:"Educação",
+  titular:"Rafael Gomes Santos", cpf:"333.444.555-66", rg:"33.444.555-6", nascimento:"2000-05-15",
+  instituicao:"SENAI - Serviço Nacional de Aprendizagem Industrial", endereco_instituicao:"Av. Industrial, 200 - Fortaleza/CE",
+  curso:"Técnico em Eletrotécnica", grau_formacao:"Curso Técnico Profissionalizante",
+  ano_conclusao:"2024", carga_horaria:"1.200 horas", duracao:"18 meses",
+  reconhecimento:"Registro no CFT - Conselho Federal dos Técnicos",
+  emissor:"SENAI - Departamento Regional",
+  informacoes:"Curso técnico profissionalizante concluído com aprovação.",
+  data_emissao:"2024-06-10T10:00:00Z", data_validade:"2029-06-10", status:"valid", rast:false },
+
+{ id:13, codigo:"DOC-SESI001", tipo:"sesi_curso", tipo_nome:"🏭 Certificado de Curso SESI", categoria:"Educação",
+  titular:"Amanda Costa Lima", cpf:"444.555.666-77", rg:"44.555.666-7", nascimento:"2002-11-25",
+  instituicao:"SESI - Serviço Social da Indústria", endereco_instituicao:"Av. das Indústrias, 800 - Belo Horizonte/MG",
+  curso:"Assistente Administrativo", grau_formacao:"Curso de Qualificação Profissional",
+  ano_conclusao:"2024", carga_horaria:"800 horas", duracao:"12 meses",
+  reconhecimento:"Certificação reconhecida pelo Ministério do Trabalho",
+  emissor:"SESI - Unidade Belo Horizonte",
+  informacoes:"Curso de qualificação profissional concluído com êxito.",
+  data_emissao:"2024-03-15T10:00:00Z", data_validade:"2029-03-15", status:"valid", rast:false }
             ];
             document.getElementById('statDocs').textContent = docs.length;
             document.getElementById('statServicos').textContent = docs.length;
@@ -563,35 +835,166 @@
     function getFiltrados() { return catAtiva==='todas' ? docs : docs.filter(d => (d.categoria||'Outros')===catAtiva); }
     function renderAll() { renderTable(); renderCards(); }
     
-    function renderTable() {
-        const filtrados = getFiltrados();
-        const tbody = document.getElementById('docsTableBody');
-        if(!filtrados.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:20px;color:#999;">Nenhum documento.</td></tr>'; return; }
-        tbody.innerHTML = filtrados.map(d => {
-            const dv = d.data_validade ? new Date(d.data_validade) : null;
-            const exp = dv && dv < new Date();
-            const isProg = d.status==='progress'||d.status==='andamento'||d.status==='solicitado';
-            const cls = exp ? 'exp' : (isProg ? 'prog' : 'ok');
-            const lbl = exp ? '⚠ Expirado' : (isProg ? '⏳ Em andamento' : '✅ Válido');
-            const temRast = d.rast||d.rastreamento||d.etapas||isProg;
-            return `<tr onclick="openModalDoc(${d.id})" style="cursor:pointer;"><td><span class="code-tag">${d.codigo}</span></td><td>${d.tipo_nome||'📄'}</td><td>${d.categoria||'Outros'}</td><td>${d.titular}</td><td>${(d.emissor||'').substring(0,20)}</td><td>${dv?dv.toLocaleDateString('pt-BR'):'N/A'}</td><td><span class="badge ${cls}">${lbl}</span></td><td><button class="btn-sm ${temRast?'':'primary'}" onclick="event.stopPropagation();openModalDoc(${d.id})"><i class="fas fa-${temRast?'route':'check-double'}"></i> ${temRast?'Rastrear':'Validar'}</button></td></tr>`;
+function renderTable() {
+    const filtrados = getFiltrados();
+    const tbody = document.getElementById('docsTableBody');
+    const verMaisContainer = document.getElementById('verMaisContainer');
+    const btnVerMais = document.getElementById('btnVerMais');
+    const txtVerMais = document.getElementById('txtVerMais');
+    
+    if (!filtrados.length) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:20px;color:#999;">Nenhum documento encontrado.</td></tr>';
+        verMaisContainer.style.display = 'none';
+        return;
+    }
+    
+    const docsVisiveis = filtrados.slice(0, 3);
+    const docsEscondidos = filtrados.slice(3);
+    const temMais = docsEscondidos.length > 0;
+    
+    // Renderizar TODOS os documentos
+    let html = '';
+    
+    // Documentos visíveis
+    html += docsVisiveis.map(d => renderDocRow(d)).join('');
+    
+    // Documentos escondidos (se houver)
+    if (temMais) {
+        html += docsEscondidos.map((d, i) => {
+            return renderDocRow(d, true); // Passa flag de escondido
         }).join('');
     }
     
-    function renderCards() {
-        const filtrados = getFiltrados();
-        const c = document.getElementById('docsCards');
-        if(!filtrados.length) { c.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">Nenhum documento.</div>'; return; }
-        c.innerHTML = filtrados.map(d => {
-            const dv = d.data_validade ? new Date(d.data_validade) : null;
-            const exp = dv && dv < new Date();
-            const isProg = d.status==='progress'||d.status==='andamento'||d.status==='solicitado';
-            const cls = exp ? 'exp' : (isProg ? 'prog' : 'ok');
-            const lbl = exp ? '⚠ Expirado' : (isProg ? '⏳ Em andamento' : '✅ Válido');
-            const temRast = d.rast||d.rastreamento||d.etapas||isProg;
-            return `<div class="doc-card-mobile" onclick="openModalDoc(${d.id})"><div class="doc-card-header"><span class="doc-type">${d.tipo_nome||'📄'}</span><span class="badge ${cls}">${lbl}</span></div><div class="doc-card-info"><div class="info-item"><div class="info-label">Código</div><div class="info-value code-tag">${d.codigo}</div></div><div class="info-item"><div class="info-label">Titular</div><div class="info-value">${d.titular}</div></div></div><div class="doc-card-action"><button class="btn-sm ${temRast?'':'primary'}" onclick="event.stopPropagation();openModalDoc(${d.id})"><i class="fas fa-${temRast?'route':'check-double'}"></i> ${temRast?'Rastrear':'Validar'}</button></div></div>`;
-        }).join('');
+    tbody.innerHTML = html;
+    
+    // Agora adiciona a classe nos escondidos
+    if (temMais) {
+        const todasLinhas = tbody.querySelectorAll('tr');
+        // As primeiras 3 linhas são visíveis, o resto é escondido
+        todasLinhas.forEach((linha, index) => {
+            if (index >= 3) {
+                linha.classList.add('doc-escondida');
+                linha.style.display = 'none';
+            }
+        });
     }
+    
+    // Mostrar/ocultar botão ver mais
+    if (temMais) {
+        verMaisContainer.style.display = 'block';
+        btnVerMais.style.display = 'inline-flex';
+        btnVerMais.innerHTML = '<i class="fas fa-chevron-down"></i> Ver Mais Documentos';
+        btnVerMais.setAttribute('data-expandido', 'false');
+        txtVerMais.textContent = `Mostrando 3 de ${filtrados.length} documento(s) — ${docsEscondidos.length} oculto(s)`;
+    } else {
+        verMaisContainer.style.display = 'block';
+        btnVerMais.style.display = 'none';
+        txtVerMais.textContent = `Mostrando ${filtrados.length} de ${filtrados.length} documento(s)`;
+    }
+}
+
+function renderDocRow(d, escondido = false) {
+    const dv = d.data_validade ? new Date(d.data_validade) : null;
+    const exp = dv && dv < new Date();
+    const isProg = d.status === 'progress' || d.status === 'andamento' || d.status === 'solicitado';
+    const cls = exp ? 'exp' : (isProg ? 'prog' : 'ok');
+    const lbl = exp ? '⚠ Expirado' : (isProg ? '⏳ Em andamento' : '✅ Válido');
+    const temRast = d.rast || d.rastreamento || d.etapas || isProg;
+    
+    return `<tr onclick="openModalDoc(${d.id})" style="cursor:pointer;">
+        <td><span class="code-tag">${d.codigo}</span></td>
+        <td>${(d.tipo_nome || '📄').substring(0, 22)}</td>
+        <td>${d.categoria || 'Outros'}</td>
+        <td>${d.titular}</td>
+        <td>${(d.emissor || '').substring(0, 18)}</td>
+        <td>${dv ? dv.toLocaleDateString('pt-BR') : 'N/A'}</td>
+        <td><span class="badge ${cls}">${lbl}</span></td>
+        <td><button class="btn-sm ${temRast ? '' : 'primary'}" onclick="event.stopPropagation();openModalDoc(${d.id})"><i class="fas fa-${temRast ? 'route' : 'check-double'}"></i> ${temRast ? 'Rastrear' : 'Validar'}</button></td>
+    </tr>`;
+}
+
+function toggleVerMais() {
+    const btn = document.getElementById('btnVerMais');
+    const expandido = btn.getAttribute('data-expandido') === 'true';
+    const linhasEscondidas = document.querySelectorAll('#docsTableBody tr.doc-escondida');
+    
+    if (expandido) {
+        // Recolher
+        linhasEscondidas.forEach(linha => linha.style.display = 'none');
+        btn.innerHTML = '<i class="fas fa-chevron-down"></i> Ver Mais Documentos';
+        btn.setAttribute('data-expandido', 'false');
+    } else {
+        // Expandir
+        linhasEscondidas.forEach(linha => linha.style.display = '');
+        btn.innerHTML = '<i class="fas fa-chevron-up"></i> Recolher';
+        btn.setAttribute('data-expandido', 'true');
+    }
+}
+    
+function renderCards() {
+    const filtrados = getFiltrados();
+    const c = document.getElementById('docsCards');
+    
+    if (!filtrados.length) {
+        c.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">Nenhum documento.</div>';
+        return;
+    }
+    
+    const docsVisiveis = filtrados.slice(0, 3);
+    const docsEscondidos = filtrados.slice(3);
+    const temMais = docsEscondidos.length > 0;
+    
+    let html = docsVisiveis.map(d => renderDocCard(d)).join('');
+    
+    if (temMais) {
+        html += `<div class="docs-cards-escondidos" id="cardsEscondidos" style="display:none;">`;
+        html += docsEscondidos.map(d => renderDocCard(d)).join('');
+        html += `</div>`;
+        html += `<div style="text-align:center;padding:12px 0;">
+            <p style="font-size:9px;color:var(--gray-60);margin-bottom:6px;">Mostrando 3 de ${filtrados.length} — ${docsEscondidos.length} oculto(s)</p>
+            <button class="btn-ver-mais" id="btnVerMaisCards" onclick="toggleVerMaisCards()">
+                <i class="fas fa-chevron-down"></i> Ver Mais Documentos
+            </button>
+        </div>`;
+    }
+    
+    c.innerHTML = html;
+}
+
+function renderDocCard(d) {
+    const dv = d.data_validade ? new Date(d.data_validade) : null;
+    const exp = dv && dv < new Date();
+    const isProg = d.status === 'progress' || d.status === 'andamento' || d.status === 'solicitado';
+    const cls = exp ? 'exp' : (isProg ? 'prog' : 'ok');
+    const lbl = exp ? '⚠ Expirado' : (isProg ? '⏳ Em andamento' : '✅ Válido');
+    const temRast = d.rast || d.rastreamento || d.etapas || isProg;
+    
+    return `<div class="doc-card-mobile" onclick="openModalDoc(${d.id})">
+        <div class="doc-card-header"><span class="doc-type">${d.tipo_nome || '📄'}</span><span class="badge ${cls}">${lbl}</span></div>
+        <div class="doc-card-info">
+            <div class="info-item"><div class="info-label">Código</div><div class="info-value code-tag">${d.codigo}</div></div>
+            <div class="info-item"><div class="info-label">Titular</div><div class="info-value">${d.titular}</div></div>
+        </div>
+        <div class="doc-card-action">
+            <button class="btn-sm ${temRast ? '' : 'primary'}" onclick="event.stopPropagation();openModalDoc(${d.id})">
+                <i class="fas fa-${temRast ? 'route' : 'check-double'}"></i> ${temRast ? 'Rastrear' : 'Validar'}
+            </button>
+        </div>
+    </div>`;
+}
+
+function toggleVerMaisCards() {
+    const btn = document.getElementById('btnVerMaisCards');
+    const escondidos = document.getElementById('cardsEscondidos');
+    
+    if (escondidos.style.display === 'none') {
+        escondidos.style.display = 'block';
+        btn.innerHTML = '<i class="fas fa-chevron-up"></i> Recolher';
+    } else {
+        escondidos.style.display = 'none';
+        btn.innerHTML = '<i class="fas fa-chevron-down"></i> Ver Mais Documentos';
+    }
+}
     
     function irParaConsulta() { document.getElementById('consultar').scrollIntoView({behavior:'smooth'}); setTimeout(()=>document.getElementById('codigoInput').focus(),400); }
     function irParaSolicitar() { document.getElementById('solicitar').scrollIntoView({behavior:'smooth'}); }
@@ -637,6 +1040,29 @@
     const exp = dv && dv < new Date();
     const urlQR = `${window.location.origin}/?codigo=${d.codigo}`;
     
+    // Detectar tipo de documento para mostrar campos específicos
+    const tipo = d.tipo || '';
+    const isCertificado = tipo.includes('certificado') || tipo.includes('ensino') || d.categoria === 'Educação';
+    const isCurso = tipo.includes('curso') || tipo.includes('senai') || tipo.includes('sesi') || tipo.includes('tecnico');
+    const isDiploma = tipo.includes('diploma') || tipo.includes('superior');
+    
+    // Construir grid de detalhes específicos
+    let detalhesExtras = '';
+    
+    if (isCertificado || isCurso || isDiploma) {
+        // Campos para Certificados e Cursos
+        detalhesExtras = `
+            ${d.instituicao || d.emissor ? `<div class="detail-cell"><div class="lbl">Instituição</div><div class="val">${d.instituicao || d.emissor}</div></div>` : ''}
+            ${d.endereco_instituicao || d.local ? `<div class="detail-cell"><div class="lbl">Local/Endereço</div><div class="val">${d.endereco_instituicao || d.local || 'N/I'}</div></div>` : ''}
+            ${d.grau_formacao ? `<div class="detail-cell"><div class="lbl">Grau de Formação</div><div class="val">${d.grau_formacao}</div></div>` : ''}
+            ${d.curso ? `<div class="detail-cell"><div class="lbl">Curso</div><div class="val">${d.curso}</div></div>` : ''}
+            ${d.ano_conclusao || d.ano_formacao ? `<div class="detail-cell"><div class="lbl">Ano de Formação/Conclusão</div><div class="val">${d.ano_conclusao || d.ano_formacao}</div></div>` : ''}
+            ${d.carga_horaria ? `<div class="detail-cell"><div class="lbl">Carga Horária</div><div class="val">${d.carga_horaria}</div></div>` : ''}
+            ${d.reconhecimento ? `<div class="detail-cell"><div class="lbl">Reconhecimento</div><div class="val">${d.reconhecimento}</div></div>` : ''}
+            <div class="detail-cell"><div class="lbl">Status</div><div class="val" style="color:${d.status === 'valid' ? 'var(--green)' : 'var(--red)'};font-weight:700;">${d.status === 'valid' ? '✅ APROVADO' : d.status === 'expired' ? '⚠️ EXPIRADO' : '📋 ' + d.status}</div></div>
+        `;
+    }
+    
     document.getElementById('modalContent').innerHTML = `
         <div class="result-box ${exp?'expired':'valid'}">
             <div class="ri"><i class="fas fa-${exp?'circle-xmark':'circle-check'}"></i></div>
@@ -653,16 +1079,33 @@
             <p style="font-size:8px;color:var(--gray-60);margin-top:4px;word-break:break-all;">${urlQR}</p>
         </div>
         
-        <div class="detail-grid">
-            <div class="detail-cell"><div class="lbl">Código</div><div class="val code-tag">${d.codigo}</div></div>
-            <div class="detail-cell"><div class="lbl">Tipo</div><div class="val">${d.tipo_nome||'📄'}</div></div>
-            <div class="detail-cell"><div class="lbl">Titular</div><div class="val">${d.titular}</div></div>
-            <div class="detail-cell"><div class="lbl">Emissor</div><div class="val">${d.emissor||'N/A'}</div></div>
-            <div class="detail-cell"><div class="lbl">Emissão</div><div class="val">${d.data_emissao?new Date(d.data_emissao).toLocaleDateString('pt-BR'):'N/A'}</div></div>
-            <div class="detail-cell"><div class="lbl">Validade</div><div class="val">${dv?dv.toLocaleDateString('pt-BR'):'Indeterminada'}</div></div>
+        <!-- Título do documento -->
+        <div style="text-align:center;margin-bottom:10px;">
+            <h4 style="font-size:14px;color:var(--gray-90);">${d.tipo_nome || '📄 Documento Oficial'}</h4>
+            ${d.instituicao && d.instituicao !== d.emissor ? `<p style="font-size:10px;color:var(--gray-60);">${d.instituicao}</p>` : ''}
         </div>
         
-        <div class="stamp"><i class="fas fa-shield-haltered"></i><strong>Autenticado pelo GOV.BR</strong></div>
+        <div class="detail-grid">
+            <div class="detail-cell"><div class="lbl">Código</div><div class="val code-tag">${d.codigo}</div></div>
+            <div class="detail-cell"><div class="lbl">Nome do Aluno/Titular</div><div class="val"><strong>${d.titular}</strong></div></div>
+            ${d.cpf ? `<div class="detail-cell"><div class="lbl">CPF</div><div class="val">${d.cpf}</div></div>` : ''}
+            ${d.rg ? `<div class="detail-cell"><div class="lbl">RG</div><div class="val">${d.rg}</div></div>` : ''}
+            ${d.nascimento ? `<div class="detail-cell"><div class="lbl">Nascimento</div><div class="val">${d.nascimento}</div></div>` : ''}
+            
+            <!-- Campos específicos para certificados/cursos -->
+            ${detalhesExtras}
+            
+            <!-- Campos padrão -->
+            ${!isCertificado && !isCurso && !isDiploma ? `
+                <div class="detail-cell"><div class="lbl">Tipo</div><div class="val">${d.tipo_nome||'📄'}</div></div>
+                <div class="detail-cell"><div class="lbl">Emissor</div><div class="val">${d.emissor||'N/A'}</div></div>
+            ` : ''}
+            <div class="detail-cell"><div class="lbl">Data de Emissão</div><div class="val">${d.data_emissao?new Date(d.data_emissao).toLocaleDateString('pt-BR'):'N/A'}</div></div>
+            <div class="detail-cell"><div class="lbl">Validade</div><div class="val">${dv?dv.toLocaleDateString('pt-BR'):'Indeterminada'}</div></div>
+            ${d.informacoes && !isCertificado && !isCurso ? `<div class="detail-cell" style="grid-column:1/-1;"><div class="lbl">Informações</div><div class="val">${d.informacoes}</div></div>` : ''}
+        </div>
+        
+        <div class="stamp"><i class="fas fa-shield-haltered"></i><strong>Documento Autenticado pelo Sistema GOV.BR</strong></div>
         <div class="modal-btns">
             <button class="btn-close-m" onclick="fecharModal()">Fechar</button>
             <button class="btn-new-m" onclick="novaConsulta()">Nova Consulta</button>
@@ -670,25 +1113,15 @@
     
     showModal();
     
-    // Gerar QR Code após o modal estar visível
     setTimeout(() => {
         const qrContainer = document.getElementById('qrCodeContainer');
         if (qrContainer && typeof QRCode !== 'undefined') {
             qrContainer.innerHTML = '';
             new QRCode(qrContainer, {
-                text: urlQR,
-                width: 130,
-                height: 130,
-                colorDark: '#1351B4',
-                colorLight: '#ffffff',
+                text: urlQR, width: 130, height: 130,
+                colorDark: '#1351B4', colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.M
             });
-        } else if (qrContainer) {
-            // Fallback se QRCode não estiver disponível
-            qrContainer.innerHTML = `
-                <div style="width:130px;height:130px;display:flex;align-items:center;justify-content:center;background:#f0f0f0;border:2px dashed #ccc;border-radius:4px;">
-                    <i class="fas fa-qrcode" style="font-size:40px;color:#999;"></i>
-                </div>`;
         }
     }, 200);
 }
@@ -772,7 +1205,8 @@
     
     (function(){const p=new URLSearchParams(location.search);const c=p.get('codigo');if(c){document.getElementById('codigoInput').value=c;setTimeout(consultarDocumento,600);}})();
     
-    renderizarDocsSolicitar();
+  // Chamar no carregamento
+renderizarInstituicoes();
     carregarDocumentos();
     console.log('✅ GOV.BR — 7 documentos com solicitação e rastreamento!');
 </script>
