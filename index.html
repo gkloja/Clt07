@@ -43,7 +43,6 @@
         }
         
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        
         html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         
         body {
@@ -52,995 +51,247 @@
             color: var(--gray-80);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             min-width: 320px;
             overflow-x: hidden;
         }
         
-        /* ========== SKIP ========== */
-        .skip-link {
-            position: absolute;
-            top: -100px;
-            left: 0;
-            background: var(--blue);
-            color: #fff;
-            padding: 10px 18px;
-            z-index: 9999;
-            font-size: 12px;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 0 0 4px 0;
-            transition: top 0.3s;
-        }
+        .skip-link { position: absolute; top: -100px; left: 0; background: var(--blue); color: #fff; padding: 10px 18px; z-index: 9999; font-size: 12px; font-weight: 700; text-decoration: none; border-radius: 0 0 4px 0; transition: top 0.3s; }
         .skip-link:focus { top: 0; }
         
-        /* ========== BARRA SUPERIOR ========== */
-        .topbar {
-            background: var(--blue-dark);
-            color: rgba(255,255,255,0.9);
-            font-size: 10px;
-            padding: 5px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-        .topbar .inner {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            padding: 0 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .topbar .links {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1px;
-        }
-        .topbar .links a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            padding: 3px 7px;
-            border-radius: 3px;
-            transition: all 0.2s;
-            white-space: nowrap;
-            font-size: 10px;
-        }
+        .topbar { background: var(--blue-dark); color: rgba(255,255,255,0.9); font-size: 10px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .topbar .inner { max-width: var(--max-w); margin: 0 auto; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+        .topbar .links { display: flex; align-items: center; flex-wrap: wrap; gap: 1px; }
+        .topbar .links a { color: rgba(255,255,255,0.8); text-decoration: none; padding: 3px 7px; border-radius: 3px; transition: all 0.2s; white-space: nowrap; font-size: 10px; }
         .topbar .links a:hover { color: #fff; text-decoration: underline; background: rgba(255,255,255,0.05); }
         .topbar .links .sep { color: rgba(255,255,255,0.2); margin: 0 1px; user-select: none; }
         .topbar .a11y-btns { display: flex; gap: 3px; }
-        .topbar .a11y-btns button {
-            background: none;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: rgba(255,255,255,0.8);
-            padding: 3px 8px;
-            font-size: 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
+        .topbar .a11y-btns button { background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); padding: 3px 8px; font-size: 10px; cursor: pointer; border-radius: 3px; font-family: inherit; transition: all 0.2s; }
         .topbar .a11y-btns button:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.4); }
         
-        /* ========== HEADER ========== */
-        .header {
-            background: var(--white);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            border-bottom: 1px solid var(--gray-30);
-        }
-        .header .inner {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            padding: 8px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 54px;
-            gap: 10px;
-        }
-        
-        /* LOGO COM BANDEIRA DO BRASIL */
-        .logo-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-        .logo-flag {
-            width: 36px;
-            height: 26px;
-            flex-shrink: 0;
-            border-radius: 2px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
-        .logo-flag svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-        .logo-text {
-            font-size: 19px;
-            font-weight: 900;
-            letter-spacing: -0.3px;
-            line-height: 1;
-            display: flex;
-            align-items: baseline;
-        }
-        .logo-text .g { color: var(--blue); }
-        .logo-text .o { color: var(--yellow); }
-        .logo-text .v { color: var(--green); }
-        .logo-text .dot { color: var(--gray-60); font-weight: 500; }
-        .logo-text .b { color: var(--blue); }
-        .logo-text .r { color: var(--yellow); }
-        .logo-sub {
-            font-size: 7px;
-            color: var(--gray-60);
-            font-weight: 600;
-            letter-spacing: 0.6px;
-            text-transform: uppercase;
-            line-height: 1;
-            margin-top: 1px;
-        }
-        
-        .header-actions {
-            display: flex;
-            gap: 7px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .btn-out {
-            padding: 7px 14px;
-            border: 1.5px solid var(--blue);
-            color: var(--blue);
-            background: transparent;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-family: inherit;
-            white-space: nowrap;
-        }
+        .header { background: var(--white); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border-bottom: 1px solid var(--gray-30); }
+        .header .inner { max-width: var(--max-w); margin: 0 auto; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; min-height: 54px; gap: 10px; }
+        .logo-link { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
+        .logo-flag { width: 36px; height: 26px; flex-shrink: 0; border-radius: 2px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .logo-flag svg { width: 100%; height: 100%; display: block; }
+        .logo-text { font-size: 19px; font-weight: 900; letter-spacing: -0.3px; line-height: 1; display: flex; align-items: baseline; }
+        .logo-text .g { color: var(--blue); } .logo-text .o { color: var(--yellow); } .logo-text .v { color: var(--green); } .logo-text .dot { color: var(--gray-60); font-weight: 500; } .logo-text .b { color: var(--blue); } .logo-text .r { color: var(--yellow); }
+        .logo-sub { font-size: 7px; color: var(--gray-60); font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; line-height: 1; margin-top: 1px; }
+        .header-actions { display: flex; gap: 7px; align-items: center; flex-wrap: wrap; }
+        .btn-out { padding: 7px 14px; border: 1.5px solid var(--blue); color: var(--blue); background: transparent; border-radius: 20px; font-size: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; font-family: inherit; white-space: nowrap; }
         .btn-out:hover { background: var(--blue-light); border-color: var(--blue-dark); color: var(--blue-dark); }
-        .btn-solid {
-            padding: 7px 16px;
-            background: var(--blue);
-            color: #fff;
-            border: none;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-family: inherit;
-            white-space: nowrap;
-        }
+        .btn-solid { padding: 7px 16px; background: var(--blue); color: #fff; border: none; border-radius: 20px; font-size: 10px; font-weight: 700; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; font-family: inherit; white-space: nowrap; }
         .btn-solid:hover { background: var(--blue-hover); box-shadow: 0 3px 10px rgba(19,81,180,0.25); transform: translateY(-1px); }
         .btn-solid.gold { background: var(--yellow); color: var(--blue-dark); font-weight: 800; }
         .btn-solid.gold:hover { background: var(--yellow-dark); box-shadow: 0 3px 10px rgba(255,215,0,0.35); }
         
-        /* ========== NAV ========== */
-        .nav-bar {
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-20);
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
+        .nav-bar { background: var(--white); border-bottom: 1px solid var(--gray-20); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
         .nav-bar::-webkit-scrollbar { display: none; }
-        .nav-bar .inner {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            padding: 0 16px;
-            display: flex;
-            flex-wrap: nowrap;
-            min-width: fit-content;
-        }
-        .nav-bar a {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 9px 12px;
-            font-size: 10px;
-            font-weight: 500;
-            color: var(--gray-70);
-            text-decoration: none;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
+        .nav-bar .inner { max-width: var(--max-w); margin: 0 auto; padding: 0 16px; display: flex; flex-wrap: nowrap; min-width: fit-content; }
+        .nav-bar a { display: inline-flex; align-items: center; gap: 4px; padding: 9px 12px; font-size: 10px; font-weight: 500; color: var(--gray-70); text-decoration: none; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
         .nav-bar a:hover { color: var(--blue); background: #F8FAFF; }
         .nav-bar a.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 700; }
         
-        /* ========== CONTEÚDO ========== */
-        .main {
-            max-width: var(--max-w);
-            margin: 0 auto;
-            padding: 16px;
-        }
-        .breadcrumb {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 3px;
-            font-size: 10px;
-            color: var(--gray-60);
-            margin-bottom: 14px;
-        }
-        .breadcrumb a { color: var(--blue); text-decoration: none; font-weight: 500; }
-        .breadcrumb a:hover { text-decoration: underline; }
-        .breadcrumb .arr { font-size: 7px; color: var(--gray-50); margin: 0 2px; }
-        .breadcrumb .cur { color: var(--gray-70); font-weight: 500; }
-        
+        .main { max-width: var(--max-w); margin: 0 auto; padding: 16px; }
+        .breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 3px; font-size: 10px; color: var(--gray-60); margin-bottom: 14px; }
+        .breadcrumb a { color: var(--blue); text-decoration: none; font-weight: 500; } .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb .arr { font-size: 7px; color: var(--gray-50); margin: 0 2px; } .breadcrumb .cur { color: var(--gray-70); font-weight: 500; }
         .page-title { margin-bottom: 20px; }
-        .page-title h1 {
-            font-size: clamp(20px, 4vw, 28px);
-            font-weight: 900;
-            color: var(--gray-90);
-            margin-bottom: 4px;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-        }
-        .page-title p {
-            font-size: clamp(11px, 2vw, 13px);
-            color: var(--gray-60);
-            max-width: 620px;
-        }
+        .page-title h1 { font-size: clamp(20px, 4vw, 28px); font-weight: 900; color: var(--gray-90); margin-bottom: 4px; letter-spacing: -0.5px; line-height: 1.2; }
+        .page-title p { font-size: clamp(11px, 2vw, 13px); color: var(--gray-60); max-width: 620px; }
         
-        /* ========== SEÇÃO DE BUSCA COM FUNDO GOV.BR CENTRALIZADO ========== */
-        .search-hero {
-            position: relative;
-            background: #E6E6E6;
-            border: 1px solid var(--gray-30);
-            border-radius: var(--radius-lg);
-            padding: clamp(20px, 4vw, 32px);
-            margin-bottom: 22px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 180px;
-        }
-        /* Fundo com "gov.br" CENTRALIZADO e transparente */
-        .search-hero::before {
-            content: 'gov.br';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: clamp(80px, 15vw, 160px);
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: -4px;
-            line-height: 1;
-            pointer-events: none;
-            z-index: 0;
-            user-select: none;
-            white-space: nowrap;
-            text-align: center;
-        }
-        /* Mapa do Brasil sutil no fundo */
-        .search-hero::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cpath d='M160,80 C130,85 100,110 90,150 C80,190 85,230 100,270 C115,310 140,340 170,360 C200,380 230,390 260,390 C290,390 320,375 345,350 C370,325 390,290 400,250 C410,210 408,170 395,140 C382,110 355,90 320,80 C285,70 240,72 200,78 Z' fill='none' stroke='rgba(255,255,255,0.35)' stroke-width='3'/%3E%3Ccircle cx='220' cy='200' r='10' fill='rgba(255,255,255,0.3)'/%3E%3Ccircle cx='300' cy='240' r='8' fill='rgba(255,255,255,0.3)'/%3E%3Ccircle cx='260' cy='160' r='6' fill='rgba(255,255,255,0.25)'/%3E%3Ccircle cx='330' cy='190' r='5' fill='rgba(255,255,255,0.25)'/%3E%3Ccircle cx='190' cy='270' r='7' fill='rgba(255,255,255,0.25)'/%3E%3C/svg%3E");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .search-hero .search-content {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 600px;
-        }
-        .search-hero h2 {
-            font-size: clamp(14px, 3vw, 17px);
-            font-weight: 700;
-            color: var(--gray-90);
-            margin-bottom: 3px;
-        }
-        .search-hero .sub {
-            font-size: clamp(10px, 2vw, 11px);
-            color: var(--gray-70);
-            margin-bottom: 14px;
-        }
-        .search-row {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .search-row input {
-            flex: 1 1 180px;
-            min-width: 0;
-            padding: 10px 14px;
-            border: 2px solid var(--gray-40);
-            border-radius: 22px;
-            font-size: 12px;
-            font-family: 'Courier New', 'Consolas', monospace;
-            letter-spacing: 0.8px;
-            transition: all 0.2s;
-            background: var(--white);
-        }
-        .search-row input:focus {
-            outline: none;
-            border-color: var(--blue);
-            box-shadow: 0 0 0 4px rgba(19,81,180,0.05);
-        }
-        .search-row input::placeholder {
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 0;
-            color: var(--gray-50);
-            font-size: 11px;
-        }
-        .search-row .btn-solid {
-            padding: 10px 18px;
-            border-radius: 22px;
-            font-size: 11px;
-            flex-shrink: 0;
-        }
-        .search-row .btn-out {
-            padding: 10px 14px;
-            border-radius: 22px;
-            font-size: 11px;
-            flex-shrink: 0;
-        }
+        .search-hero { position: relative; background: #E6E6E6; border: 1px solid var(--gray-30); border-radius: var(--radius-lg); padding: clamp(20px, 4vw, 32px); margin-bottom: 22px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: center; min-height: 180px; }
+        .search-hero::before { content: 'gov.br'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: clamp(80px, 15vw, 160px); font-weight: 900; color: rgba(255,255,255,0.5); letter-spacing: -4px; line-height: 1; pointer-events: none; z-index: 0; user-select: none; white-space: nowrap; }
+        .search-hero .search-content { position: relative; z-index: 1; width: 100%; max-width: 600px; }
+        .search-hero h2 { font-size: clamp(14px, 3vw, 17px); font-weight: 700; color: var(--gray-90); margin-bottom: 3px; }
+        .search-hero .sub { font-size: clamp(10px, 2vw, 11px); color: var(--gray-70); margin-bottom: 14px; }
+        .search-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .search-row input { flex: 1 1 180px; min-width: 0; padding: 10px 14px; border: 2px solid var(--gray-40); border-radius: 22px; font-size: 12px; font-family: 'Courier New', monospace; letter-spacing: 0.8px; transition: all 0.2s; background: var(--white); }
+        .search-row input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px rgba(19,81,180,0.05); }
+        .search-row input::placeholder { font-family: 'Inter', sans-serif; letter-spacing: 0; color: var(--gray-50); font-size: 11px; }
+        .search-row .btn-solid { padding: 10px 18px; border-radius: 22px; font-size: 11px; flex-shrink: 0; }
+        .search-row .btn-out { padding: 10px 14px; border-radius: 22px; font-size: 11px; flex-shrink: 0; }
         
-        /* ========== SEÇÕES ========== */
         .section { margin-bottom: 24px; }
-        .section-hdr {
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--gray-20);
-        }
-        .section-hdr h2 {
-            font-size: clamp(14px, 3vw, 16px);
-            font-weight: 700;
-            color: var(--gray-90);
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
+        .section-hdr { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--gray-20); }
+        .section-hdr h2 { font-size: clamp(14px, 3vw, 16px); font-weight: 700; color: var(--gray-90); display: flex; align-items: center; gap: 7px; }
         .section-hdr h2 i { color: var(--blue); font-size: 14px; }
         
-        /* Grid de serviços */
-        .svc-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 8px;
-        }
-        .svc-card {
-            background: var(--white);
-            border: 1px solid var(--gray-30);
-            border-radius: var(--radius);
-            padding: 14px 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            position: relative;
-            overflow: hidden;
-        }
-        .svc-card:hover {
-            border-color: var(--blue);
-            box-shadow: var(--shadow-md);
-            transform: translateY(-2px);
-        }
-        .svc-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--blue);
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
+        .svc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+        .svc-card { background: var(--white); border: 1px solid var(--gray-30); border-radius: var(--radius); padding: 14px 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; }
+        .svc-card:hover { border-color: var(--blue); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .svc-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--blue); transform: scaleX(0); transition: transform 0.3s; }
         .svc-card:hover::after { transform: scaleX(1); }
-        .svc-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            flex-shrink: 0;
-        }
-        .svc-icon.blue { background: var(--blue-light); color: var(--blue); }
-        .svc-icon.green { background: var(--green-light); color: var(--green); }
-        .svc-icon.purple { background: #F3E8FF; color: #7B2CBF; }
-        .svc-icon.orange { background: #FFF3E0; color: #E67E22; }
-        .svc-icon.teal { background: #E0F2F1; color: #0B8C7A; }
-        .svc-icon.red { background: var(--red-light); color: var(--red); }
+        .svc-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+        .svc-icon.blue { background: var(--blue-light); color: var(--blue); } .svc-icon.green { background: var(--green-light); color: var(--green); } .svc-icon.purple { background: #F3E8FF; color: #7B2CBF; } .svc-icon.orange { background: #FFF3E0; color: #E67E22; } .svc-icon.teal { background: #E0F2F1; color: #0B8C7A; } .svc-icon.red { background: var(--red-light); color: var(--red); }
         .svc-card h3 { font-size: 11px; font-weight: 700; color: var(--gray-80); line-height: 1.2; }
         .svc-card p { font-size: 9px; color: var(--gray-60); line-height: 1.3; }
         
-        /* Tabela */
-        .table-box {
-            background: var(--white);
-            border: 1px solid var(--gray-30);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
-        .table-top {
-            padding: 12px 14px;
-            border-bottom: 1px solid var(--gray-20);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+        .form-box { background: var(--white); border: 1px solid var(--gray-30); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow-sm); }
+        .form-box h3 { font-size: 15px; font-weight: 700; color: var(--gray-90); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+        .form-box .form-sub { font-size: 10px; color: var(--gray-60); margin-bottom: 14px; }
+        .fg { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
+        .fg label { font-size: 9px; font-weight: 700; color: var(--gray-70); text-transform: uppercase; letter-spacing: 0.3px; }
+        .fg input, .fg select { padding: 9px 11px; border: 1.5px solid var(--gray-40); border-radius: 6px; font-size: 11px; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+        .fg input:focus, .fg select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(19,81,180,0.06); }
+        
+        .table-box { background: var(--white); border: 1px solid var(--gray-30); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+        .table-top { padding: 12px 14px; border-bottom: 1px solid var(--gray-20); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
         .table-top h2 { font-size: 14px; font-weight: 700; color: var(--gray-90); }
         .filter-chips { display: flex; gap: 4px; flex-wrap: wrap; }
-        .chip {
-            padding: 3px 10px;
-            border: 1px solid var(--gray-40);
-            border-radius: 14px;
-            font-size: 9px;
-            font-weight: 500;
-            cursor: pointer;
-            background: var(--white);
-            color: var(--gray-70);
-            transition: all 0.2s;
-            font-family: inherit;
-            white-space: nowrap;
-        }
+        .chip { padding: 3px 10px; border: 1px solid var(--gray-40); border-radius: 14px; font-size: 9px; font-weight: 500; cursor: pointer; background: var(--white); color: var(--gray-70); transition: all 0.2s; font-family: inherit; white-space: nowrap; }
         .chip:hover { border-color: var(--blue); color: var(--blue); }
         .chip.active { background: var(--blue); color: #fff; border-color: var(--blue); font-weight: 700; }
-        
         .table-wrap { width: 100%; }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 10px;
-            display: table;
-        }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; display: table; }
         table thead { background: #F8F9FA; }
-        table thead th {
-            padding: 8px 10px;
-            font-size: 8px;
-            font-weight: 700;
-            color: var(--gray-70);
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            text-align: left;
-            border-bottom: 2px solid var(--gray-30);
-            white-space: nowrap;
-        }
-        table tbody td {
-            padding: 8px 10px;
-            border-bottom: 1px solid var(--gray-20);
-            vertical-align: middle;
-        }
-        table tbody tr { cursor: pointer; transition: background 0.15s; }
-        table tbody tr:hover { background: #F8FAFF; }
-        .code-tag {
-            font-family: 'Courier New', monospace;
-            font-size: 9px;
-            background: #F5F5F5;
-            padding: 2px 7px;
-            border-radius: 3px;
-            white-space: nowrap;
-        }
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 8px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-        .badge.ok { background: var(--green-light); color: var(--green); }
-        .badge.exp { background: var(--red-light); color: var(--red); }
-        .badge.prog { background: #FFF8E1; color: #E67E22; }
-        .btn-sm {
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 9px;
-            font-weight: 600;
-            cursor: pointer;
-            border: 1px solid var(--blue);
-            background: var(--white);
-            color: var(--blue);
-            transition: all 0.2s;
-            font-family: inherit;
-            white-space: nowrap;
-            pointer-events: auto;
-        }
-        .btn-sm:hover { background: var(--blue); color: #fff; }
-        .btn-sm.primary { background: var(--blue); color: #fff; }
-        .btn-sm.primary:hover { background: var(--blue-hover); }
+        table thead th { padding: 8px 10px; font-size: 8px; font-weight: 700; color: var(--gray-70); text-transform: uppercase; letter-spacing: 0.4px; text-align: left; border-bottom: 2px solid var(--gray-30); white-space: nowrap; }
+        table tbody td { padding: 8px 10px; border-bottom: 1px solid var(--gray-20); vertical-align: middle; }
+        table tbody tr { cursor: pointer; transition: background 0.15s; } table tbody tr:hover { background: #F8FAFF; }
+        .code-tag { font-family: 'Courier New', monospace; font-size: 9px; background: #F5F5F5; padding: 2px 7px; border-radius: 3px; white-space: nowrap; }
+        .badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 10px; font-size: 8px; font-weight: 700; white-space: nowrap; }
+        .badge.ok { background: var(--green-light); color: var(--green); } .badge.exp { background: var(--red-light); color: var(--red); } .badge.prog { background: #FFF8E1; color: #E67E22; }
+        .btn-sm { padding: 4px 10px; border-radius: 12px; font-size: 9px; font-weight: 600; cursor: pointer; border: 1px solid var(--blue); background: var(--white); color: var(--blue); transition: all 0.2s; font-family: inherit; white-space: nowrap; pointer-events: auto; }
+        .btn-sm:hover { background: var(--blue); color: #fff; } .btn-sm.primary { background: var(--blue); color: #fff; } .btn-sm.primary:hover { background: var(--blue-hover); }
         
-        /* Cards de documento para mobile */
         .docs-cards { display: none; }
-        .doc-card-mobile {
-            background: var(--white);
-            border: 1px solid var(--gray-30);
-            border-radius: var(--radius);
-            padding: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 8px;
-        }
+        .doc-card-mobile { background: var(--white); border: 1px solid var(--gray-30); border-radius: var(--radius); padding: 12px; cursor: pointer; transition: all 0.2s; margin-bottom: 8px; }
         .doc-card-mobile:hover { border-color: var(--blue); box-shadow: var(--shadow-md); transform: translateY(-1px); }
-        .doc-card-mobile .doc-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
+        .doc-card-mobile .doc-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
         .doc-card-mobile .doc-card-header .doc-type { font-size: 11px; font-weight: 700; color: var(--gray-80); flex: 1; }
-        .doc-card-mobile .doc-card-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px;
-            font-size: 9px;
-        }
+        .doc-card-mobile .doc-card-info { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; font-size: 9px; }
         .doc-card-mobile .doc-card-info .info-item .info-label { color: var(--gray-60); font-size: 7px; text-transform: uppercase; font-weight: 700; }
         .doc-card-mobile .doc-card-info .info-item .info-value { color: var(--gray-80); font-weight: 600; }
         .doc-card-mobile .doc-card-action { margin-top: 8px; display: flex; justify-content: flex-end; }
         
-        /* Stats */
-        .stats-band {
-            background: var(--blue-dark);
-            color: #fff;
-            border-radius: var(--radius-lg);
-            padding: 20px 16px;
-            margin-bottom: 24px;
-        }
+        .stats-band { background: var(--blue-dark); color: #fff; border-radius: var(--radius-lg); padding: 20px 16px; margin-bottom: 24px; }
         .stats-band h2 { font-size: 14px; font-weight: 700; color: var(--yellow); margin-bottom: 12px; }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 12px;
-            text-align: center;
-        }
-        .stat-item .num {
-            font-size: clamp(22px, 5vw, 30px);
-            font-weight: 900;
-            color: var(--yellow);
-            line-height: 1;
-            font-family: 'Courier New', monospace;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; text-align: center; }
+        .stat-item .num { font-size: clamp(22px, 5vw, 30px); font-weight: 900; color: var(--yellow); line-height: 1; font-family: 'Courier New', monospace; }
         .stat-item .lbl { font-size: 9px; opacity: 0.8; margin-top: 3px; font-weight: 500; }
         
-        /* Categorias */
-        .cat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 7px;
-        }
-        .cat-card {
-            background: var(--white);
-            border: 1px solid var(--gray-30);
-            border-radius: var(--radius);
-            padding: 10px 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--gray-80);
-        }
-        .cat-card i { font-size: 13px; color: var(--blue); width: 18px; text-align: center; flex-shrink: 0; }
-        .cat-card:hover { border-color: var(--blue); box-shadow: var(--shadow-md); transform: translateY(-2px); background: #F8FAFF; }
-        
-        /* Apps */
-        .app-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 8px;
-        }
-        .app-card {
-            background: var(--white);
-            border: 1px solid var(--gray-30);
-            border-radius: var(--radius);
-            padding: 14px 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .app-card:hover { border-color: var(--blue); box-shadow: var(--shadow-md); transform: translateY(-2px); }
-        .app-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            margin: 0 auto 7px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 17px;
-        }
-        .app-card h4 { font-size: 9px; font-weight: 700; color: var(--gray-80); margin-bottom: 2px; }
-        .app-card p { font-size: 7px; color: var(--gray-60); }
-        
-        /* Canais */
-        .ch-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-            gap: 8px;
-        }
-        .ch-card {
-            background: var(--white);
-            border: 1px solid var(--gray-30);
-            border-radius: var(--radius);
-            padding: 14px 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            color: inherit;
-        }
-        .ch-card:hover { border-color: var(--blue); box-shadow: var(--shadow-md); transform: translateY(-2px); }
-        .ch-card i { font-size: 20px; color: var(--blue); display: block; margin-bottom: 7px; }
-        .ch-card h4 { font-size: 10px; font-weight: 700; }
-        
-        /* Ajuda */
-        .help-box {
-            background: var(--blue-light);
-            border: 1px solid #D1E0FF;
-            border-radius: var(--radius-lg);
-            padding: 16px 14px;
-        }
+        .help-box { background: var(--blue-light); border: 1px solid #D1E0FF; border-radius: var(--radius-lg); padding: 16px 14px; }
         .help-box h3 { font-size: 13px; font-weight: 700; color: var(--blue); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-        .help-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 8px;
-        }
+        .help-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; }
         .help-item { display: flex; gap: 7px; font-size: 9px; color: var(--gray-70); }
         .help-item i { color: var(--blue); font-size: 12px; margin-top: 1px; flex-shrink: 0; }
         .help-item strong { display: block; color: var(--gray-80); font-size: 9px; margin-bottom: 1px; }
         
-        /* ========== FOOTER ========== */
-        .footer {
-            background: var(--blue-dark);
-            color: #fff;
-            margin-top: 32px;
-        }
+        .footer { background: var(--blue-dark); color: #fff; margin-top: 32px; }
         .footer .inner { max-width: var(--max-w); margin: 0 auto; padding: 24px 16px; }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 16px;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 16px; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .footer-col h4 { font-size: 11px; font-weight: 700; margin-bottom: 8px; color: #fff; }
-        .footer-col a {
-            display: block;
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            font-size: 9px;
-            margin-bottom: 4px;
-            transition: color 0.2s;
-        }
+        .footer-col a { display: block; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 9px; margin-bottom: 4px; transition: color 0.2s; }
         .footer-col a:hover { color: var(--yellow); text-decoration: underline; }
-        .footer-bot {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            font-size: 8px;
-            color: rgba(255,255,255,0.5);
-        }
-        .footer-logo {
-            font-size: 14px;
-            font-weight: 900;
-            color: #fff;
-            display: flex;
-            align-items: baseline;
-            gap: 0;
-        }
-        .footer-logo .fg { color: var(--blue); }
-        .footer-logo .fo { color: var(--yellow); }
-        .footer-logo .fv { color: var(--green); }
-        .footer-logo .fdot { color: rgba(255,255,255,0.5); }
-        .footer-logo .fb { color: var(--blue); }
-        .footer-logo .fr { color: var(--yellow); }
+        .footer-bot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 8px; color: rgba(255,255,255,0.5); }
+        .footer-logo { font-size: 14px; font-weight: 900; color: #fff; display: flex; align-items: baseline; gap: 0; }
+        .footer-logo .fg { color: var(--blue); } .footer-logo .fo { color: var(--yellow); } .footer-logo .fv { color: var(--green); } .footer-logo .fdot { color: rgba(255,255,255,0.5); } .footer-logo .fb { color: var(--blue); } .footer-logo .fr { color: var(--yellow); }
         
-        /* ========== MODAL ========== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
-            z-index: 5000;
-            justify-content: center;
-            align-items: center;
-            padding: 12px;
-        }
-        .modal-dialog {
-            background: var(--white);
-            border-radius: var(--radius);
-            max-width: 540px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            animation: modalIn 0.25s ease;
-        }
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.95) translateY(12px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        .modal-hdr {
-            background: var(--blue);
-            color: #fff;
-            padding: 10px 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: var(--radius) var(--radius) 0 0;
-            position: sticky;
-            top: 0;
-            z-index: 5;
-        }
-        .modal-hdr h3 { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
-        .modal-hdr h3 i { color: var(--yellow); }
-        .modal-close {
-            background: rgba(255,255,255,0.15);
-            border: none;
-            color: #fff;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 5000; justify-content: center; align-items: center; padding: 12px; }
+        .modal-dialog { background: var(--white); border-radius: var(--radius); max-width: 540px; width: 100%; max-height: 85vh; overflow-y: auto; animation: modalIn 0.25s ease; }
+        @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .modal-hdr { background: var(--blue); color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; border-radius: var(--radius) var(--radius) 0 0; position: sticky; top: 0; z-index: 5; }
+        .modal-hdr h3 { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; } .modal-hdr h3 i { color: var(--yellow); }
+        .modal-close { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
         .modal-close:hover { background: rgba(255,255,255,0.3); }
         .modal-body { padding: 14px; }
-        .result-box {
-            text-align: center;
-            padding: 14px;
-            border-radius: var(--radius);
-            margin-bottom: 12px;
-        }
-        .result-box.valid { background: var(--green-light); border: 2px solid var(--green); }
-        .result-box.expired { background: var(--red-light); border: 2px solid var(--red); }
-        .result-box .ri { font-size: 36px; margin-bottom: 4px; }
-        .result-box.valid .ri { color: var(--green); }
-        .result-box.expired .ri { color: var(--red); }
+        .result-box { text-align: center; padding: 14px; border-radius: var(--radius); margin-bottom: 12px; }
+        .result-box.valid { background: var(--green-light); border: 2px solid var(--green); } .result-box.expired { background: var(--red-light); border: 2px solid var(--red); }
+        .result-box .ri { font-size: 36px; margin-bottom: 4px; } .result-box.valid .ri { color: var(--green); } .result-box.expired .ri { color: var(--red); }
         .result-box h4 { font-size: 13px; font-weight: 800; }
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-        .detail-cell {
-            background: #F8F9FA;
-            padding: 7px 10px;
-            border-radius: 5px;
-            border: 1px solid var(--gray-20);
-        }
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
+        .detail-cell { background: #F8F9FA; padding: 7px 10px; border-radius: 5px; border: 1px solid var(--gray-20); }
         .detail-cell .lbl { font-size: 7px; text-transform: uppercase; color: var(--gray-60); font-weight: 700; letter-spacing: 0.4px; margin-bottom: 2px; }
         .detail-cell .val { font-size: 10px; font-weight: 600; color: var(--gray-80); word-break: break-all; }
-        .stamp {
-            background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-            color: #fff;
-            text-align: center;
-            padding: 12px;
-            border-radius: var(--radius);
-            margin-bottom: 10px;
-        }
-        .stamp i { font-size: 18px; color: var(--yellow); display: block; margin-bottom: 3px; }
-        .stamp strong { font-size: 10px; }
+        .stamp { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); color: #fff; text-align: center; padding: 12px; border-radius: var(--radius); margin-bottom: 10px; }
+        .stamp i { font-size: 18px; color: var(--yellow); display: block; margin-bottom: 3px; } .stamp strong { font-size: 10px; }
         .modal-btns { display: flex; gap: 6px; flex-wrap: wrap; }
-        .modal-btns button {
-            flex: 1;
-            min-width: 90px;
-            padding: 9px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 10px;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-        .btn-close-m { background: var(--blue); color: #fff; border: none; }
-        .btn-close-m:hover { background: var(--blue-hover); }
-        .btn-new-m { background: #fff; color: var(--blue); border: 2px solid var(--blue); }
-        .btn-new-m:hover { background: var(--blue-light); }
+        .modal-btns button { flex: 1; min-width: 90px; padding: 9px; border-radius: 6px; font-weight: 700; font-size: 10px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+        .btn-close-m { background: var(--blue); color: #fff; border: none; } .btn-close-m:hover { background: var(--blue-hover); }
+        .btn-new-m { background: #fff; color: var(--blue); border: 2px solid var(--blue); } .btn-new-m:hover { background: var(--blue-light); }
         
-        /* Tracking */
         .track-bar-wrap { margin-bottom: 12px; }
         .track-bar { background: var(--gray-20); border-radius: 6px; height: 6px; margin-bottom: 3px; overflow: hidden; }
         .track-fill { background: var(--blue); height: 100%; border-radius: 6px; transition: width 0.8s ease; }
         .track-pct { font-size: 9px; color: var(--gray-60); text-align: center; }
-        .track-step {
-            display: flex;
-            gap: 8px;
-            padding: 6px 0;
-            border-left: 2px solid var(--gray-30);
-            margin-left: 5px;
-            padding-left: 14px;
-            position: relative;
-        }
+        .track-step { display: flex; gap: 8px; padding: 6px 0; border-left: 2px solid var(--gray-30); margin-left: 5px; padding-left: 14px; position: relative; }
         .track-step.done { border-left-color: var(--green); }
-        .track-step::before {
-            content: '';
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: var(--gray-30);
-            position: absolute;
-            left: -5.5px;
-            top: 10px;
-        }
+        .track-step::before { content: ''; width: 9px; height: 9px; border-radius: 50%; background: var(--gray-30); position: absolute; left: -5.5px; top: 10px; }
         .track-step.done::before { background: var(--green); }
         .track-step .step-info strong { font-size: 10px; display: block; }
         .track-step .step-info .step-date { font-size: 8px; color: var(--gray-60); }
         
-        /* ========== RESPONSIVO ========== */
         @media (max-width: 768px) {
-            table { display: none; }
-            .docs-cards { display: block; }
+            table { display: none; } .docs-cards { display: block; }
             .svc-grid { grid-template-columns: 1fr 1fr; }
-            .cat-grid { grid-template-columns: 1fr 1fr; }
-            .app-grid { grid-template-columns: 1fr 1fr; }
-            .ch-grid { grid-template-columns: 1fr 1fr; }
             .detail-grid { grid-template-columns: 1fr; }
-            .search-row { flex-direction: column; }
-            .search-row input { flex: auto; }
+            .search-row { flex-direction: column; } .search-row input { flex: auto; }
             .header .inner { padding: 6px 12px; min-height: 46px; }
-            .logo-text { font-size: 16px; }
-            .logo-flag { width: 30px; height: 22px; }
+            .logo-text { font-size: 16px; } .logo-flag { width: 30px; height: 22px; }
             .btn-out, .btn-solid { font-size: 9px; padding: 5px 10px; }
             .nav-bar a { font-size: 9px; padding: 7px 8px; }
             .search-hero::before { font-size: 60px; }
-            .search-hero::after { width: 120px; height: 120px; }
         }
-        
         @media (max-width: 480px) {
             .svc-grid { grid-template-columns: 1fr; }
-            .cat-grid { grid-template-columns: 1fr; }
-            .app-grid { grid-template-columns: 1fr 1fr; }
-            .ch-grid { grid-template-columns: 1fr 1fr; }
             .footer-grid { grid-template-columns: 1fr; }
             .search-hero::before { font-size: 45px; letter-spacing: -2px; }
-            .search-hero::after { width: 100px; height: 100px; }
             .search-hero { min-height: 140px; padding: 16px; }
         }
     </style>
 </head>
 <body>
 
-<a href="#conteudo" class="skip-link">Ir para o conteúdo <span style="font-size:9px;">1</span></a>
+<a href="#conteudo" class="skip-link">Ir para o conteúdo</a>
 
-<!-- ========== BARRA SUPERIOR ========== -->
-<div class="topbar">
-    <div class="inner">
-        <div class="links">
-            <a href="#">Início</a><span class="sep">|</span>
-            <a href="#">Serviços</a><span class="sep">|</span>
-            <a href="#">Órgãos do Governo</a><span class="sep">|</span>
-            <a href="#">Acesso à Informação</a><span class="sep">|</span>
-            <a href="#">Legislação</a><span class="sep">|</span>
-            <a href="#">Acessibilidade</a>
-        </div>
-        <div class="a11y-btns">
-            <button onclick="ajustarFonte(-1)" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">A−</button>
-            <button onclick="ajustarFonte(1)" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">A+</button>
-            <button onclick="toggleContraste()" title="Alto contraste" aria-label="Ativar alto contraste">◐</button>
-        </div>
-    </div>
-</div>
+<div class="topbar"><div class="inner"><div class="links"><a href="#">Início</a><span class="sep">|</span><a href="#">Serviços</a><span class="sep">|</span><a href="#">Órgãos do Governo</a><span class="sep">|</span><a href="#">Acesso à Informação</a><span class="sep">|</span><a href="#">Legislação</a><span class="sep">|</span><a href="#">Acessibilidade</a></div><div class="a11y-btns"><button onclick="ajustarFonte(-1)">A−</button><button onclick="ajustarFonte(1)">A+</button><button onclick="toggleContraste()">◐</button></div></div></div>
 
-<!-- ========== HEADER ========== -->
-<header class="header">
-    <div class="inner">
-        <a href="#" class="logo-link" aria-label="GOV.BR - Página inicial">
-            <!-- BANDEIRA DO BRASIL CORRETA -->
-            <div class="logo-flag">
-                <svg viewBox="0 0 720 504" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="720" height="504" fill="#009c3b"/>
-                    <polygon points="360,30 690,252 360,474 30,252" fill="#ffdf00"/>
-                    <circle cx="360" cy="252" r="120" fill="#002776"/>
-                    <path d="M260,200 C260,160 460,160 460,200 C460,320 360,380 360,380 C360,380 260,320 260,200 Z" fill="#ffffff" opacity="0.9"/>
-                    <circle cx="310" cy="230" r="8" fill="#002776"/>
-                    <circle cx="410" cy="230" r="8" fill="#002776"/>
-                    <circle cx="360" cy="280" r="8" fill="#002776"/>
-                    <circle cx="340" cy="180" r="5" fill="#002776"/>
-                    <circle cx="380" cy="180" r="5" fill="#002776"/>
-                    <circle cx="360" cy="200" r="5" fill="#002776"/>
-                    <circle cx="325" cy="310" r="4" fill="#002776"/>
-                    <circle cx="395" cy="310" r="4" fill="#002776"/>
-                    <circle cx="360" cy="330" r="4" fill="#002776"/>
-                    <path d="M300,240 Q360,200 420,240" fill="none" stroke="#002776" stroke-width="3"/>
-                    <path d="M310,260 Q360,230 410,260" fill="none" stroke="#002776" stroke-width="2"/>
-                </svg>
-            </div>
-            <div>
-                <div class="logo-text">
-                    <span class="g">G</span><span class="o">O</span><span class="v">V</span><span class="dot">.</span><span class="b">B</span><span class="r">R</span>
-                </div>
-                <div class="logo-sub">Serviços e Informações do Brasil</div>
-            </div>
-        </a>
-        <div class="header-actions">
-            <a href="#consultar" class="btn-out"><i class="fas fa-search"></i> Consultar</a>
-            <button class="btn-solid gold" onclick="irParaConsulta()"><i class="fas fa-shield-alt"></i> Validar Agora</button>
-        </div>
-    </div>
-</header>
+<header class="header"><div class="inner">
+    <a href="#" class="logo-link"><div class="logo-flag"><svg viewBox="0 0 720 504"><rect width="720" height="504" fill="#009c3b"/><polygon points="360,30 690,252 360,474 30,252" fill="#ffdf00"/><circle cx="360" cy="252" r="120" fill="#002776"/><path d="M260,200 C260,160 460,160 460,200 C460,320 360,380 360,380 C360,380 260,320 260,200 Z" fill="#fff" opacity="0.9"/><circle cx="310" cy="230" r="8" fill="#002776"/><circle cx="410" cy="230" r="8" fill="#002776"/><circle cx="360" cy="280" r="8" fill="#002776"/><path d="M300,240 Q360,200 420,240" fill="none" stroke="#002776" stroke-width="3"/></svg></div><div><div class="logo-text"><span class="g">G</span><span class="o">O</span><span class="v">V</span><span class="dot">.</span><span class="b">B</span><span class="r">R</span></div><div class="logo-sub">Serviços e Informações do Brasil</div></div></a>
+    <div class="header-actions"><a href="#consultar" class="btn-out"><i class="fas fa-search"></i> Consultar</a><button class="btn-solid gold" onclick="irParaConsulta()"><i class="fas fa-shield-alt"></i> Validar Agora</button></div>
+</div></header>
 
-<!-- ========== NAV ========== -->
-<nav class="nav-bar" id="navBar">
-    <div class="inner">
-        <a href="#servicos" class="active" data-target="servicos">Serviços</a>
-        <a href="#documentos" data-target="documentos">Base de Documentos</a>
-        <a href="#categorias" data-target="categorias">Categorias</a>
-        <a href="#apps" data-target="apps">Aplicativos</a>
-        <a href="#atendimento" data-target="atendimento">Atendimento</a>
-        <a href="#ajuda" data-target="ajuda">Ajuda</a>
-    </div>
-</nav>
+<nav class="nav-bar"><div class="inner">
+    <a href="#servicos" class="active" data-target="servicos">Serviços</a>
+    <a href="#solicitar" data-target="solicitar">Solicitar Documentos</a>
+    <a href="#documentos" data-target="documentos">Base de Documentos</a>
+    <a href="#ajuda" data-target="ajuda">Ajuda</a>
+</div></nav>
 
-<!-- ========== CONTEÚDO ========== -->
 <main class="main" id="conteudo">
     
-    <nav class="breadcrumb">
-        <a href="#">Início</a><span class="arr">›</span>
-        <a href="#">Serviços</a><span class="arr">›</span>
-        <span class="cur">Validação de Documentos</span>
-    </nav>
+    <nav class="breadcrumb"><a href="#">Início</a><span class="arr">›</span><a href="#">Serviços</a><span class="arr">›</span><span class="cur">Validação de Documentos</span></nav>
     
-    <div class="page-title">
-        <h1>Validação Oficial de Documentos</h1>
-        <p>Sistema integrado ao GOV.BR para consulta e verificação de autenticidade de documentos emitidos por órgãos públicos em todo o Brasil.</p>
-    </div>
+    <div class="page-title"><h1>Validação Oficial de Documentos</h1><p>Sistema integrado ao GOV.BR para consulta, verificação de autenticidade e solicitação de documentos oficiais com rastreamento em tempo real.</p></div>
     
-    <!-- BUSCA COM FUNDO GOV.BR CENTRALIZADO -->
+    <!-- BUSCA -->
     <div class="search-hero" id="consultar">
         <div class="search-content">
             <h2><i class="fas fa-magnifying-glass"></i> Consultar Documento</h2>
-            <p class="sub">Digite o código de autenticação, protocolo ou número do documento para verificar sua validade.</p>
+            <p class="sub">Digite o código de autenticação ou protocolo para verificar a validade.</p>
             <div class="search-row">
-                <input type="text" id="codigoInput" placeholder="Ex: DOC-EDU001 ou informe o protocolo" aria-label="Código do documento">
+                <input type="text" id="codigoInput" placeholder="Ex: RG-ABC12 ou CERT-NASC-XY3Z" aria-label="Código do documento">
                 <button class="btn-solid" onclick="consultarDocumento()"><i class="fas fa-shield-check"></i> Validar</button>
                 <button class="btn-out" onclick="mostrarInfo()"><i class="fas fa-question-circle"></i> Como funciona?</button>
             </div>
+        </div>
+    </div>
+    
+    <!-- SOLICITAR DOCUMENTOS -->
+    <div class="section" id="solicitar">
+        <div class="section-hdr"><h2><i class="fas fa-file-signature"></i> Solicitar Documentos</h2></div>
+        <p style="font-size:11px;color:var(--gray-60);margin-bottom:14px;">Escolha o documento desejado e acompanhe todo o processo de emissão.</p>
+        
+        <div class="svc-grid" id="docsSolicitarGrid" style="margin-bottom:16px;"></div>
+        
+        <div class="form-box" id="formContainer" style="display:none;">
+            <h3 id="formTitulo"><i class="fas fa-file"></i> <span id="formTituloNome">Solicitar Documento</span></h3>
+            <p class="form-sub" id="formPrazo"></p>
+            <form id="formSolic" onsubmit="enviarSolicitacao(event)">
+                <input type="hidden" id="solicTipo">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="camposComuns"></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;" id="camposEspecificos"></div>
+                <button type="submit" class="btn-solid gold" style="width:100%;padding:12px;border-radius:8px;justify-content:center;font-size:12px;margin-top:12px;"><i class="fas fa-paper-plane"></i> Enviar Solicitação</button>
+            </form>
         </div>
     </div>
     
@@ -1048,63 +299,21 @@
     <div class="section" id="servicos">
         <div class="section-hdr"><h2><i class="fas fa-star"></i> Serviços Disponíveis</h2></div>
         <div class="svc-grid">
-            <div class="svc-card" onclick="filtrarEConsultar('Educação')">
-                <div class="svc-icon blue"><i class="fas fa-graduation-cap"></i></div>
-                <h3>Certificados e Diplomas</h3>
-                <p>Ensino Fundamental, Médio e Superior</p>
-            </div>
-            <div class="svc-card" onclick="filtrarEConsultar('Saúde')">
-                <div class="svc-icon green"><i class="fas fa-heartbeat"></i></div>
-                <h3>Atestados Médicos</h3>
-                <p>Consultas, exames e laudos</p>
-            </div>
-            <div class="svc-card" onclick="filtrarEConsultar('Documentos Pessoais')">
-                <div class="svc-icon orange"><i class="fas fa-id-card"></i></div>
-                <h3>Documentos Pessoais</h3>
-                <p>RG, CNH e Certidões</p>
-            </div>
-            <div class="svc-card" onclick="filtrarEConsultar('Legal')">
-                <div class="svc-icon purple"><i class="fas fa-scale-balanced"></i></div>
-                <h3>Documentos Jurídicos</h3>
-                <p>Alvarás e Procurações</p>
-            </div>
-            <div class="svc-card" onclick="irParaConsulta()">
-                <div class="svc-icon teal"><i class="fas fa-clipboard-list"></i></div>
-                <h3>Protocolos</h3>
-                <p>Acompanhe seus pedidos</p>
-            </div>
-            <div class="svc-card" onclick="irParaConsulta()">
-                <div class="svc-icon red"><i class="fas fa-building-columns"></i></div>
-                <h3>INSS e Previdência</h3>
-                <p>Laudos e benefícios</p>
-            </div>
+            <div class="svc-card" onclick="filtrarEConsultar('Educação')"><div class="svc-icon blue"><i class="fas fa-graduation-cap"></i></div><h3>Certificados e Diplomas</h3><p>Ensino Fundamental, Médio e Superior</p></div>
+            <div class="svc-card" onclick="filtrarEConsultar('Saúde')"><div class="svc-icon green"><i class="fas fa-heartbeat"></i></div><h3>Atestados Médicos</h3><p>Consultas, exames e laudos</p></div>
+            <div class="svc-card" onclick="irParaSolicitar()"><div class="svc-icon orange"><i class="fas fa-id-card"></i></div><h3>Solicitar Documentos</h3><p>RG, CNH, Certidões e mais</p></div>
+            <div class="svc-card" onclick="filtrarEConsultar('Documentos Pessoais')"><div class="svc-icon teal"><i class="fas fa-folder-open"></i></div><h3>Documentos Pessoais</h3><p>RG, CNH e Certidões</p></div>
+            <div class="svc-card" onclick="filtrarEConsultar('Legal')"><div class="svc-icon purple"><i class="fas fa-scale-balanced"></i></div><h3>Documentos Jurídicos</h3><p>Alvarás e Procurações</p></div>
+            <div class="svc-card" onclick="irParaConsulta()"><div class="svc-icon red"><i class="fas fa-clipboard-list"></i></div><h3>Protocolos</h3><p>Acompanhe seus pedidos</p></div>
         </div>
     </div>
     
     <!-- DOCUMENTOS -->
     <div class="section" id="documentos">
-        <div class="table-box">
-            <div class="table-top">
-                <h2><i class="fas fa-database"></i> Base Nacional de Documentos</h2>
-                <div class="filter-chips" id="filtrosChips"></div>
-            </div>
+        <div class="table-box"><div class="table-top"><h2><i class="fas fa-database"></i> Base Nacional de Documentos</h2><div class="filter-chips" id="filtrosChips"></div></div>
             <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Tipo de Documento</th>
-                            <th>Categoria</th>
-                            <th>Titular</th>
-                            <th>Órgão Emissor</th>
-                            <th>Validade</th>
-                            <th>Situação</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="docsTableBody">
-                        <tr><td colspan="8" style="text-align:center;padding:24px;color:#999;"><i class="fas fa-spinner fa-pulse"></i> Carregando...</td></tr>
-                    </tbody>
+                <table><thead><tr><th>Código</th><th>Tipo</th><th>Categoria</th><th>Titular</th><th>Emissor</th><th>Validade</th><th>Situação</th><th></th></tr></thead>
+                    <tbody id="docsTableBody"><tr><td colspan="8" style="text-align:center;padding:24px;"><i class="fas fa-spinner fa-pulse"></i> Carregando...</td></tr></tbody>
                 </table>
                 <div class="docs-cards" id="docsCards"></div>
             </div>
@@ -1112,297 +321,366 @@
     </div>
     
     <!-- STATS -->
-    <div class="stats-band">
-        <h2>Desempenho dos Serviços</h2>
-        <div class="stats-grid">
-            <div class="stat-item"><div class="num">5.641</div><div class="lbl">Serviços no Portal</div></div>
-            <div class="stat-item"><div class="num">92%</div><div class="lbl">Serviços Digitais</div></div>
-            <div class="stat-item"><div class="num">49%</div><div class="lbl">Avaliações Positivas</div></div>
-            <div class="stat-item"><div class="num">50k+</div><div class="lbl">Documentos Validados</div></div>
-        </div>
-    </div>
-    
-    <!-- CATEGORIAS -->
-    <div class="section" id="categorias">
-        <div class="section-hdr"><h2><i class="fas fa-th-large"></i> Navegue por Categoria</h2></div>
-        <div class="cat-grid">
-            <div class="cat-card" onclick="filtrarEConsultar('Educação')"><i class="fas fa-graduation-cap"></i> Educação e Pesquisa</div>
-            <div class="cat-card" onclick="filtrarEConsultar('Saúde')"><i class="fas fa-heartbeat"></i> Saúde e Vigilância</div>
-            <div class="cat-card" onclick="filtrarEConsultar('Documentos Pessoais')"><i class="fas fa-id-card"></i> Documentos Pessoais</div>
-            <div class="cat-card" onclick="filtrarEConsultar('Legal')"><i class="fas fa-balance-scale"></i> Justiça e Segurança</div>
-            <div class="cat-card"><i class="fas fa-university"></i> Finanças e Gestão</div>
-            <div class="cat-card"><i class="fas fa-briefcase"></i> Trabalho e Previdência</div>
-            <div class="cat-card"><i class="fas fa-tractor"></i> Agricultura</div>
-            <div class="cat-card"><i class="fas fa-road"></i> Trânsito e Transportes</div>
-            <div class="cat-card"><i class="fas fa-store"></i> Empresa e Comércio</div>
-            <div class="cat-card"><i class="fas fa-cloud-sun-rain"></i> Meio Ambiente</div>
-            <div class="cat-card"><i class="fas fa-microscope"></i> Ciência e Tecnologia</div>
-            <div class="cat-card"><i class="fas fa-hand-holding-heart"></i> Assistência Social</div>
-        </div>
-    </div>
-    
-    <!-- APPS -->
-    <div class="section" id="apps">
-        <div class="section-hdr"><h2><i class="fas fa-mobile-alt"></i> Aplicativos do Governo</h2></div>
-        <div class="app-grid">
-            <div class="app-card"><div class="app-icon" style="background:#E8F0FE;color:#1351B4;"><i class="fas fa-mobile-alt"></i></div><h4>GOV.BR</h4><p>Documentos digitais</p></div>
-            <div class="app-card"><div class="app-icon" style="background:#E8F5E9;color:#0F7B3A;"><i class="fas fa-heart"></i></div><h4>Meu SUS Digital</h4><p>Acesso ao SUS</p></div>
-            <div class="app-card"><div class="app-icon" style="background:#FFF3E0;color:#E67E22;"><i class="fas fa-car"></i></div><h4>Carteira Digital</h4><p>CNH e CRLV</p></div>
-            <div class="app-card"><div class="app-icon" style="background:#F3E8FF;color:#7B2CBF;"><i class="fas fa-shield-alt"></i></div><h4>Celular Seguro</h4><p>Contra roubo</p></div>
-        </div>
-    </div>
-    
-    <!-- ATENDIMENTO -->
-    <div class="section" id="atendimento">
-        <div class="section-hdr"><h2><i class="fas fa-headset"></i> Ouvidoria e Acesso à Informação</h2></div>
-        <div class="ch-grid">
-            <a href="https://falabr.cgu.gov.br" target="_blank" rel="noopener" class="ch-card"><i class="fas fa-bullhorn"></i><h4>Denúncia</h4></a>
-            <a href="https://falabr.cgu.gov.br" target="_blank" rel="noopener" class="ch-card"><i class="fas fa-comments"></i><h4>Solicitação</h4></a>
-            <a href="https://falabr.cgu.gov.br" target="_blank" rel="noopener" class="ch-card"><i class="fas fa-thumbs-up"></i><h4>Elogio</h4></a>
-            <a href="https://falabr.cgu.gov.br" target="_blank" rel="noopener" class="ch-card"><i class="fas fa-thumbs-down"></i><h4>Reclamação</h4></a>
-        </div>
-    </div>
+    <div class="stats-band"><h2>Desempenho dos Serviços</h2><div class="stats-grid"><div class="stat-item"><div class="num" id="statServicos">0</div><div class="lbl">Serviços no Portal</div></div><div class="stat-item"><div class="num">92%</div><div class="lbl">Serviços Digitais</div></div><div class="stat-item"><div class="num">24/7</div><div class="lbl">Disponível</div></div><div class="stat-item"><div class="num" id="statDocs">0</div><div class="lbl">Documentos</div></div></div></div>
     
     <!-- AJUDA -->
-    <div class="section" id="ajuda">
-        <div class="help-box">
-            <h3><i class="fas fa-info-circle"></i> Dúvidas Frequentes</h3>
-            <div class="help-grid">
-                <div class="help-item"><i class="fas fa-search"></i><div><strong>Como validar?</strong> Digite o código ou clique em qualquer documento da lista.</div></div>
-                <div class="help-item"><i class="fas fa-clock"></i><div><strong>Acompanhar pedido?</strong> Clique no documento com status "Em andamento".</div></div>
-                <div class="help-item"><i class="fas fa-qrcode"></i><div><strong>QR Code?</strong> Aponte a câmera para o código impresso no documento.</div></div>
-                <div class="help-item"><i class="fas fa-phone"></i><div><strong>Ajuda?</strong> Ligue <strong>0800-978-2334</strong> ou acesse <strong>falabr.cgu.gov.br</strong></div></div>
-            </div>
-        </div>
-    </div>
+    <div class="section" id="ajuda"><div class="help-box"><h3><i class="fas fa-info-circle"></i> Dúvidas Frequentes</h3><div class="help-grid">
+        <div class="help-item"><i class="fas fa-search"></i><div><strong>Como validar?</strong> Digite o código ou clique em qualquer documento.</div></div>
+        <div class="help-item"><i class="fas fa-file-signature"></i><div><strong>Solicitar documentos?</strong> Escolha o tipo e preencha o formulário.</div></div>
+        <div class="help-item"><i class="fas fa-clock"></i><div><strong>Acompanhar?</strong> Use o protocolo para ver o andamento.</div></div>
+        <div class="help-item"><i class="fas fa-phone"></i><div><strong>Ajuda?</strong> Ligue <strong>0800-978-2334</strong></div></div>
+    </div></div></div>
     
 </main>
 
-<!-- ========== FOOTER ========== -->
-<footer class="footer">
-    <div class="inner">
-        <div class="footer-grid">
-            <div class="footer-col"><h4>Serviços</h4><a href="#consultar">Validar Documento</a><a href="#documentos">Base de Dados</a><a href="#">Emitir Certidão</a></div>
-            <div class="footer-col"><h4>Institucional</h4><a href="#">Órgãos do Governo</a><a href="#">Acesso à Informação</a><a href="#">Transparência</a><a href="#">LGPD</a></div>
-            <div class="footer-col"><h4>Atendimento</h4><a href="https://falabr.cgu.gov.br" target="_blank" rel="noopener">Fala.BR</a><a href="#">Central 0800</a><a href="#">FAQ</a></div>
-            <div class="footer-col"><h4>Redes Sociais</h4><a href="#"><i class="fab fa-instagram"></i> Instagram</a><a href="#"><i class="fab fa-facebook"></i> Facebook</a><a href="#"><i class="fab fa-youtube"></i> YouTube</a></div>
-        </div>
-        <div class="footer-bot">
-            <div>
-                <span class="footer-logo"><span class="fg">G</span><span class="fo">O</span><span class="fv">V</span><span class="fdot">.</span><span class="fb">B</span><span class="fr">R</span></span>
-                <span style="margin-left:6px;">© 2025 Governo Federal</span>
-            </div>
-            <span>Conteúdo sob licença Creative Commons CC BY-ND 3.0</span>
-        </div>
-    </div>
-</footer>
+<footer class="footer"><div class="inner"><div class="footer-grid">
+    <div class="footer-col"><h4>Serviços</h4><a href="#consultar">Validar Documento</a><a href="#solicitar">Solicitar Documentos</a><a href="#documentos">Base de Dados</a></div>
+    <div class="footer-col"><h4>Institucional</h4><a href="#">Órgãos do Governo</a><a href="#">Acesso à Informação</a><a href="#">Transparência</a></div>
+    <div class="footer-col"><h4>Atendimento</h4><a href="https://falabr.cgu.gov.br" target="_blank">Fala.BR</a><a href="#">Central 0800</a><a href="#">FAQ</a></div>
+    <div class="footer-col"><h4>Redes Sociais</h4><a href="#"><i class="fab fa-instagram"></i> Instagram</a><a href="#"><i class="fab fa-facebook"></i> Facebook</a></div>
+</div><div class="footer-bot"><div><span class="footer-logo"><span class="fg">G</span><span class="fo">O</span><span class="fv">V</span><span class="fdot">.</span><span class="fb">B</span><span class="fr">R</span></span><span style="margin-left:6px;">© 2025 Governo Federal</span></div><span>Licença Creative Commons CC BY-ND 3.0</span></div></div></footer>
 
-<!-- ========== MODAL ========== -->
-<div id="modalValidacao" class="modal-overlay">
-    <div class="modal-dialog">
-        <div class="modal-hdr">
-            <h3><i class="fas fa-shield-haltered"></i> <span id="modalTitle">Validação</span></h3>
-            <button class="modal-close" onclick="fecharModal()" aria-label="Fechar">✕</button>
-        </div>
-        <div class="modal-body" id="modalContent"></div>
-    </div>
-</div>
+<div id="modalValidacao" class="modal-overlay"><div class="modal-dialog"><div class="modal-hdr"><h3><i class="fas fa-shield-haltered"></i> <span id="modalTitle">Validação</span></h3><button class="modal-close" onclick="fecharModal()">✕</button></div><div class="modal-body" id="modalContent"></div></div></div>
 
 <script>
+    const API_BASE = 'https://orange-hill-2e61.gbscabral15.workers.dev/br2.bronxyshost.com:4009';
     let docs = [], catAtiva = 'todas';
     
-    function loadDocs() {
-        docs = [
-            { id:1, codigo:"DOC-EDU001", tipo:"Certificado de Ensino Médio", categoria:"Educação", titular:"Ana Carolina Santos", emissor:"Secretaria de Educação - SP", data_emissao:"2024-01-15", data_validade:"2029-01-15", status:"valid", rast:false },
-            { id:2, codigo:"DOC-RG001", tipo:"Carteira de Identidade (RG)", categoria:"Documentos Pessoais", titular:"Carlos Oliveira da Silva", emissor:"SSP-SP", data_emissao:"2024-02-20", data_validade:"2034-02-20", status:"progress", rast:true, etapas:[
-                {nome:"Solicitação Recebida", ok:true, data:"20/02/2024"},
-                {nome:"Coleta de Biometria", ok:true, data:"22/02/2024"},
-                {nome:"Em Desenvolvimento", ok:true, data:"25/02/2024"},
-                {nome:"Emissão do Documento", ok:false, data:null},
-                {nome:"Disponível para Retirada", ok:false, data:null}
-            ], prev:"05/03/2024" },
-            { id:3, codigo:"DOC-CNH002", tipo:"Carteira Nacional de Habilitação", categoria:"Documentos Pessoais", titular:"José Roberto Alves", emissor:"DETRAN-SP", data_emissao:"2024-02-10", data_validade:"2029-02-10", status:"valid", rast:false },
-            { id:4, codigo:"DOC-ATMED001", tipo:"Atestado Médico", categoria:"Saúde", titular:"Maria das Graças Ferreira", emissor:"Hospital Municipal", data_emissao:"2024-02-28", data_validade:"2024-03-28", status:"valid", rast:false },
-            { id:5, codigo:"DOC-ALV001", tipo:"Alvará de Funcionamento", categoria:"Legal", titular:"Restaurante Sabor Nordestino", emissor:"Corpo de Bombeiros", data_emissao:"2024-01-15", data_validade:"2025-01-15", status:"valid", rast:false },
-            { id:6, codigo:"DOC-CERTNAS001", tipo:"Certidão de Nascimento", categoria:"Documentos Pessoais", titular:"Lucas Gabriel Souza", emissor:"Cartório de Registro Civil", data_emissao:"2024-01-20", data_validade:"2099-12-31", status:"valid", rast:true, etapas:[
-                {nome:"Solicitação Recebida", ok:true, data:"20/01/2024"},
-                {nome:"Busca no Acervo", ok:true, data:"22/01/2024"},
-                {nome:"Documento Emitido", ok:true, data:"25/01/2024"},
-                {nome:"Enviado ao Solicitante", ok:true, data:"28/01/2024"}
-            ], prev:"Entregue" },
-            { id:7, codigo:"DOC-LAUDO001", tipo:"Laudo Pericial INSS", categoria:"Saúde", titular:"Antônio Marcos Pereira", emissor:"INSS - São Paulo", data_emissao:"2024-01-10", data_validade:"2024-07-10", status:"expired", rast:false },
-            { id:8, codigo:"DOC-PROC001", tipo:"Procuração Pública", categoria:"Legal", titular:"Empresa ABC Ltda", emissor:"Cartório de Notas", data_emissao:"2024-02-01", data_validade:"2025-02-01", status:"valid", rast:false }
-        ];
-        loadFilters(); renderAll();
+    // ==================== TIPOS DE DOCUMENTOS PARA SOLICITAÇÃO (ORDEM ALFABÉTICA) ====================
+    const TIPOS_SOLICITACAO = [
+        { id: 'certidao_casamento', nome: '💍 Certidão de Casamento', icone: 'fa-ring', cor: 'purple', prazo: '7 dias', emissor: 'Cartório de Registro Civil' },
+        { id: 'certidao_nascimento', nome: '👶 Certidão de Nascimento', icone: 'fa-baby', cor: 'blue', prazo: '7 dias', emissor: 'Cartório de Registro Civil' },
+        { id: 'certidao_obito', nome: '🕊️ Certidão de Óbito', icone: 'fa-dove', cor: 'red', prazo: '5 dias', emissor: 'Cartório de Registro Civil' },
+        { id: 'cnh', nome: '🚗 CNH (Carteira de Habilitação)', icone: 'fa-car', cor: 'orange', prazo: '45 dias', emissor: 'DETRAN' },
+        { id: 'rg', nome: '🪪 RG (Carteira de Identidade)', icone: 'fa-id-card', cor: 'blue', prazo: '30 dias', emissor: 'SSP' },
+        { id: 'titulo_eleitor', nome: '🗳️ Título de Eleitor', icone: 'fa-check-to-slot', cor: 'teal', prazo: '10 dias', emissor: 'TRE' },
+        { id: 'uniao_estavel', nome: '💑 Declaração de União Estável', icone: 'fa-heart', cor: 'purple', prazo: '15 dias', emissor: 'Cartório de Notas' }
+    ];
+    
+    function renderizarDocsSolicitar() {
+        document.getElementById('docsSolicitarGrid').innerHTML = TIPOS_SOLICITACAO.map(t => `
+            <div class="svc-card" onclick="selecionarTipoDoc('${t.id}')" id="card-solic-${t.id}" style="border:2px solid transparent;">
+                <div class="svc-icon ${t.cor}"><i class="fas ${t.icone}"></i></div>
+                <h3>${t.nome}</h3>
+                <p>⏱️ Prazo: ${t.prazo} | ${t.emissor}</p>
+            </div>
+        `).join('');
     }
     
-    function loadFilters() {
-        const cats = ['todas', ...new Set(docs.map(d => d.categoria))];
-        document.getElementById('filtrosChips').innerHTML = cats.map(c =>
-            `<button class="chip ${c==='todas'?'active':''}" onclick="filtrarTabela('${c}', this)">${c==='todas'?'📋 Todas':c}</button>`
-        ).join('');
+    function selecionarTipoDoc(tipo) {
+        const info = TIPOS_SOLICITACAO.find(t => t.id === tipo);
+        document.querySelectorAll('#docsSolicitarGrid .svc-card').forEach(c => c.style.borderColor = 'transparent');
+        document.getElementById(`card-solic-${tipo}`).style.borderColor = 'var(--blue)';
+        
+        document.getElementById('formContainer').style.display = 'block';
+        document.getElementById('formTituloNome').textContent = info.nome;
+        document.getElementById('formPrazo').textContent = `⏱️ Prazo estimado: ${info.prazo} | Órgão emissor: ${info.emissor}`;
+        document.getElementById('solicTipo').value = tipo;
+        
+        // Campos comuns
+        document.getElementById('camposComuns').innerHTML = `
+            <div class="fg"><label>Nome Completo *</label><input type="text" id="sNome" required></div>
+            <div class="fg"><label>CPF *</label><input type="text" id="sCPF" required></div>
+            <div class="fg"><label>Data de Nascimento *</label><input type="date" id="sNasc" required></div>
+            <div class="fg"><label>Email</label><input type="email" id="sEmail"></div>
+        `;
+        
+        // Campos específicos
+        let especificos = '';
+        if (tipo === 'rg') {
+            especificos = `
+                <div class="fg"><label>Nome da Mãe *</label><input type="text" id="sMae" required></div>
+                <div class="fg"><label>Nome do Pai</label><input type="text" id="sPai"></div>
+                <div class="fg"><label>Estado (UF) *</label><select id="sUF" required><option value="">Selecione...</option><option>SP</option><option>RJ</option><option>MG</option><option>BA</option><option>CE</option><option>PE</option><option>RS</option><option>PR</option><option>DF</option></select></div>
+                <div class="fg"><label>Endereço Completo *</label><input type="text" id="sEndereco" required></div>
+            `;
+        } else if (tipo === 'cnh') {
+            especificos = `
+                <div class="fg"><label>Categoria *</label><select id="sCatCNH" required><option value="A">A - Moto</option><option value="B" selected>B - Carro</option><option value="AB">AB - Moto e Carro</option></select></div>
+                <div class="fg"><label>Estado (UF) *</label><select id="sUF" required><option value="">Selecione...</option><option>SP</option><option>RJ</option><option>MG</option><option>BA</option><option>CE</option></select></div>
+                <div class="fg"><label>Endereço *</label><input type="text" id="sEndereco" required></div>
+                <div class="fg"><label>Telefone</label><input type="text" id="sTel"></div>
+            `;
+        } else if (tipo === 'certidao_nascimento') {
+            especificos = `
+                <div class="fg"><label>Nome da Mãe *</label><input type="text" id="sMae" required></div>
+                <div class="fg"><label>Nome do Pai</label><input type="text" id="sPai"></div>
+                <div class="fg"><label>Cidade de Nascimento *</label><input type="text" id="sCidade" required></div>
+                <div class="fg"><label>UF de Nascimento *</label><select id="sUF" required><option value="">Selecione...</option><option>SP</option><option>RJ</option><option>MG</option><option>BA</option><option>CE</option></select></div>
+            `;
+        } else if (tipo === 'certidao_casamento') {
+            especificos = `
+                <div class="fg"><label>Nome do Cônjuge *</label><input type="text" id="sConjuge" required></div>
+                <div class="fg"><label>CPF do Cônjuge</label><input type="text" id="sCPFConjuge"></div>
+                <div class="fg"><label>Data do Casamento *</label><input type="date" id="sData" required></div>
+                <div class="fg"><label>Regime de Bens</label><select id="sRegime"><option>Comunhão Parcial</option><option>Comunhão Universal</option><option>Separação Total</option></select></div>
+            `;
+        } else if (tipo === 'certidao_obito') {
+            especificos = `
+                <div class="fg"><label>Nome do Falecido *</label><input type="text" id="sFalecido" required></div>
+                <div class="fg"><label>Data do Falecimento *</label><input type="date" id="sData" required></div>
+                <div class="fg"><label>Cidade do Falecimento *</label><input type="text" id="sCidade" required></div>
+                <div class="fg"><label>UF do Falecimento *</label><select id="sUF" required><option value="">Selecione...</option><option>SP</option><option>RJ</option><option>MG</option><option>BA</option><option>CE</option></select></div>
+            `;
+        } else if (tipo === 'uniao_estavel') {
+            especificos = `
+                <div class="fg"><label>Nome do Companheiro(a) *</label><input type="text" id="sConjuge" required></div>
+                <div class="fg"><label>CPF do Companheiro(a)</label><input type="text" id="sCPFConjuge"></div>
+                <div class="fg"><label>Início da União *</label><input type="date" id="sData" required></div>
+                <div class="fg"><label>Regime de Bens</label><select id="sRegime"><option>Comunhão Parcial</option><option>Comunhão Universal</option><option>Separação Total</option></select></div>
+            `;
+        } else if (tipo === 'titulo_eleitor') {
+            especificos = `
+                <div class="fg"><label>Município Eleitoral *</label><input type="text" id="sCidade" required></div>
+                <div class="fg"><label>UF *</label><select id="sUF" required><option value="">Selecione...</option><option>SP</option><option>RJ</option><option>MG</option><option>BA</option><option>CE</option></select></div>
+                <div class="fg"><label>Zona Eleitoral</label><input type="text" id="sZona"></div>
+                <div class="fg"><label>Seção Eleitoral</label><input type="text" id="sSecao"></div>
+            `;
+        }
+        document.getElementById('camposEspecificos').innerHTML = especificos;
+        document.getElementById('formContainer').scrollIntoView({behavior:'smooth'});
     }
     
-    function filtrarTabela(cat, btn) {
-        catAtiva = cat;
-        document.querySelectorAll('#filtrosChips .chip').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+    function getEtapas(tipo) {
+        const etapas = {
+            'rg': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Análise Documental',ok:false,data:null},{nome:'Coleta de Biometria',ok:false,data:null},{nome:'Conferência de Dados',ok:false,data:null},{nome:'Emissão do RG',ok:false,data:null},{nome:'Disponível para Retirada',ok:false,data:null}],
+            'cnh': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Exame Médico',ok:false,data:null},{nome:'Prova Teórica',ok:false,data:null},{nome:'Prova Prática',ok:false,data:null},{nome:'Emissão da CNH',ok:false,data:null}],
+            'certidao_nascimento': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Busca no Registro',ok:false,data:null},{nome:'Localização do Assento',ok:false,data:null},{nome:'Emissão da Certidão',ok:false,data:null},{nome:'Disponível',ok:false,data:null}],
+            'certidao_casamento': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Busca no Registro',ok:false,data:null},{nome:'Localização do Assento',ok:false,data:null},{nome:'Emissão da Certidão',ok:false,data:null},{nome:'Disponível',ok:false,data:null}],
+            'certidao_obito': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Busca no Registro',ok:false,data:null},{nome:'Localização do Assento',ok:false,data:null},{nome:'Emissão da Certidão',ok:false,data:null},{nome:'Disponível',ok:false,data:null}],
+            'uniao_estavel': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Análise de Documentos',ok:false,data:null},{nome:'Entrevista',ok:false,data:null},{nome:'Emissão da Declaração',ok:false,data:null},{nome:'Disponível',ok:false,data:null}],
+            'titulo_eleitor': [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Verificação TRE',ok:false,data:null},{nome:'Validação de Dados',ok:false,data:null},{nome:'Emissão do Título',ok:false,data:null},{nome:'Disponível para Download',ok:false,data:null}]
+        };
+        return etapas[tipo] || [{nome:'Solicitação Recebida',ok:true,data:new Date().toLocaleDateString('pt-BR')},{nome:'Em Processamento',ok:false,data:null},{nome:'Finalizado',ok:false,data:null}];
+    }
+    
+    function getPrazoDias(tipo) {
+        const prazos = { rg:30, cnh:45, certidao_nascimento:7, certidao_casamento:7, certidao_obito:5, uniao_estavel:15, titulo_eleitor:10 };
+        return prazos[tipo] || 15;
+    }
+    
+    async function enviarSolicitacao(e) {
+        e.preventDefault();
+        const tipo = document.getElementById('solicTipo').value;
+        const nome = document.getElementById('sNome').value.trim();
+        const cpf = document.getElementById('sCPF').value.trim();
+        const nasc = document.getElementById('sNasc').value;
+        const info = TIPOS_SOLICITACAO.find(t => t.id === tipo);
+        
+        if (!nome || !cpf || !nasc) {
+            Swal.fire({icon:'warning',title:'Campos obrigatórios',text:'Preencha Nome, CPF e Nascimento.',confirmButtonColor:'#1351B4'});
+            return;
+        }
+        
+        Swal.fire({title:'Enviando...',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});
+        
+        const prefixos = {rg:'RG',cnh:'CNH',certidao_nascimento:'CERT-NASC',certidao_casamento:'CERT-CAS',certidao_obito:'CERT-OBT',uniao_estavel:'UNIAO',titulo_eleitor:'TITULO'};
+        const num = Math.random().toString(36).substring(2,6).toUpperCase();
+        const codigo = `${prefixos[tipo]||'DOC'}-${num}`;
+        const novoId = Date.now();
+        const dias = getPrazoDias(tipo);
+        
+        const novoDoc = {
+            id: novoId,
+            codigo: codigo,
+            tipo: tipo,
+            tipo_nome: info.nome,
+            categoria: 'Documentos Pessoais',
+            titular: nome,
+            cpf: cpf,
+            nascimento: nasc,
+            emissor: info.emissor,
+            informacoes: `${info.nome} solicitado via GOV.BR.`,
+            data_emissao: new Date().toISOString(),
+            data_validade: new Date(Date.now() + 10*365*24*60*60*1000).toISOString().split('T')[0],
+            status: 'solicitado',
+            publico: true,
+            rast: true,
+            etapas: getEtapas(tipo),
+            prev: new Date(Date.now() + dias*24*60*60*1000).toLocaleDateString('pt-BR')
+        };
+        
+        // Tentar API
+        try {
+            const resp = await fetch(`${API_BASE}/cliente07/solicitar`, {
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({...novoDoc, rastreamento:{etapas:novoDoc.etapas.map(e=>({nome:e.nome,concluida:e.ok,data:e.data}))}, previsao_entrega:novoDoc.prev})
+            });
+            const data = await resp.json();
+            if(data.success) {
+                novoDoc.id = data.documento.id;
+                novoDoc.codigo = data.documento.codigo;
+            }
+        } catch(er) { console.log('API offline, usando fallback local'); }
+        
+        docs.unshift(novoDoc);
+        document.getElementById('statDocs').textContent = docs.length;
+        document.getElementById('statServicos').textContent = docs.length;
+        
+        Swal.close();
+        Swal.fire({
+            icon:'success',
+            title:'✅ Solicitado!',
+            html:`<div style="text-align:left;font-size:12px;line-height:1.8;"><p><strong>📋 Protocolo:</strong> <span style="font-family:monospace;background:#f0f0f0;padding:3px 8px;border-radius:4px;">${codigo}</span></p><p><strong>👤 Titular:</strong> ${nome}</p><p><strong>📅 Previsão:</strong> ${novoDoc.prev}</p><p style="color:#666;font-size:10px;">Guarde o protocolo para acompanhar.</p></div>`,
+            confirmButtonColor:'#1351B4',
+            confirmButtonText:'Acompanhar Agora'
+        }).then(r => {
+            if(r.isConfirmed) { renderAll(); carregarFiltros(); setTimeout(()=>openModalDoc(novoId),300); }
+        });
+        
+        document.getElementById('formSolic').reset();
+        document.getElementById('formContainer').style.display = 'none';
+        document.querySelectorAll('#docsSolicitarGrid .svc-card').forEach(c => c.style.borderColor = 'transparent');
         renderAll();
+        carregarFiltros();
     }
     
-    function getFiltrados() { return catAtiva === 'todas' ? docs : docs.filter(d => d.categoria === catAtiva); }
+    // ==================== API ====================
+    async function carregarDocumentos() {
+        try {
+            const resp = await fetch(`${API_BASE}/cliente07/documentos/publicos`);
+            const data = await resp.json();
+            if(data.success) { docs = data.documentos||[]; document.getElementById('statDocs').textContent = docs.length; document.getElementById('statServicos').textContent = docs.length; }
+        } catch(e) {
+            console.log('API offline');
+            docs = [
+                { id:1, codigo:"DOC-EDU001", tipo_nome:"📜 Certificado Ensino Médio", categoria:"Educação", titular:"Ana Carolina Santos", emissor:"Secretaria de Educação - SP", data_emissao:"2024-01-15T10:00:00Z", data_validade:"2029-01-15", status:"valid", rast:false },
+                { id:2, codigo:"RG-ABC12", tipo_nome:"🪪 Carteira de Identidade (RG)", categoria:"Documentos Pessoais", titular:"Carlos Oliveira", emissor:"SSP-SP", data_emissao:"2024-02-20T10:00:00Z", data_validade:"2034-02-20", status:"solicitado", rast:true, etapas:[{nome:"Solicitação Recebida",ok:true,data:"20/02/2024"},{nome:"Análise Documental",ok:true,data:"22/02/2024"},{nome:"Coleta de Biometria",ok:true,data:"25/02/2024"},{nome:"Emissão do RG",ok:false,data:null},{nome:"Disponível para Retirada",ok:false,data:null}], prev:"05/03/2024" }
+            ];
+            document.getElementById('statDocs').textContent = docs.length;
+            document.getElementById('statServicos').textContent = docs.length;
+        }
+        carregarFiltros(); renderAll();
+    }
     
+    function carregarFiltros() {
+        const cats = ['todas', ...new Set(docs.map(d => d.categoria || 'Outros'))];
+        document.getElementById('filtrosChips').innerHTML = cats.map(c => `<button class="chip ${c==='todas'?'active':''}" onclick="filtrarTabela('${c}', this)">${c==='todas'?'📋 Todas':c}</button>`).join('');
+    }
+    
+    function filtrarTabela(cat, btn) { catAtiva = cat; document.querySelectorAll('#filtrosChips .chip').forEach(b => b.classList.remove('active')); if(btn) btn.classList.add('active'); renderAll(); }
+    function getFiltrados() { return catAtiva==='todas' ? docs : docs.filter(d => (d.categoria||'Outros')===catAtiva); }
     function renderAll() { renderTable(); renderCards(); }
     
     function renderTable() {
         const filtrados = getFiltrados();
         const tbody = document.getElementById('docsTableBody');
-        if (!filtrados.length) {
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:20px;color:#999;">Nenhum documento encontrado.</td></tr>';
-            return;
-        }
+        if(!filtrados.length) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:20px;color:#999;">Nenhum documento.</td></tr>'; return; }
         tbody.innerHTML = filtrados.map(d => {
-            const dv = d.data_validade ? new Date(d.data_validade+'T00:00:00') : null;
+            const dv = d.data_validade ? new Date(d.data_validade) : null;
             const exp = dv && dv < new Date();
-            const cls = exp ? 'exp' : (d.status === 'progress' ? 'prog' : 'ok');
-            const lbl = exp ? '⚠ Expirado' : (d.status === 'progress' ? '⏳ Em andamento' : '✅ Válido');
-            return `<tr onclick="openModal(${d.id})" style="cursor:pointer;" title="Clique para validar">
-                <td><span class="code-tag">${d.codigo}</span></td>
-                <td>${d.tipo}</td><td>${d.categoria}</td><td>${d.titular}</td>
-                <td>${d.emissor.length > 22 ? d.emissor.substring(0,22)+'...' : d.emissor}</td>
-                <td>${dv ? dv.toLocaleDateString('pt-BR') : 'N/A'}</td>
-                <td><span class="badge ${cls}">${lbl}</span></td>
-                <td><button class="btn-sm ${d.rast?'':'primary'}" onclick="event.stopPropagation();openModal(${d.id})"><i class="fas fa-${d.rast?'route':'check-double'}"></i> ${d.rast?'Rastrear':'Validar'}</button></td>
-            </tr>`;
+            const isProg = d.status==='progress'||d.status==='andamento'||d.status==='solicitado';
+            const cls = exp ? 'exp' : (isProg ? 'prog' : 'ok');
+            const lbl = exp ? '⚠ Expirado' : (isProg ? '⏳ Em andamento' : '✅ Válido');
+            const temRast = d.rast||d.rastreamento||d.etapas||isProg;
+            return `<tr onclick="openModalDoc(${d.id})" style="cursor:pointer;"><td><span class="code-tag">${d.codigo}</span></td><td>${d.tipo_nome||'📄'}</td><td>${d.categoria||'Outros'}</td><td>${d.titular}</td><td>${(d.emissor||'').substring(0,20)}</td><td>${dv?dv.toLocaleDateString('pt-BR'):'N/A'}</td><td><span class="badge ${cls}">${lbl}</span></td><td><button class="btn-sm ${temRast?'':'primary'}" onclick="event.stopPropagation();openModalDoc(${d.id})"><i class="fas fa-${temRast?'route':'check-double'}"></i> ${temRast?'Rastrear':'Validar'}</button></td></tr>`;
         }).join('');
     }
     
     function renderCards() {
         const filtrados = getFiltrados();
-        const container = document.getElementById('docsCards');
-        if (!filtrados.length) {
-            container.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">Nenhum documento encontrado.</div>';
-            return;
-        }
-        container.innerHTML = filtrados.map(d => {
-            const dv = d.data_validade ? new Date(d.data_validade+'T00:00:00') : null;
+        const c = document.getElementById('docsCards');
+        if(!filtrados.length) { c.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">Nenhum documento.</div>'; return; }
+        c.innerHTML = filtrados.map(d => {
+            const dv = d.data_validade ? new Date(d.data_validade) : null;
             const exp = dv && dv < new Date();
-            const cls = exp ? 'exp' : (d.status === 'progress' ? 'prog' : 'ok');
-            const lbl = exp ? '⚠ Expirado' : (d.status === 'progress' ? '⏳ Em andamento' : '✅ Válido');
-            return `<div class="doc-card-mobile" onclick="openModal(${d.id})">
-                <div class="doc-card-header"><span class="doc-type">${d.tipo}</span><span class="badge ${cls}">${lbl}</span></div>
-                <div class="doc-card-info">
-                    <div class="info-item"><div class="info-label">Código</div><div class="info-value code-tag">${d.codigo}</div></div>
-                    <div class="info-item"><div class="info-label">Titular</div><div class="info-value">${d.titular}</div></div>
-                    <div class="info-item"><div class="info-label">Emissor</div><div class="info-value">${d.emissor}</div></div>
-                    <div class="info-item"><div class="info-label">Validade</div><div class="info-value">${dv ? dv.toLocaleDateString('pt-BR') : 'N/A'}</div></div>
-                </div>
-                <div class="doc-card-action"><button class="btn-sm ${d.rast?'':'primary'}" onclick="event.stopPropagation();openModal(${d.id})"><i class="fas fa-${d.rast?'route':'check-double'}"></i> ${d.rast?'Rastrear':'Validar'}</button></div>
-            </div>`;
+            const isProg = d.status==='progress'||d.status==='andamento'||d.status==='solicitado';
+            const cls = exp ? 'exp' : (isProg ? 'prog' : 'ok');
+            const lbl = exp ? '⚠ Expirado' : (isProg ? '⏳ Em andamento' : '✅ Válido');
+            const temRast = d.rast||d.rastreamento||d.etapas||isProg;
+            return `<div class="doc-card-mobile" onclick="openModalDoc(${d.id})"><div class="doc-card-header"><span class="doc-type">${d.tipo_nome||'📄'}</span><span class="badge ${cls}">${lbl}</span></div><div class="doc-card-info"><div class="info-item"><div class="info-label">Código</div><div class="info-value code-tag">${d.codigo}</div></div><div class="info-item"><div class="info-label">Titular</div><div class="info-value">${d.titular}</div></div></div><div class="doc-card-action"><button class="btn-sm ${temRast?'':'primary'}" onclick="event.stopPropagation();openModalDoc(${d.id})"><i class="fas fa-${temRast?'route':'check-double'}"></i> ${temRast?'Rastrear':'Validar'}</button></div></div>`;
         }).join('');
     }
     
-    function irParaConsulta() {
-        document.getElementById('consultar').scrollIntoView({behavior:'smooth'});
-        setTimeout(() => document.getElementById('codigoInput').focus(), 400);
-    }
+    function irParaConsulta() { document.getElementById('consultar').scrollIntoView({behavior:'smooth'}); setTimeout(()=>document.getElementById('codigoInput').focus(),400); }
+    function irParaSolicitar() { document.getElementById('solicitar').scrollIntoView({behavior:'smooth'}); }
     
     function filtrarEConsultar(cat) {
         catAtiva = cat;
-        document.querySelectorAll('#filtrosChips .chip').forEach(b => {
-            b.classList.remove('active');
-            if(b.textContent.includes(cat)) b.classList.add('active');
-        });
+        document.querySelectorAll('#filtrosChips .chip').forEach(b => { b.classList.remove('active'); if(b.textContent.includes(cat)) b.classList.add('active'); });
         document.getElementById('documentos').scrollIntoView({behavior:'smooth'});
         renderAll();
-        setTimeout(() => { document.getElementById('consultar').scrollIntoView({behavior:'smooth'}); document.getElementById('codigoInput').focus(); }, 500);
+        setTimeout(()=>irParaConsulta(),500);
     }
     
-    function consultarDocumento() {
+    async function consultarDocumento() {
         const cod = document.getElementById('codigoInput').value.trim().toUpperCase();
-        if (!cod) { Swal.fire({icon:'warning',title:'Informe o código',confirmButtonColor:'#1351B4'}); return; }
+        if(!cod) { Swal.fire({icon:'warning',title:'Informe o código',confirmButtonColor:'#1351B4'}); return; }
+        Swal.fire({title:'🔍 Consultando...',allowOutsideClick:false,didOpen:()=>Swal.showLoading()});
+        try {
+            const resp = await fetch(`${API_BASE}/cliente07/documentos/consultar`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({codigo:cod})});
+            const data = await resp.json();
+            Swal.close();
+            if(data.success && data.documento) {
+                if(!docs.find(d=>d.id===data.documento.id)) { docs.unshift(data.documento); renderAll(); carregarFiltros(); }
+                openModalDoc(data.documento.id); return;
+            }
+        } catch(e) { console.log('API offline'); }
+        Swal.close();
         const doc = docs.find(d => d.codigo === cod);
-        doc ? openModal(doc.id) : Swal.fire({icon:'error',title:'Não localizado',html:`<p>Código <strong>${cod}</strong> não encontrado.</p>`,confirmButtonColor:'#1351B4'});
+        doc ? openModalDoc(doc.id) : Swal.fire({icon:'error',title:'Não localizado',html:`<p>Código <strong>${cod}</strong> não encontrado.</p>`,confirmButtonColor:'#1351B4'});
     }
     
-    function mostrarInfo() {
-        Swal.fire({icon:'info',title:'Como consultar',html:'<p style="font-size:12px;">Digite o código ou <strong>clique em qualquer documento</strong> da lista para validar.</p>',confirmButtonColor:'#1351B4'});
-    }
+    function mostrarInfo() { Swal.fire({icon:'info',title:'Como consultar',html:'<p style="font-size:12px;">Digite o código ou <strong>clique em qualquer documento</strong>.</p>',confirmButtonColor:'#1351B4'}); }
     
-    function openModal(id) {
-        const d = docs.find(x => x.id === id);
-        if (!d) return;
-        d.rast && d.etapas ? modalRastreamento(d) : modalValidacao(d);
+    function openModalDoc(id) {
+        const d = docs.find(x => x.id == id);
+        if(!d) return;
+        const temRast = d.rast||d.rastreamento||d.etapas||d.status==='progress'||d.status==='andamento'||d.status==='solicitado';
+        temRast ? modalRastreamento(d) : modalValidacao(d);
     }
     
     function modalValidacao(d) {
-        document.getElementById('modalTitle').textContent = 'Validação de Documento';
-        const dv = d.data_validade ? new Date(d.data_validade+'T00:00:00') : null;
+        document.getElementById('modalTitle').textContent = 'Validação';
+        const dv = d.data_validade ? new Date(d.data_validade) : null;
         const exp = dv && dv < new Date();
         document.getElementById('modalContent').innerHTML = `
-            <div class="result-box ${exp?'expired':'valid'}"><div class="ri"><i class="fas fa-${exp?'circle-xmark':'circle-check'}"></i></div><h4>Documento ${exp?'EXPIRADO':'VÁLIDO'}</h4><p style="font-size:9px;color:#666;">Verificação: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</p></div>
-            <div class="detail-grid">
-                <div class="detail-cell"><div class="lbl">Código</div><div class="val code-tag">${d.codigo}</div></div>
-                <div class="detail-cell"><div class="lbl">Tipo</div><div class="val">${d.tipo}</div></div>
-                <div class="detail-cell"><div class="lbl">Titular</div><div class="val">${d.titular}</div></div>
-                <div class="detail-cell"><div class="lbl">Emissor</div><div class="val">${d.emissor}</div></div>
-                <div class="detail-cell"><div class="lbl">Emissão</div><div class="val">${d.data_emissao?new Date(d.data_emissao+'T00:00:00').toLocaleDateString('pt-BR'):'N/A'}</div></div>
-                <div class="detail-cell"><div class="lbl">Validade</div><div class="val">${dv?dv.toLocaleDateString('pt-BR'):'Indeterminada'}</div></div>
-            </div>
-            <div class="stamp"><i class="fas fa-shield-haltered"></i><strong>Autenticado pelo Sistema Integrado GOV.BR</strong></div>
+            <div class="result-box ${exp?'expired':'valid'}"><div class="ri"><i class="fas fa-${exp?'circle-xmark':'circle-check'}"></i></div><h4>${exp?'EXPIRADO':'VÁLIDO'}</h4><p style="font-size:9px;">${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</p></div>
+            <div class="detail-grid"><div class="detail-cell"><div class="lbl">Código</div><div class="val code-tag">${d.codigo}</div></div><div class="detail-cell"><div class="lbl">Tipo</div><div class="val">${d.tipo_nome||'📄'}</div></div><div class="detail-cell"><div class="lbl">Titular</div><div class="val">${d.titular}</div></div><div class="detail-cell"><div class="lbl">Emissor</div><div class="val">${d.emissor||'N/A'}</div></div><div class="detail-cell"><div class="lbl">Emissão</div><div class="val">${d.data_emissao?new Date(d.data_emissao).toLocaleDateString('pt-BR'):'N/A'}</div></div><div class="detail-cell"><div class="lbl">Validade</div><div class="val">${dv?dv.toLocaleDateString('pt-BR'):'Indeterminada'}</div></div></div>
+            <div class="stamp"><i class="fas fa-shield-haltered"></i><strong>Autenticado pelo GOV.BR</strong></div>
             <div class="modal-btns"><button class="btn-close-m" onclick="fecharModal()">Fechar</button><button class="btn-new-m" onclick="novaConsulta()">Nova Consulta</button></div>`;
         showModal();
     }
     
     function modalRastreamento(d) {
         document.getElementById('modalTitle').textContent = 'Acompanhamento';
-        const et = d.etapas || [];
-        const ok = et.filter(e => e.ok).length;
-        const pct = et.length > 0 ? Math.round((ok/et.length)*100) : 0;
+        const etapas = d.etapas||d.rastreamento?.etapas||[];
+        const ok = etapas.filter(e=>e.ok||e.concluida).length;
+        const tot = etapas.length;
+        const pct = tot>0?Math.round((ok/tot)*100):0;
         document.getElementById('modalContent').innerHTML = `
-            <div style="text-align:center;margin-bottom:10px;"><span class="code-tag" style="font-size:12px;">${d.codigo}</span><h4 style="margin-top:4px;">${d.tipo}</h4><p style="font-size:10px;color:#666;">Titular: <strong>${d.titular}</strong></p></div>
-            <div class="track-bar-wrap"><div class="track-bar"><div class="track-fill" style="width:${pct}%;"></div></div><p class="track-pct"><strong>${pct}%</strong> — ${ok} de ${et.length} etapas</p></div>
-            ${et.map(e => `<div class="track-step ${e.ok?'done':''}"><div class="step-info"><strong>${e.ok?'✅ ':'⏳ '}${e.nome}</strong>${e.data?`<span class="step-date">📅 ${e.data}</span>`:'<span class="step-date" style="color:#999;">Aguardando</span>'}</div></div>`).join('')}
-            ${d.prev?`<p style="text-align:center;font-size:10px;margin-top:8px;">📦 Previsão: <strong>${d.prev}</strong></p>`:''}
+            <div style="text-align:center;margin-bottom:10px;"><span class="code-tag" style="font-size:12px;">${d.codigo}</span><h4 style="margin-top:4px;">${d.tipo_nome||'📄'}</h4><p style="font-size:10px;">Titular: <strong>${d.titular}</strong></p></div>
+            <div class="track-bar-wrap"><div class="track-bar"><div class="track-fill" style="width:${pct}%;"></div></div><p class="track-pct"><strong>${pct}%</strong> — ${ok} de ${tot} etapas</p></div>
+            ${etapas.map(e=>`<div class="track-step ${(e.ok||e.concluida)?'done':''}"><div class="step-info"><strong>${(e.ok||e.concluida)?'✅ ':'⏳ '}${e.nome}</strong>${e.data?`<span class="step-date">📅 ${e.data}</span>`:'<span class="step-date" style="color:#999;">Aguardando</span>'}</div></div>`).join('')}
+            ${d.prev||d.previsao_entrega?`<p style="text-align:center;font-size:10px;margin-top:8px;">📦 Previsão: <strong>${d.prev||d.previsao_entrega}</strong></p>`:''}
             <div class="modal-btns" style="margin-top:10px;"><button class="btn-close-m" onclick="fecharModal()">Fechar</button><button class="btn-new-m" onclick="novaConsulta()">Nova Consulta</button></div>`;
         showModal();
     }
     
-    function showModal() { document.getElementById('modalValidacao').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-    function fecharModal() { document.getElementById('modalValidacao').style.display = 'none'; document.body.style.overflow = ''; }
-    function novaConsulta() {
-        fecharModal();
-        setTimeout(() => { document.getElementById('consultar').scrollIntoView({behavior:'smooth'}); setTimeout(() => { document.getElementById('codigoInput').value = ''; document.getElementById('codigoInput').focus(); }, 400); }, 200);
-    }
+    function showModal() { document.getElementById('modalValidacao').style.display='flex'; document.body.style.overflow='hidden'; }
+    function fecharModal() { document.getElementById('modalValidacao').style.display='none'; document.body.style.overflow=''; }
+    function novaConsulta() { fecharModal(); setTimeout(()=>{ irParaConsulta(); setTimeout(()=>{document.getElementById('codigoInput').value='';document.getElementById('codigoInput').focus();},400); },200); }
     
-    let fs = 0;
-    function ajustarFonte(d) { fs = Math.max(-2, Math.min(4, fs + d)); document.documentElement.style.fontSize = [12,14,16,18,20,22,24][fs+2] + 'px'; }
+    let fs=0;
+    function ajustarFonte(d) { fs=Math.max(-2,Math.min(4,fs+d)); document.documentElement.style.fontSize=[12,14,16,18,20,22,24][fs+2]+'px'; }
     function toggleContraste() {
         document.body.classList.toggle('hc');
-        document.body.style.background = document.body.classList.contains('hc') ? '#000' : '';
-        document.body.style.color = document.body.classList.contains('hc') ? '#FFF' : '';
-        document.body.style.filter = document.body.classList.contains('hc') ? 'contrast(1.5)' : '';
+        document.body.style.background = document.body.classList.contains('hc')?'#000':'';
+        document.body.style.color = document.body.classList.contains('hc')?'#FFF':'';
+        document.body.style.filter = document.body.classList.contains('hc')?'contrast(1.5)':'';
     }
     
-    document.getElementById('modalValidacao').addEventListener('click', function(e) { if(e.target===this) fecharModal(); });
-    document.getElementById('codigoInput').addEventListener('keypress', function(e) { if(e.key==='Enter') consultarDocumento(); });
-    document.addEventListener('keydown', function(e) { if(e.key==='Escape') fecharModal(); });
-    document.querySelectorAll('.nav-bar a').forEach(l => {
-        l.addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelectorAll('.nav-bar a').forEach(x => x.classList.remove('active'));
-            this.classList.add('active');
-            document.getElementById(this.dataset.target)?.scrollIntoView({behavior:'smooth'});
-        });
-    });
+    document.getElementById('modalValidacao').addEventListener('click',function(e){if(e.target===this)fecharModal();});
+    document.getElementById('codigoInput').addEventListener('keypress',function(e){if(e.key==='Enter')consultarDocumento();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')fecharModal();});
+    document.querySelectorAll('.nav-bar a').forEach(l=>{l.addEventListener('click',function(e){e.preventDefault();document.querySelectorAll('.nav-bar a').forEach(x=>x.classList.remove('active'));this.classList.add('active');document.getElementById(this.dataset.target)?.scrollIntoView({behavior:'smooth'});});});
     
-    (function checkURL() {
-        const p = new URLSearchParams(location.search);
-        if (p.get('codigo')) { document.getElementById('codigoInput').value = p.get('codigo'); setTimeout(consultarDocumento, 500); }
-    })();
+    (function(){const p=new URLSearchParams(location.search);const c=p.get('codigo');if(c){document.getElementById('codigoInput').value=c;setTimeout(consultarDocumento,600);}})();
     
-    loadDocs();
+    renderizarDocsSolicitar();
+    carregarDocumentos();
+    console.log('✅ GOV.BR — 7 documentos com solicitação e rastreamento!');
 </script>
-
 </body>
 </html>
