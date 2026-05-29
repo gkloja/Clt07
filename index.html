@@ -632,31 +632,125 @@
     }
     
     function modalValidacao(d) {
-        document.getElementById('modalTitle').textContent = 'Validação';
-        const dv = d.data_validade ? new Date(d.data_validade) : null;
-        const exp = dv && dv < new Date();
-        document.getElementById('modalContent').innerHTML = `
-            <div class="result-box ${exp?'expired':'valid'}"><div class="ri"><i class="fas fa-${exp?'circle-xmark':'circle-check'}"></i></div><h4>${exp?'EXPIRADO':'VÁLIDO'}</h4><p style="font-size:9px;">${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</p></div>
-            <div class="detail-grid"><div class="detail-cell"><div class="lbl">Código</div><div class="val code-tag">${d.codigo}</div></div><div class="detail-cell"><div class="lbl">Tipo</div><div class="val">${d.tipo_nome||'📄'}</div></div><div class="detail-cell"><div class="lbl">Titular</div><div class="val">${d.titular}</div></div><div class="detail-cell"><div class="lbl">Emissor</div><div class="val">${d.emissor||'N/A'}</div></div><div class="detail-cell"><div class="lbl">Emissão</div><div class="val">${d.data_emissao?new Date(d.data_emissao).toLocaleDateString('pt-BR'):'N/A'}</div></div><div class="detail-cell"><div class="lbl">Validade</div><div class="val">${dv?dv.toLocaleDateString('pt-BR'):'Indeterminada'}</div></div></div>
-            <div class="stamp"><i class="fas fa-shield-haltered"></i><strong>Autenticado pelo GOV.BR</strong></div>
-            <div class="modal-btns"><button class="btn-close-m" onclick="fecharModal()">Fechar</button><button class="btn-new-m" onclick="novaConsulta()">Nova Consulta</button></div>`;
-        showModal();
-    }
+    document.getElementById('modalTitle').textContent = 'Validação';
+    const dv = d.data_validade ? new Date(d.data_validade) : null;
+    const exp = dv && dv < new Date();
+    const urlQR = `${window.location.origin}/?codigo=${d.codigo}`;
+    
+    document.getElementById('modalContent').innerHTML = `
+        <div class="result-box ${exp?'expired':'valid'}">
+            <div class="ri"><i class="fas fa-${exp?'circle-xmark':'circle-check'}"></i></div>
+            <h4>${exp?'EXPIRADO':'VÁLIDO'}</h4>
+            <p style="font-size:9px;">${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</p>
+        </div>
+        
+        <!-- QR CODE -->
+        <div style="text-align:center;margin-bottom:12px;padding:10px;background:#F8FAFC;border-radius:8px;border:1px solid var(--gray-20);">
+            <p style="font-size:9px;font-weight:700;color:var(--gray-70);margin-bottom:6px;">
+                <i class="fas fa-qrcode"></i> Escaneie para validar este documento
+            </p>
+            <div id="qrCodeContainer" style="display:inline-block;padding:8px;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.1);"></div>
+            <p style="font-size:8px;color:var(--gray-60);margin-top:4px;word-break:break-all;">${urlQR}</p>
+        </div>
+        
+        <div class="detail-grid">
+            <div class="detail-cell"><div class="lbl">Código</div><div class="val code-tag">${d.codigo}</div></div>
+            <div class="detail-cell"><div class="lbl">Tipo</div><div class="val">${d.tipo_nome||'📄'}</div></div>
+            <div class="detail-cell"><div class="lbl">Titular</div><div class="val">${d.titular}</div></div>
+            <div class="detail-cell"><div class="lbl">Emissor</div><div class="val">${d.emissor||'N/A'}</div></div>
+            <div class="detail-cell"><div class="lbl">Emissão</div><div class="val">${d.data_emissao?new Date(d.data_emissao).toLocaleDateString('pt-BR'):'N/A'}</div></div>
+            <div class="detail-cell"><div class="lbl">Validade</div><div class="val">${dv?dv.toLocaleDateString('pt-BR'):'Indeterminada'}</div></div>
+        </div>
+        
+        <div class="stamp"><i class="fas fa-shield-haltered"></i><strong>Autenticado pelo GOV.BR</strong></div>
+        <div class="modal-btns">
+            <button class="btn-close-m" onclick="fecharModal()">Fechar</button>
+            <button class="btn-new-m" onclick="novaConsulta()">Nova Consulta</button>
+        </div>`;
+    
+    showModal();
+    
+    // Gerar QR Code após o modal estar visível
+    setTimeout(() => {
+        const qrContainer = document.getElementById('qrCodeContainer');
+        if (qrContainer && typeof QRCode !== 'undefined') {
+            qrContainer.innerHTML = '';
+            new QRCode(qrContainer, {
+                text: urlQR,
+                width: 130,
+                height: 130,
+                colorDark: '#1351B4',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.M
+            });
+        } else if (qrContainer) {
+            // Fallback se QRCode não estiver disponível
+            qrContainer.innerHTML = `
+                <div style="width:130px;height:130px;display:flex;align-items:center;justify-content:center;background:#f0f0f0;border:2px dashed #ccc;border-radius:4px;">
+                    <i class="fas fa-qrcode" style="font-size:40px;color:#999;"></i>
+                </div>`;
+        }
+    }, 200);
+}
     
     function modalRastreamento(d) {
-        document.getElementById('modalTitle').textContent = 'Acompanhamento';
-        const etapas = d.etapas||d.rastreamento?.etapas||[];
-        const ok = etapas.filter(e=>e.ok||e.concluida).length;
-        const tot = etapas.length;
-        const pct = tot>0?Math.round((ok/tot)*100):0;
-        document.getElementById('modalContent').innerHTML = `
-            <div style="text-align:center;margin-bottom:10px;"><span class="code-tag" style="font-size:12px;">${d.codigo}</span><h4 style="margin-top:4px;">${d.tipo_nome||'📄'}</h4><p style="font-size:10px;">Titular: <strong>${d.titular}</strong></p></div>
-            <div class="track-bar-wrap"><div class="track-bar"><div class="track-fill" style="width:${pct}%;"></div></div><p class="track-pct"><strong>${pct}%</strong> — ${ok} de ${tot} etapas</p></div>
-            ${etapas.map(e=>`<div class="track-step ${(e.ok||e.concluida)?'done':''}"><div class="step-info"><strong>${(e.ok||e.concluida)?'✅ ':'⏳ '}${e.nome}</strong>${e.data?`<span class="step-date">📅 ${e.data}</span>`:'<span class="step-date" style="color:#999;">Aguardando</span>'}</div></div>`).join('')}
-            ${d.prev||d.previsao_entrega?`<p style="text-align:center;font-size:10px;margin-top:8px;">📦 Previsão: <strong>${d.prev||d.previsao_entrega}</strong></p>`:''}
-            <div class="modal-btns" style="margin-top:10px;"><button class="btn-close-m" onclick="fecharModal()">Fechar</button><button class="btn-new-m" onclick="novaConsulta()">Nova Consulta</button></div>`;
-        showModal();
-    }
+    document.getElementById('modalTitle').textContent = 'Acompanhamento';
+    const etapas = d.etapas||d.rastreamento?.etapas||[];
+    const ok = etapas.filter(e=>e.ok||e.concluida).length;
+    const tot = etapas.length;
+    const pct = tot>0?Math.round((ok/tot)*100):0;
+    const urlQR = `${window.location.origin}/?codigo=${d.codigo}`;
+    
+    document.getElementById('modalContent').innerHTML = `
+        <div style="text-align:center;margin-bottom:10px;">
+            <span class="code-tag" style="font-size:12px;">${d.codigo}</span>
+            <h4 style="margin-top:4px;">${d.tipo_nome||'📄'}</h4>
+            <p style="font-size:10px;">Titular: <strong>${d.titular}</strong></p>
+        </div>
+        
+        <!-- QR CODE -->
+        <div style="text-align:center;margin-bottom:12px;padding:10px;background:#F8FAFC;border-radius:8px;border:1px solid var(--gray-20);">
+            <p style="font-size:9px;font-weight:700;color:var(--gray-70);margin-bottom:6px;">
+                <i class="fas fa-qrcode"></i> Escaneie para acompanhar este documento
+            </p>
+            <div id="qrCodeContainer" style="display:inline-block;padding:8px;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.1);"></div>
+            <p style="font-size:8px;color:var(--gray-60);margin-top:4px;word-break:break-all;">${urlQR}</p>
+        </div>
+        
+        <div class="track-bar-wrap">
+            <div class="track-bar"><div class="track-fill" style="width:${pct}%;"></div></div>
+            <p class="track-pct"><strong>${pct}%</strong> — ${ok} de ${tot} etapas</p>
+        </div>
+        ${etapas.map(e=>`<div class="track-step ${(e.ok||e.concluida)?'done':''}"><div class="step-info"><strong>${(e.ok||e.concluida)?'✅ ':'⏳ '}${e.nome}</strong>${e.data?`<span class="step-date">📅 ${e.data}</span>`:'<span class="step-date" style="color:#999;">Aguardando</span>'}</div></div>`).join('')}
+        ${d.prev||d.previsao_entrega?`<p style="text-align:center;font-size:10px;margin-top:8px;">📦 Previsão: <strong>${d.prev||d.previsao_entrega}</strong></p>`:''}
+        <div class="modal-btns" style="margin-top:10px;">
+            <button class="btn-close-m" onclick="fecharModal()">Fechar</button>
+            <button class="btn-new-m" onclick="novaConsulta()">Nova Consulta</button>
+        </div>`;
+    
+    showModal();
+    
+    // Gerar QR Code
+    setTimeout(() => {
+        const qrContainer = document.getElementById('qrCodeContainer');
+        if (qrContainer && typeof QRCode !== 'undefined') {
+            qrContainer.innerHTML = '';
+            new QRCode(qrContainer, {
+                text: urlQR,
+                width: 130,
+                height: 130,
+                colorDark: '#1351B4',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.M
+            });
+        } else if (qrContainer) {
+            qrContainer.innerHTML = `
+                <div style="width:130px;height:130px;display:flex;align-items:center;justify-content:center;background:#f0f0f0;border:2px dashed #ccc;border-radius:4px;">
+                    <i class="fas fa-qrcode" style="font-size:40px;color:#999;"></i>
+                </div>`;
+        }
+    }, 200);
+}
     
     function showModal() { document.getElementById('modalValidacao').style.display='flex'; document.body.style.overflow='hidden'; }
     function fecharModal() { document.getElementById('modalValidacao').style.display='none'; document.body.style.overflow=''; }
