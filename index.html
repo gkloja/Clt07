@@ -1293,6 +1293,352 @@ body::after {
 .footer-col:nth-child(2) { animation-delay: 0.2s; }
 .footer-col:nth-child(3) { animation-delay: 0.3s; }
 .footer-col:nth-child(4) { animation-delay: 0.4s; }
+/* ========== SEÇÃO DE SERVIÇOS - DESIGN PREMIUM ========== */
+#servicos {
+    position: relative;
+    background: linear-gradient(135deg, #f8faff 0%, #e8f0fe 30%, #f0f4ff 60%, #e8f0fe 100%);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    border: 1px solid #d1e0ff;
+    box-shadow: 
+        0 4px 20px rgba(19,81,180,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+/* Padrão de fundo com ícones */
+#servicos::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 200px;
+    height: 200px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='95' fill='none' stroke='%231351B4' stroke-width='1' opacity='0.06'/%3E%3Ccircle cx='100' cy='100' r='70' fill='none' stroke='%231351B4' stroke-width='1' opacity='0.04'/%3E%3Ccircle cx='100' cy='100' r='45' fill='none' stroke='%231351B4' stroke-width='1' opacity='0.05'/%3E%3Ccircle cx='100' cy='100' r='20' fill='%231351B4' opacity='0.03'/%3E%3C/svg%3E") center/contain no-repeat;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Linha decorativa no topo */
+#servicos::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--yellow), var(--green));
+    border-radius: 0 0 3px 3px;
+    z-index: 1;
+}
+
+/* Título da seção */
+#servicos .section-hdr {
+    position: relative;
+    z-index: 1;
+    border-bottom: none;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#servicos .section-hdr h2 {
+    font-size: clamp(15px, 3vw, 18px);
+    font-weight: 800;
+    color: var(--gray-90);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#servicos .section-hdr h2 i {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--blue), #1B6DE0);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--yellow) !important;
+    font-size: 16px;
+    box-shadow: 0 3px 10px rgba(19,81,180,0.2);
+}
+
+/* Subtítulo */
+#servicos .section-hdr + p {
+    position: relative;
+    z-index: 1;
+    font-size: 10px;
+    color: var(--gray-50);
+    margin-bottom: 16px;
+    padding-left: 48px;
+}
+
+/* Grid de cards */
+#servicos .svc-grid {
+    position: relative;
+    z-index: 1;
+    gap: 10px;
+}
+
+/* Cards individuais */
+#servicos .svc-card {
+    background: var(--white);
+    border: 1px solid #e8ecf4;
+    border-radius: 14px;
+    padding: 18px 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#servicos .svc-card:hover {
+    border-color: var(--blue);
+    box-shadow: 0 8px 25px rgba(19,81,180,0.12);
+    transform: translateY(-5px);
+    background: #fff;
+}
+
+#servicos .svc-card .svc-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+#servicos .svc-card:hover .svc-icon {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+#servicos .svc-card h3 {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+#servicos .svc-card p {
+    font-size: 9px;
+    color: var(--gray-50);
+}
+
+/* Badge "Novo" nos cards */
+#servicos .svc-card .badge-novo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--green);
+    color: #fff;
+    font-size: 7px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Animação de entrada dos cards */
+#servicos .svc-card {
+    animation: fadeInUp 0.5s ease-out both;
+}
+#servicos .svc-card:nth-child(1) { animation-delay: 0.05s; }
+#servicos .svc-card:nth-child(2) { animation-delay: 0.1s; }
+#servicos .svc-card:nth-child(3) { animation-delay: 0.15s; }
+#servicos .svc-card:nth-child(4) { animation-delay: 0.2s; }
+#servicos .svc-card:nth-child(5) { animation-delay: 0.25s; }
+#servicos .svc-card:nth-child(6) { animation-delay: 0.3s; }
+/* ========== IMAGENS DE FUNDO NOS CARDS DE SERVIÇO ========== */
+#servicos .svc-card {
+    position: relative;
+    overflow: hidden;
+}
+#servicos .svc-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    transition: all 0.4s ease;
+    opacity: 0.4;
+}
+#servicos .svc-card:hover::before {
+    opacity: 0.7;
+}
+
+/* Card 1 - Certificados e Diplomas (formatura) */
+.card-educacao::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.90) 100%),
+        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKw-7Gqn3jDYNV-TUOGddbaZCENE5dN-stual3-ZqapWZee1iIctoiSFI&s=10') center/cover no-repeat;
+}
+
+/* Card 2 - Atestados Médicos (saúde) */
+.card-saude::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.90) 100%),
+        url('https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=500&h=350&fit=crop') center/cover no-repeat;
+}
+
+/* Card 3 - Documentos Pessoais (identidade) */
+.card-pessoais::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.90) 100%),
+        url('https://www.gov.br/inss/pt-br/noticias/fique-atento-a-documentacao-pessoal-e-profissional/documentos.jpeg/@@images/400412ee-1c02-4d21-8451-2493de92b3aa.jpeg') center/cover no-repeat;
+}
+
+/* Card 4 - Documentos Jurídicos (justiça) */
+.card-juridico::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.90) 100%),
+        url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=500&h=350&fit=crop') center/cover no-repeat;
+}
+
+/* Card 5 - Cursos e Qualificações (escritório) */
+.card-cursos::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.90) 100%),
+        url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=500&h=350&fit=crop') center/cover no-repeat;
+}
+
+/* Card 6 - Consulta por Código (tecnologia) */
+.card-consulta::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.90) 100%),
+        url('https://me-qr.com/static/pages/qr-code-for-image-img/image-qr-code.webp') center/cover no-repeat;
+}
+
+/* Conteúdo acima da imagem */
+#servicos .svc-card .svc-icon,
+#servicos .svc-card h3,
+#servicos .svc-card p {
+    position: relative;
+    z-index: 1;
+}
+/* ========== SEÇÃO DE PARCEIROS - DESIGN PREMIUM ========== */
+#parceiros {
+    position: relative;
+    background: linear-gradient(135deg, #fafafa 0%, #f5f0ff 30%, #faf5ff 60%, #f8f4ff 100%);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    border: 1px solid #e8dfff;
+    box-shadow: 
+        0 4px 20px rgba(123,44,191,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+/* Padrão de fundo com círculos decorativos */
+#parceiros::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 250px;
+    height: 250px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 250 250'%3E%3Ccircle cx='125' cy='125' r='120' fill='none' stroke='%237B2CBF' stroke-width='1' opacity='0.06'/%3E%3Ccircle cx='125' cy='125' r='90' fill='none' stroke='%237B2CBF' stroke-width='1' opacity='0.05'/%3E%3Ccircle cx='125' cy='125' r='60' fill='none' stroke='%237B2CBF' stroke-width='1' opacity='0.04'/%3E%3Ccircle cx='125' cy='125' r='30' fill='%237B2CBF' opacity='0.03'/%3E%3Ctext x='125' y='130' text-anchor='middle' fill='%237B2CBF' opacity='0.06' font-size='20' font-weight='900' font-family='Arial'%3E🤝%3C/text%3E%3C/svg%3E") center/contain no-repeat;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Linha decorativa no topo */
+#parceiros::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    height: 3px;
+    background: linear-gradient(90deg, #7B2CBF, #9B59B6, #F28C28, #7B2CBF);
+    border-radius: 0 0 3px 3px;
+    background-size: 200% 100%;
+    animation: barraAnimada 4s ease infinite;
+    z-index: 1;
+}
+
+/* Título da seção */
+#parceiros .section-hdr {
+    position: relative;
+    z-index: 1;
+    border-bottom: none;
+    margin-bottom: 10px;
+    padding-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#parceiros .section-hdr h2 {
+    font-size: clamp(15px, 3vw, 18px);
+    font-weight: 800;
+    color: var(--gray-90);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#parceiros .section-hdr h2 i {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #7B2CBF, #9B59B6);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--yellow) !important;
+    font-size: 16px;
+    box-shadow: 0 3px 10px rgba(123,44,191,0.25);
+}
+
+/* Subtítulo */
+#parceiros .section-hdr + p {
+    position: relative;
+    z-index: 1;
+}
+
+/* Setas de navegação estilizadas */
+#parceiros .parceiros-nav {
+    position: relative;
+    z-index: 1;
+}
+#parceiros .parceiros-nav button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #e8dfff;
+    cursor: pointer;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    color: #7B2CBF;
+    box-shadow: 0 2px 8px rgba(123,44,191,0.08);
+}
+#parceiros .parceiros-nav button:hover {
+    background: #7B2CBF;
+    color: #fff;
+    border-color: #7B2CBF;
+    box-shadow: 0 4px 12px rgba(123,44,191,0.2);
+}
+
+/* Carrossel */
+#parceiros .parceiros-scroll {
+    position: relative;
+    z-index: 1;
+}
+
+/* Animação de entrada */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+#parceiros {
+    animation: fadeInUp 0.6s ease-out;
+}
     </style>
 </head>
 <body>
@@ -1394,32 +1740,32 @@ body::after {
     <div class="section-hdr"><h2><i class="fas fa-star"></i> Serviços Disponíveis</h2></div>
     <p style="font-size:10px;color:var(--gray-60);margin-bottom:10px;">Clique em um serviço para ver exemplos de documentos disponíveis para validação.</p>
     <div class="svc-grid">
-        <div class="svc-card" onclick="mostrarExemplos('Educação')">
+        <div class="svc-card card-educacao" onclick="mostrarExemplos('Educação')">
             <div class="svc-icon blue"><i class="fas fa-graduation-cap"></i></div>
             <h3>Certificados e Diplomas</h3>
             <p>Ensino Fundamental, Médio, Técnico e Superior</p>
         </div>
-        <div class="svc-card" onclick="mostrarExemplos('Saúde')">
+        <div class="svc-card card-saude" onclick="mostrarExemplos('Saúde')">
             <div class="svc-icon green"><i class="fas fa-heartbeat"></i></div>
             <h3>Atestados Médicos</h3>
             <p>Consultas, exames, laudos e aptidão física</p>
         </div>
-        <div class="svc-card" onclick="mostrarExemplos('Documentos Pessoais')">
+        <div class="svc-card card-pessoais" onclick="mostrarExemplos('Documentos Pessoais')">
             <div class="svc-icon orange"><i class="fas fa-id-card"></i></div>
             <h3>Documentos Pessoais</h3>
             <p>RG, CNH, Certidões e Título de Eleitor</p>
         </div>
-        <div class="svc-card" onclick="mostrarExemplos('Legal')">
+        <div class="svc-card card-juridico" onclick="mostrarExemplos('Legal')">
             <div class="svc-icon purple"><i class="fas fa-scale-balanced"></i></div>
             <h3>Documentos Jurídicos</h3>
             <p>Alvarás, Procurações e Licenças</p>
         </div>
-        <div class="svc-card" onclick="mostrarExemplos('Cursos')">
+        <div class="svc-card card-cursos" onclick="mostrarExemplos('Cursos')">
             <div class="svc-icon teal"><i class="fas fa-building-columns"></i></div>
             <h3>Cursos e Qualificações</h3>
             <p>SESI, SENAI e cursos técnicos</p>
         </div>
-        <div class="svc-card" onclick="irParaConsulta()">
+        <div class="svc-card card-consulta" onclick="irParaConsulta()">
             <div class="svc-icon red"><i class="fas fa-search"></i></div>
             <h3>Consulta por Código</h3>
             <p>Valide qualquer documento pelo código</p>
