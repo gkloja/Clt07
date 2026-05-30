@@ -8,9 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Favicon GOV.BR Oficial -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231351B4'/%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%23FFD700' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='43' fill='none' stroke='%23FFD700' stroke-width='0.8'/%3E%3Ccircle cx='30' cy='35' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='50' cy='28' r='2' fill='%23FFD700'/%3E%3Ccircle cx='70' cy='35' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='78' cy='55' r='2' fill='%23FFD700'/%3E%3Ccircle cx='70' cy='72' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='50' cy='78' r='2' fill='%23FFD700'/%3E%3Ccircle cx='30' cy='72' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='22' cy='55' r='2' fill='%23FFD700'/%3E%3Cpath d='M28 45 Q50 30 72 45 L68 58 Q50 48 32 58 Z' fill='rgba(255,255,255,0.9)'/%3E%3Ctext x='50' y='52' text-anchor='middle' fill='%231351B4' font-size='6' font-weight='900' font-family='Arial'%3EGOV.BR%3C/text%3E%3C/svg%3E">
-<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231351B4'/%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%23FFD700' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='43' fill='none' stroke='%23FFD700' stroke-width='0.8'/%3E%3Ccircle cx='30' cy='35' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='50' cy='28' r='2' fill='%23FFD700'/%3E%3Ccircle cx='70' cy='35' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='78' cy='55' r='2' fill='%23FFD700'/%3E%3Ccircle cx='70' cy='72' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='50' cy='78' r='2' fill='%23FFD700'/%3E%3Ccircle cx='30' cy='72' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='22' cy='55' r='2' fill='%23FFD700'/%3E%3Cpath d='M28 45 Q50 30 72 45 L68 58 Q50 48 32 58 Z' fill='rgba(255,255,255,0.9)'/%3E%3Ctext x='50' y='52' text-anchor='middle' fill='%231351B4' font-size='6' font-weight='900' font-family='Arial'%3EGOV.BR%3C/text%3E%3C/svg%3E">
+ <!-- Ícone Oficial GOV.BR -->
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.gov.br/governodigital/++theme++padrao_govbr/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.gov.br/governodigital/++theme++padrao_govbr/favicons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://www.gov.br/governodigital/++theme++padrao_govbr/favicons/apple-touch-icon.png">
+<link rel="shortcut icon" href="https://www.gov.br/governodigital/++theme++padrao_govbr/favicons/favicon-48x48.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
@@ -49,15 +51,40 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--gray-bg);
-            color: var(--gray-80);
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            min-width: 320px;
-            overflow-x: hidden;
-        }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #EDEDED;
+    background-image: 
+        url('https://p2.trrsf.com/image/fget/cf/1200/1600/middle/images.terra.com/2024/01/15/istock-522553522-1ib5yv52i4z1d.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--gray-80);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-width: 320px;
+    overflow-x: hidden;
+}
+
+/* Efeito de overlay cinza por cima da imagem */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(237, 237, 237, 0.88);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Garantir que o conteúdo fique visível */
+.topbar, .header, .nav-bar, .main, .footer, .modal-overlay {
+    position: relative;
+    z-index: 1;
+}
         
         .skip-link { position: absolute; top: -100px; left: 0; background: var(--blue); color: #fff; padding: 10px 18px; z-index: 9999; font-size: 12px; font-weight: 700; text-decoration: none; border-radius: 0 0 4px 0; transition: top 0.3s; }
         .skip-link:focus { top: 0; }
@@ -75,8 +102,23 @@
         .header { background: var(--white); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border-bottom: 1px solid var(--gray-30); }
         .header .inner { max-width: var(--max-w); margin: 0 auto; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; min-height: 54px; gap: 10px; }
         .logo-link { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
-        .logo-flag { width: 36px; height: 26px; flex-shrink: 0; border-radius: 2px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-        .logo-flag svg { width: 100%; height: 100%; display: block; }
+.logo-flag {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo-flag img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
         .logo-text { font-size: 19px; font-weight: 900; letter-spacing: -0.3px; line-height: 1; display: flex; align-items: baseline; }
         .logo-text .g { color: var(--blue); } .logo-text .o { color: var(--yellow); } .logo-text .v { color: var(--green); } .logo-text .dot { color: var(--gray-60); font-weight: 500; } .logo-text .b { color: var(--blue); } .logo-text .r { color: var(--yellow); }
         .logo-sub { font-size: 7px; color: var(--gray-60); font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; line-height: 1; margin-top: 1px; }
@@ -819,6 +861,438 @@ tr.doc-escondida {
         border-color: rgba(255,255,255,0.3);
     }
 }
+/* ========== FUNDO DA PÁGINA - PALÁCIO DO PLANALTO ========== */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: 
+        linear-gradient(180deg, rgba(237,237,237,0.90) 0%, rgba(237,237,237,0.85) 100%),
+        url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1920&q=60') center/cover no-repeat;
+    opacity: 0.35;
+}
+
+/* ========== CARDS DE SERVIÇO COM ANIMAÇÃO ========== */
+.svc-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+.svc-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(19,81,180,0.03) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+.svc-card:hover::before {
+    opacity: 1;
+}
+.svc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(19,81,180,0.12);
+}
+.svc-card .svc-icon {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.svc-card:hover .svc-icon {
+    transform: scale(1.15) rotate(-8deg);
+}
+
+/* ========== ESTATÍSTICAS COM FUNDO DO CONGRESSO ========== */
+.stats-band {
+    position: relative;
+    overflow: hidden;
+    border: none;
+}
+.stats-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        linear-gradient(135deg, rgba(12,50,111,0.97) 0%, rgba(19,81,180,0.92) 100%),
+        url('https://images.unsplash.com/photo-1489944440616-0c6d8e3cf4c0?w=800&q=60') center/cover no-repeat;
+    z-index: 0;
+    animation: slowZoom 20s ease-in-out infinite;
+}
+@keyframes slowZoom {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+.stats-band * { position: relative; z-index: 1; }
+
+/* ========== BASE DE DOCUMENTOS COM FUNDO ========== */
+#documentos .table-box {
+    position: relative;
+    overflow: hidden;
+}
+#documentos .table-box::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 150px;
+    height: 150px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231351B4' opacity='0.04'/%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%231351B4' stroke-width='2' opacity='0.06'/%3E%3C/svg%3E") center/contain no-repeat;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ========== SEÇÃO DE AJUDA COM ÍCONE DO GOVERNO ========== */
+.help-box {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+}
+.help-box::after {
+    content: '';
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 100px;
+    height: 100px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231351B4' opacity='0.05'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='%231351B4' opacity='0.08' font-size='20' font-weight='900' font-family='Arial'%3EGOV%3C/text%3E%3C/svg%3E") center/contain no-repeat;
+    pointer-events: none;
+    transition: all 0.5s;
+}
+.help-box:hover::after {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* ========== ANIMAÇÃO NOS ITENS DE AJUDA ========== */
+.help-item {
+    transition: all 0.3s;
+    padding: 8px;
+    border-radius: 8px;
+}
+.help-item:hover {
+    background: rgba(255,255,255,0.6);
+    transform: translateX(4px);
+}
+.help-item i {
+    transition: all 0.3s;
+}
+.help-item:hover i {
+    transform: scale(1.2);
+}
+
+/* ========== EXEMPLOS DE DOCUMENTOS COM BORDA ANIMADA ========== */
+#secaoExemplos .svc-card {
+    border: 2px dashed var(--gray-30);
+    animation: borderGlow 3s ease-in-out infinite;
+}
+@keyframes borderGlow {
+    0%, 100% { border-color: var(--gray-30); }
+    50% { border-color: var(--blue); }
+}
+
+/* ========== BREADCRUMB COM ANIMAÇÃO ========== */
+.breadcrumb a {
+    position: relative;
+}
+.breadcrumb a::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--blue);
+    transition: width 0.3s;
+}
+.breadcrumb a:hover::after {
+    width: 100%;
+}
+
+/* ========== TÍTULO DA PÁGINA COM EFEITO ========== */
+.page-title h1 {
+    background: linear-gradient(135deg, var(--gray-90) 0%, var(--blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+/* ========== TÍTULO DA PÁGINA COM FUNDO DO GOVERNO ========== */
+.page-title {
+    position: relative;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-20);
+}
+.page-title::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0.95) 100%),
+        url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=60') right center/cover no-repeat;
+    z-index: 0;
+    opacity: 0.6;
+}
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--yellow), var(--green));
+    z-index: 1;
+}
+.page-title h1 {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 900;
+    color: var(--gray-90);
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+.page-title p {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(11px, 2vw, 13px);
+    color: var(--gray-60);
+    max-width: 550px;
+}
+
+/* Ícone decorativo no título */
+.page-title .title-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 60px;
+    color: rgba(19,81,180,0.06);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Animação na barra inferior */
+@keyframes barraAnimada {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.page-title::after {
+    background: linear-gradient(90deg, var(--blue), var(--yellow), var(--green), var(--blue));
+    background-size: 200% 100%;
+    animation: barraAnimada 4s ease infinite;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .page-title::before {
+        width: 100%;
+        opacity: 0.3;
+    }
+    .page-title {
+        padding: 20px 16px;
+    }
+    .page-title p {
+        max-width: 100%;
+    }
+}
+/* ========== ANIMAÇÃO: VALIDE SEUS DOCUMENTOS ========== */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+@keyframes blink {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: var(--yellow); }
+}
+@keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.3); }
+    50% { box-shadow: 0 0 40px rgba(255,215,0,0.6); }
+}
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Título animado */
+.consulta-hero h2 {
+    animation: fadeInUp 0.8s ease-out;
+}
+.consulta-hero .consulta-sub {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+.consulta-hero .consulta-icon {
+    animation: floatIcon 3s ease-in-out infinite, glowPulse 2s ease-in-out infinite;
+}
+.consulta-hero .consulta-row {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+.consulta-hero .consulta-stats {
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+/* ========== ANIMAÇÃO: SERVIÇOS DISPONÍVEIS ========== */
+.svc-card {
+    animation: fadeInUp 0.6s ease-out both;
+}
+.svc-card:nth-child(1) { animation-delay: 0.1s; }
+.svc-card:nth-child(2) { animation-delay: 0.2s; }
+.svc-card:nth-child(3) { animation-delay: 0.3s; }
+.svc-card:nth-child(4) { animation-delay: 0.4s; }
+.svc-card:nth-child(5) { animation-delay: 0.5s; }
+.svc-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Efeito de brilho ao passar o mouse */
+.svc-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+.svc-card:hover::before {
+    left: 100%;
+}
+
+/* Ícone pulsando */
+@keyframes iconBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+.svc-card:hover .svc-icon {
+    animation: iconBounce 0.6s ease;
+}
+
+/* ========== ANIMAÇÃO: BASE NACIONAL DE DOCUMENTOS ========== */
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes counterUp {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Título da seção */
+#documentos .section-hdr h2 i {
+    animation: iconBounce 2s ease-in-out infinite;
+}
+
+/* Cards de filtro */
+.chip {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.chip:hover {
+    transform: scale(1.08);
+}
+.chip.active {
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Linhas da tabela */
+#docsTableBody tr {
+    animation: slideInRight 0.5s ease-out both;
+}
+#docsTableBody tr:nth-child(1) { animation-delay: 0.05s; }
+#docsTableBody tr:nth-child(2) { animation-delay: 0.1s; }
+#docsTableBody tr:nth-child(3) { animation-delay: 0.15s; }
+#docsTableBody tr:nth-child(4) { animation-delay: 0.2s; }
+#docsTableBody tr:nth-child(5) { animation-delay: 0.25s; }
+#docsTableBody tr:nth-child(6) { animation-delay: 0.3s; }
+
+/* Efeito de hover nas linhas */
+#docsTableBody tr {
+    transition: all 0.3s ease;
+}
+#docsTableBody tr:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 15px rgba(19,81,180,0.1);
+}
+
+/* Badge de status pulsando */
+.badge.prog {
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Botão Ver Mais */
+.btn-ver-mais {
+    transition: all 0.3s ease;
+}
+.btn-ver-mais:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(19,81,180,0.2);
+}
+.btn-ver-mais i {
+    transition: transform 0.3s ease;
+}
+.btn-ver-mais:hover i {
+    transform: translateY(3px);
+}
+
+/* ========== ANIMAÇÃO: TÍTULO DA PÁGINA ========== */
+.page-title h1 {
+    background: linear-gradient(135deg, var(--blue), #7B2CBF, var(--blue));
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.page-title {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* ========== ANIMAÇÃO: BREADCRUMB ========== */
+.breadcrumb {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+/* ========== ANIMAÇÃO: ESTATÍSTICAS ========== */
+.stat-item .num {
+    animation: counterUp 1s ease-out;
+}
+.stats-band {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* ========== ANIMAÇÃO: SEÇÃO DE AJUDA ========== */
+.help-item {
+    animation: fadeInUp 0.5s ease-out both;
+}
+.help-item:nth-child(1) { animation-delay: 0.1s; }
+.help-item:nth-child(2) { animation-delay: 0.2s; }
+.help-item:nth-child(3) { animation-delay: 0.3s; }
+.help-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* ========== ANIMAÇÃO: FOOTER ========== */
+.footer-col {
+    animation: fadeInUp 0.5s ease-out both;
+}
+.footer-col:nth-child(1) { animation-delay: 0.1s; }
+.footer-col:nth-child(2) { animation-delay: 0.2s; }
+.footer-col:nth-child(3) { animation-delay: 0.3s; }
+.footer-col:nth-child(4) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
@@ -828,7 +1302,20 @@ tr.doc-escondida {
 <div class="topbar"><div class="inner"><div class="links"><a href="#">Início</a><span class="sep">|</span><a href="#">Serviços</a><span class="sep">|</span><a href="#">Órgãos do Governo</a><span class="sep">|</span><a href="#">Acesso à Informação</a><span class="sep">|</span><a href="#">Legislação</a><span class="sep">|</span><a href="#">Acessibilidade</a></div><div class="a11y-btns"><button onclick="ajustarFonte(-1)">A−</button><button onclick="ajustarFonte(1)">A+</button><button onclick="toggleContraste()">◐</button></div></div></div>
 
 <header class="header"><div class="inner">
-    <a href="#" class="logo-link"><div class="logo-flag"><svg viewBox="0 0 720 504"><rect width="720" height="504" fill="#009c3b"/><polygon points="360,30 690,252 360,474 30,252" fill="#ffdf00"/><circle cx="360" cy="252" r="120" fill="#002776"/><path d="M260,200 C260,160 460,160 460,200 C460,320 360,380 360,380 C360,380 260,320 260,200 Z" fill="#fff" opacity="0.9"/><circle cx="310" cy="230" r="8" fill="#002776"/><circle cx="410" cy="230" r="8" fill="#002776"/><circle cx="360" cy="280" r="8" fill="#002776"/><path d="M300,240 Q360,200 420,240" fill="none" stroke="#002776" stroke-width="3"/></svg></div><div><div class="logo-text"><span class="g">G</span><span class="o">O</span><span class="v">V</span><span class="dot">.</span><span class="b">B</span><span class="r">R</span></div><div class="logo-sub">Serviços e Informações do Brasil</div></div></a>
+<a href="#" class="logo-link">
+    <div class="logo-flag">
+        <img src="https://www.gov.br/governodigital/++theme++padrao_govbr/favicons/apple-touch-icon.png" 
+             alt="GOV.BR" 
+             style="width:100%;height:100%;object-fit:contain;">
+    </div>
+    <div>
+        <div class="logo-text">
+            <span class="g">G</span><span class="o">O</span><span class="v">V</span><span class="dot">.</span><span class="b">B</span><span class="r">R</span>
+        </div>
+        <div class="logo-sub">Serviços e Informações do Brasil</div>
+    </div>
+</a>
+
     
     <!-- BOTÕES DO MEIO - PREENCHE O ESPAÇO -->
     <div style="display:flex;gap:6px;align-items:center;flex:1;justify-content:center;flex-wrap:wrap;">
@@ -860,7 +1347,11 @@ tr.doc-escondida {
     
     <nav class="breadcrumb"><a href="#">Início</a><span class="arr">›</span><a href="#">Serviços</a><span class="arr">›</span><span class="cur">Validação de Documentos</span></nav>
     
-    <div class="page-title"><h1>Validação Oficial de Documentos</h1><p>Sistema integrado ao GOV.BR para consulta, verificação de autenticidade e solicitação de documentos oficiais com rastreamento em tempo real.</p></div>
+<div class="page-title">
+    <div class="title-icon"><i class="fas fa-landmark"></i></div>
+    <h1>Validação Oficial de Documentos</h1>
+    <p>Sistema integrado ao GOV.BR para consulta, verificação de autenticidade de documentos oficiais com rastreamento em tempo real.</p>
+</div>
     
 <!-- BUSCA -->
 <div class="search-hero" id="consultar">
@@ -982,8 +1473,6 @@ tr.doc-escondida {
     <div class="parceiros-scroll" id="parceirosScroll"></div>
 </div>
     
-    <!-- STATS -->
-    <div class="stats-band"><h2>Desempenho dos Serviços</h2><div class="stats-grid"><div class="stat-item"><div class="num" id="statServicos">0</div><div class="lbl">Serviços no Portal</div></div><div class="stat-item"><div class="num">92%</div><div class="lbl">Serviços Digitais</div></div><div class="stat-item"><div class="num">24/7</div><div class="lbl">Disponível</div></div><div class="stat-item"><div class="num" id="statDocs">0</div><div class="lbl">Documentos</div></div></div></div>
     
 <!-- AJUDA -->
 <div class="section" id="ajuda"><div class="help-box"><h3><i class="fas fa-info-circle"></i> Dúvidas Frequentes</h3><div class="help-grid">
@@ -1195,7 +1684,7 @@ function abrirModalInstituicao(id) {
         try {
             const resp = await fetch(`${API_BASE}/cliente07/documentos/publicos`);
             const data = await resp.json();
-            if(data.success) { docs = data.documentos||[]; document.getElementById('statDocs').textContent = docs.length; document.getElementById('statServicos').textContent = docs.length; }
+            if(data.success) { docs = data.documentos||[] }
         } catch(e) {
             console.log('API offline');
             docs = [
@@ -1241,8 +1730,8 @@ function abrirModalInstituicao(id) {
   informacoes:"Curso de qualificação profissional concluído com êxito.",
   data_emissao:"2024-03-15T10:00:00Z", data_validade:"2029-03-15", status:"valid", rast:false }
             ];
-            document.getElementById('statDocs').textContent = docs.length;
-            document.getElementById('statServicos').textContent = docs.length;
+          
+          
         }
         carregarFiltros(); renderAll();
     }
