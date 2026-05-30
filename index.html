@@ -556,6 +556,269 @@ tr.doc-escondida {
         padding: 5px 8px !important;
     }
 }
+/* ========== SEÇÃO DE CONSULTA CRIATIVA ========== */
+.search-hero {
+    position: relative;
+    background: linear-gradient(135deg, #0a1a3a 0%, #0C326F 30%, #1351B4 60%, #1B6DE0 100%);
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: clamp(30px, 5vw, 50px) clamp(20px, 4vw, 40px);
+    margin-bottom: 22px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(19,81,180,0.3);
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Partículas animadas */
+.search-hero .particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+.search-hero .particle {
+    position: absolute;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    animation: floatUp 8s infinite;
+}
+.search-hero .particle:nth-child(1) { width: 8px; height: 8px; left: 10%; animation-delay: 0s; animation-duration: 6s; }
+.search-hero .particle:nth-child(2) { width: 6px; height: 6px; left: 25%; animation-delay: 1s; animation-duration: 8s; }
+.search-hero .particle:nth-child(3) { width: 10px; height: 10px; left: 40%; animation-delay: 2s; animation-duration: 7s; }
+.search-hero .particle:nth-child(4) { width: 5px; height: 5px; left: 55%; animation-delay: 0.5s; animation-duration: 9s; }
+.search-hero .particle:nth-child(5) { width: 7px; height: 7px; left: 70%; animation-delay: 1.5s; animation-duration: 6.5s; }
+.search-hero .particle:nth-child(6) { width: 9px; height: 9px; left: 85%; animation-delay: 3s; animation-duration: 7.5s; }
+.search-hero .particle:nth-child(7) { width: 4px; height: 4px; left: 15%; animation-delay: 2.5s; animation-duration: 5s; }
+.search-hero .particle:nth-child(8) { width: 6px; height: 6px; left: 60%; animation-delay: 4s; animation-duration: 8s; }
+
+@keyframes floatUp {
+    0% { bottom: -20px; opacity: 0; transform: translateY(0) rotate(0deg); }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { bottom: 110%; opacity: 0; transform: translateY(-20px) rotate(180deg); }
+}
+
+/* Ondas no fundo */
+.search-hero .waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.15;
+}
+.search-hero .wave {
+    position: absolute;
+    bottom: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23ffffff' d='M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z'/%3E%3C/svg%3E") repeat-x;
+    background-size: 720px 60px;
+    animation: waveMove 4s linear infinite;
+}
+.search-hero .wave:nth-child(2) {
+    bottom: 5px;
+    opacity: 0.5;
+    animation-duration: 6s;
+    animation-direction: reverse;
+}
+
+@keyframes waveMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(720px); }
+}
+
+/* Círculos decorativos */
+.search-hero .decor-circle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.search-hero .decor-circle.c1 { width: 300px; height: 300px; top: -100px; right: -80px; }
+.search-hero .decor-circle.c2 { width: 150px; height: 150px; bottom: -40px; left: -50px; border-color: rgba(255,215,0,0.1); }
+.search-hero .decor-circle.c3 { width: 80px; height: 80px; top: 20px; left: 30%; border-color: rgba(255,255,255,0.08); }
+
+/* Conteúdo */
+.search-hero .search-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 650px;
+    text-align: center;
+}
+.search-hero .search-icon-animated {
+    font-size: clamp(40px, 6vw, 56px);
+    color: var(--yellow);
+    margin-bottom: 10px;
+    animation: pulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255,215,0,0.3));
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+.search-hero h2 {
+    font-size: clamp(18px, 3.5vw, 26px);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+}
+.search-hero .sub {
+    font-size: clamp(10px, 1.5vw, 12px);
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 18px;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.search-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255,255,255,0.08);
+    padding: 5px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    max-width: 550px;
+    margin: 0 auto;
+}
+.search-row input {
+    flex: 1;
+    min-width: 200px;
+    padding: 13px 18px;
+    border: none;
+    border-radius: 25px;
+    font-size: 13px;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    background: rgba(255,255,255,0.95);
+    color: var(--gray-80);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    height: 44px;
+}
+.search-row input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255,215,0,0.25);
+}
+.search-row input::placeholder {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0;
+    color: #aaa;
+    font-size: 12px;
+}
+.search-row .btn-solid {
+    padding: 0 20px;
+    height: 44px;
+    border-radius: 25px;
+    font-size: 12px;
+    flex-shrink: 0;
+    font-weight: 700;
+    box-shadow: 0 3px 12px rgba(255,215,0,0.35);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.search-row .btn-solid:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,215,0,0.5);
+}
+.search-row .btn-out {
+    padding: 0 14px;
+    height: 44px;
+    border-radius: 25px;
+    font-size: 12px;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    color: #fff;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+}
+.search-row .btn-out:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.7);
+    color: #fff;
+}
+
+/* Ajuste para mobile */
+@media (max-width: 600px) {
+    .search-row {
+        flex-direction: column;
+        background: transparent;
+        padding: 0;
+        border: none;
+        backdrop-filter: none;
+        gap: 6px;
+    }
+    .search-row input {
+        width: 100%;
+        border-radius: 25px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .search-row .btn-solid {
+        width: 100%;
+        justify-content: center;
+    }
+    .search-row .btn-out {
+        width: 100%;
+        justify-content: center;
+        border-color: rgba(255,255,255,0.3);
+    }
+}
+
+/* Stats em baixo */
+.search-stats {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+.search-stats .search-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    color: rgba(255,255,255,0.6);
+}
+.search-stats .search-stat-item i {
+    color: var(--yellow);
+    font-size: 10px;
+}
+.search-stats .search-stat-item strong {
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .search-row {
+        flex-direction: column;
+        background: transparent;
+        padding: 0;
+        border: none;
+        backdrop-filter: none;
+    }
+    .search-row input {
+        border-radius: 25px;
+    }
+    .search-row .btn-out {
+        border-color: rgba(255,255,255,0.3);
+    }
+}
     </style>
 </head>
 <body>
@@ -599,19 +862,42 @@ tr.doc-escondida {
     
     <div class="page-title"><h1>Validação Oficial de Documentos</h1><p>Sistema integrado ao GOV.BR para consulta, verificação de autenticidade e solicitação de documentos oficiais com rastreamento em tempo real.</p></div>
     
-    <!-- BUSCA -->
-    <div class="search-hero" id="consultar">
-        <div class="search-content">
-            <h2><i class="fas fa-magnifying-glass"></i> Consultar Documento</h2>
-            <p class="sub">Digite o código de autenticação ou protocolo para verificar a validade.</p>
-            <div class="search-row">
-                <input type="text" id="codigoInput" placeholder="Ex: RG-ABC12 ou CERT-NASC-XY3Z" aria-label="Código do documento">
-                <button class="btn-solid" onclick="consultarDocumento()"><i class="fas fa-shield-check"></i> Validar</button>
-                <button class="btn-out" onclick="mostrarInfo()"><i class="fas fa-question-circle"></i> Como funciona?</button>
-            </div>
+<!-- BUSCA -->
+<div class="search-hero" id="consultar">
+    <!-- Partículas -->
+    <div class="particles">
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        <div class="particle"></div><div class="particle"></div>
+    </div>
+    <!-- Ondas -->
+    <div class="waves">
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <!-- Círculos decorativos -->
+    <div class="decor-circle c1"></div>
+    <div class="decor-circle c2"></div>
+    <div class="decor-circle c3"></div>
+    
+    <div class="search-content">
+        <div class="search-icon-animated">
+            <i class="fas fa-shield-haltered"></i>
+        </div>
+        <h2>Valide seus Documentos em Segundos</h2>
+        <p class="sub">Digite o código de autenticação e verifique a autenticidade instantaneamente</p>
+        <div class="search-row">
+            <input type="text" id="codigoInput" placeholder="🔍 Digite o código do documento..." aria-label="Código do documento">
+            <button class="btn-solid gold" onclick="consultarDocumento()"><i class="fas fa-shield-check"></i> Validar</button>
+            <button class="btn-out" onclick="mostrarInfo()"><i class="fas fa-question-circle"></i></button>
+        </div>
+        <div class="search-stats">
+            <span class="search-stat-item"><i class="fas fa-check-circle"></i> <strong>+50mil</strong> documentos validados</span>
+            <span class="search-stat-item"><i class="fas fa-lock"></i> <strong>100%</strong> seguro</span>
+            <span class="search-stat-item"><i class="fas fa-bolt"></i> <strong>Instantâneo</strong></span>
         </div>
     </div>
-
+</div>
 <!-- SERVIÇOS -->
 <div class="section" id="servicos">
     <div class="section-hdr"><h2><i class="fas fa-star"></i> Serviços Disponíveis</h2></div>
