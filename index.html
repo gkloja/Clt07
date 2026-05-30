@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Favicon GOV.BR Oficial -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231351B4'/%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%23FFD700' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='43' fill='none' stroke='%23FFD700' stroke-width='0.8'/%3E%3Ccircle cx='30' cy='35' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='50' cy='28' r='2' fill='%23FFD700'/%3E%3Ccircle cx='70' cy='35' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='78' cy='55' r='2' fill='%23FFD700'/%3E%3Ccircle cx='70' cy='72' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='50' cy='78' r='2' fill='%23FFD700'/%3E%3Ccircle cx='30' cy='72' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='22' cy='55' r='2' fill='%23FFD700'/%3E%3Cpath d='M28 45 Q50 30 72 45 L68 58 Q50 48 32 58 Z' fill='rgba(255,255,255,0.9)'/%3E%3Ctext x='50' y='52' text-anchor='middle' fill='%231351B4' font-size='6' font-weight='900' font-family='Arial'%3EGOV.BR%3C/text%3E%3C/svg%3E">
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231351B4'/%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%23FFD700' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='43' fill='none' stroke='%23FFD700' stroke-width='0.8'/%3E%3Ccircle cx='30' cy='35' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='50' cy='28' r='2' fill='%23FFD700'/%3E%3Ccircle cx='70' cy='35' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='78' cy='55' r='2' fill='%23FFD700'/%3E%3Ccircle cx='70' cy='72' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='50' cy='78' r='2' fill='%23FFD700'/%3E%3Ccircle cx='30' cy='72' r='2.5' fill='%23FFD700'/%3E%3Ccircle cx='22' cy='55' r='2' fill='%23FFD700'/%3E%3Cpath d='M28 45 Q50 30 72 45 L68 58 Q50 48 32 58 Z' fill='rgba(255,255,255,0.9)'/%3E%3Ctext x='50' y='52' text-anchor='middle' fill='%231351B4' font-size='6' font-weight='900' font-family='Arial'%3EGOV.BR%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
@@ -390,6 +393,169 @@
 tr.doc-escondida {
     /* Já controlado pelo style.display no JS */
 }
+/* ========== CABEÇALHO COMPACTO E PROFISSIONAL ========== */
+.header .inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 6px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 50px;
+    gap: 8px;
+}
+.header-tagline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 8px;
+    color: var(--gray-50);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+.header-tagline i {
+    color: var(--green);
+    font-size: 7px;
+}
+
+/* ========== PARCEIROS - CARDS COM IMAGEM DE FUNDO ========== */
+.parceiros-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 10px 4px 16px;
+    scroll-snap-type: x mandatory;
+}
+.parceiros-scroll::-webkit-scrollbar { display: none; }
+
+.parceiro-card-new {
+    min-width: 200px;
+    max-width: 240px;
+    height: 180px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    transition: all 0.3s;
+    display: flex;
+    align-items: flex-end;
+}
+.parceiro-card-new:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+.parceiro-card-new .parceiro-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s;
+}
+.parceiro-card-new:hover .parceiro-bg {
+    transform: scale(1.08);
+}
+.parceiro-card-new .parceiro-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.05) 100%);
+    z-index: 1;
+}
+.parceiro-card-new .parceiro-content {
+    position: relative;
+    z-index: 2;
+    padding: 14px;
+    width: 100%;
+    color: #fff;
+}
+.parceiro-card-new .parceiro-content .parceiro-logo-mini {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+.parceiro-card-new .parceiro-content .parceiro-logo-mini svg {
+    width: 80%;
+    height: 80%;
+}
+.parceiro-card-new .parceiro-content h5 {
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 2px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.parceiro-card-new .parceiro-content small {
+    font-size: 8px;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Setas de navegação */
+.parceiros-nav {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: -8px;
+}
+.parceiros-nav button {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1px solid var(--gray-30);
+    cursor: pointer;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    color: var(--gray-70);
+    box-shadow: var(--shadow-sm);
+}
+.parceiros-nav button:hover {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .header-tagline { display: none; }
+    .parceiro-card-new {
+        min-width: 160px;
+        max-width: 200px;
+        height: 150px;
+    }
+    .parceiro-card-new .parceiro-content { padding: 10px; }
+    .parceiro-card-new .parceiro-content h5 { font-size: 10px; }
+}
+/* Esconde botões do meio no mobile */
+@media (max-width: 900px) {
+    .header .inner > div:nth-child(2) {
+        display: none !important;
+    }
+}
+@media (max-width: 480px) {
+    .header .inner {
+        padding: 4px 8px;
+        gap: 4px;
+    }
+    .btn-out, .btn-solid {
+        font-size: 8px !important;
+        padding: 5px 8px !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -400,7 +566,25 @@ tr.doc-escondida {
 
 <header class="header"><div class="inner">
     <a href="#" class="logo-link"><div class="logo-flag"><svg viewBox="0 0 720 504"><rect width="720" height="504" fill="#009c3b"/><polygon points="360,30 690,252 360,474 30,252" fill="#ffdf00"/><circle cx="360" cy="252" r="120" fill="#002776"/><path d="M260,200 C260,160 460,160 460,200 C460,320 360,380 360,380 C360,380 260,320 260,200 Z" fill="#fff" opacity="0.9"/><circle cx="310" cy="230" r="8" fill="#002776"/><circle cx="410" cy="230" r="8" fill="#002776"/><circle cx="360" cy="280" r="8" fill="#002776"/><path d="M300,240 Q360,200 420,240" fill="none" stroke="#002776" stroke-width="3"/></svg></div><div><div class="logo-text"><span class="g">G</span><span class="o">O</span><span class="v">V</span><span class="dot">.</span><span class="b">B</span><span class="r">R</span></div><div class="logo-sub">Serviços e Informações do Brasil</div></div></a>
-    <div class="header-actions"><a href="#consultar" class="btn-out"><i class="fas fa-search"></i> Consultar</a><button class="btn-solid gold" onclick="irParaConsulta()"><i class="fas fa-shield-alt"></i> Validar Agora</button></div>
+    
+    <!-- BOTÕES DO MEIO - PREENCHE O ESPAÇO -->
+    <div style="display:flex;gap:6px;align-items:center;flex:1;justify-content:center;flex-wrap:wrap;">
+        <a href="#parceiros" class="btn-out" style="font-size:9px;padding:6px 12px;">
+            <i class="fas fa-handshake"></i> Instituições Parceiras
+        </a>
+        <a href="#servicos" class="btn-out" style="font-size:9px;padding:6px 12px;">
+            <i class="fas fa-star"></i> Serviços
+        </a>
+        <a href="#documentos" class="btn-out" style="font-size:9px;padding:6px 12px;">
+            <i class="fas fa-database"></i> Base de Documentos
+        </a>
+    </div>
+    
+    <!-- BOTÕES DA DIREITA -->
+    <div class="header-actions">
+        <a href="#consultar" class="btn-out"><i class="fas fa-search"></i> Consultar</a>
+        <button class="btn-solid gold" onclick="irParaConsulta()"><i class="fas fa-shield-alt"></i> Validar Agora</button>
+    </div>
 </div></header>
 
 <nav class="nav-bar"><div class="inner">
@@ -497,13 +681,19 @@ tr.doc-escondida {
 <div class="docs-cards" id="docsCards"></div>
         </div>
     </div>
-    <!-- INSTITUIÇÕES PARCEIRAS -->
+<!-- INSTITUIÇÕES PARCEIRAS -->
 <div class="section" id="parceiros">
-    <div class="section-hdr"><h2><i class="fas fa-handshake"></i> Instituições Parceiras</h2></div>
-    <p style="font-size:10px;color:var(--gray-60);margin-bottom:14px;">
-        Instituições de ensino que confiam no sistema GOV.BR para validação de documentos oficiais. Clique em cada uma para saber mais.
+    <div class="section-hdr">
+        <h2><i class="fas fa-handshake"></i> Instituições Parceiras</h2>
+        <div class="parceiros-nav">
+            <button onclick="scrollParceiros(-1)" title="Anterior"><i class="fas fa-chevron-left"></i></button>
+            <button onclick="scrollParceiros(1)" title="Próximo"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+    <p style="font-size:9px;color:var(--gray-60);margin-bottom:10px;">
+        Instituições que confiam no GOV.BR para validação de documentos. <strong>Arraste para o lado</strong> para ver todas.
     </p>
-    <div class="parceiros-grid" id="parceirosGrid"></div>
+    <div class="parceiros-scroll" id="parceirosScroll"></div>
 </div>
     
     <!-- STATS -->
@@ -594,195 +784,91 @@ function buscarExemplo(codigo) {
     setTimeout(() => consultarDocumento(), 400);
 }
     // ==================== INSTITUIÇÕES PARCEIRAS ====================
+// ==================== INSTITUIÇÕES PARCEIRAS ====================
+// Imagens de fundo reais (Unsplash) para cada instituição
 const INSTITUICOES = [
     {
-        id: 'estacio',
-        nome: 'Universidade Estácio de Sá',
-        sigla: 'ESTÁCIO',
-        tipo: 'Universidade Privada',
-        cor: '#1A3A6B',
+        id: 'estacio', nome: 'Universidade Estácio de Sá', tipo: 'Universidade Privada',
         corGradiente: 'linear-gradient(135deg, #1A3A6B, #2B5CB0)',
-        fundacao: '1970',
-        sede: 'Rio de Janeiro, RJ',
-        campus: '90+ unidades em todo Brasil',
-        alunos: '500.000+ alunos',
-        cursos: 'Graduação, Pós, Mestrado e Doutorado',
-        site: 'estacio.br',
-        descricao: 'Uma das maiores universidades do Brasil, a Estácio oferece ensino de qualidade há mais de 50 anos, com cursos presenciais e a distância reconhecidos pelo MEC.',
-        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#1A3A6B" rx="8"/><text x="100" y="48" text-anchor="middle" fill="white" font-size="20" font-weight="900" font-family="Arial">ESTÁCIO</text><text x="100" y="65" text-anchor="middle" fill="#FFD700" font-size="8" font-weight="600" font-family="Arial">UNIVERSIDADE</text></svg>`
+        fundacao: '1970', sede: 'Rio de Janeiro, RJ', campus: '90+ unidades',
+        alunos: '500.000+', cursos: 'Graduação, Pós, Mestrado, Doutorado', site: 'estacio.br',
+        descricao: 'Uma das maiores universidades do Brasil, com mais de 50 anos de tradição em ensino de qualidade.',
+        bgImage: 'https://images.unsplash.com/photo-1562774053-701939374585?w=500&h=350&fit=crop',
+        svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#1A3A6B" rx="6"/><text x="100" y="36" text-anchor="middle" fill="white" font-size="18" font-weight="900" font-family="Arial">ESTÁCIO</text></svg>`
     },
     {
-        id: 'anhanguera',
-        nome: 'Universidade Anhanguera',
-        sigla: 'ANHANGUERA',
-        tipo: 'Universidade Privada',
-        cor: '#E8611A',
+        id: 'anhanguera', nome: 'Anhanguera', tipo: 'Universidade Privada',
         corGradiente: 'linear-gradient(135deg, #E8611A, #F0823A)',
-        fundacao: '1994',
-        sede: 'Campinas, SP',
-        campus: '70+ unidades em todo Brasil',
-        alunos: '400.000+ alunos',
-        cursos: 'Graduação, Pós-Graduação, Tecnólogos',
-        site: 'anhanguera.com',
-        descricao: 'A Anhanguera é uma das maiores instituições de ensino superior do país, oferecendo educação de qualidade com infraestrutura moderna e professores qualificados.',
-        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#E8611A" rx="8"/><text x="100" y="46" text-anchor="middle" fill="white" font-size="16" font-weight="900" font-family="Arial">ANHANGUERA</text><text x="100" y="63" text-anchor="middle" fill="#FFF" font-size="7" font-weight="600" font-family="Arial">UNIVERSIDADE</text></svg>`
+        fundacao: '1994', sede: 'Campinas, SP', campus: '70+ unidades',
+        alunos: '400.000+', cursos: 'Graduação, Pós, Tecnólogos', site: 'anhanguera.com',
+        descricao: 'Educação de qualidade com infraestrutura moderna e professores qualificados em todo o Brasil.',
+        bgImage: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=500&h=350&fit=crop',
+        svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#E8611A" rx="6"/><text x="100" y="36" text-anchor="middle" fill="white" font-size="16" font-weight="900" font-family="Arial">ANHANGUERA</text></svg>`
     },
     {
-    id: 'sesi',
-    nome: 'SESI - Serviço Social da Indústria',
-    sigla: 'SESI',
-    tipo: 'Instituição de Ensino',
-    cor: '#E30613',
-    corGradiente: 'linear-gradient(135deg, #C00510, #E30613)',
-    fundacao: '1946',
-    sede: 'Brasília, DF',
-    campus: '500+ unidades em todo Brasil',
-    alunos: '2.000.000+ alunos',
-    cursos: 'Ensino Fundamental, Médio, EJA, Cursos Técnicos',
-    site: 'sesi.org.br',
-    descricao: 'O SESI é referência em educação básica e profissional no Brasil, oferecendo ensino de qualidade para crianças, jovens e adultos em todo o território nacional.',
-    svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#E30613" rx="8"/><text x="100" y="48" text-anchor="middle" fill="white" font-size="32" font-weight="900" font-family="Arial">SESI</text><text x="100" y="66" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">SERVIÇO SOCIAL DA INDÚSTRIA</text></svg>`
-},
-{
-    id: 'senai',
-    nome: 'SENAI - Serviço Nacional de Aprendizagem Industrial',
-    sigla: 'SENAI',
-    tipo: 'Instituição de Ensino Técnico',
-    cor: '#003399',
-    corGradiente: 'linear-gradient(135deg, #002277, #003399)',
-    fundacao: '1942',
-    sede: 'Brasília, DF',
-    campus: '600+ unidades em todo Brasil',
-    alunos: '3.500.000+ alunos',
-    cursos: 'Cursos Técnicos, Aprendizagem, Qualificação, Graduação Tecnológica',
-    site: 'senai.br',
-    descricao: 'O SENAI é o maior complexo de educação profissional da América Latina, formando profissionais para a indústria brasileira há mais de 80 anos.',
-    svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#003399" rx="8"/><text x="100" y="50" text-anchor="middle" fill="white" font-size="30" font-weight="900" font-family="Arial">SENAI</text><text x="100" y="68" text-anchor="middle" fill="#FFD700" font-size="6" font-weight="600" font-family="Arial">FORMAÇÃO PROFISSIONAL</text></svg>`
-},
-{
-    id: 'senac',
-    nome: 'SENAC - Serviço Nacional de Aprendizagem Comercial',
-    sigla: 'SENAC',
-    tipo: 'Instituição de Ensino Profissionalizante',
-    cor: '#F58220',
-    corGradiente: 'linear-gradient(135deg, #E07010, #F58220)',
-    fundacao: '1946',
-    sede: 'Rio de Janeiro, RJ',
-    campus: '600+ unidades em todo Brasil',
-    alunos: '2.000.000+ alunos',
-    cursos: 'Cursos Técnicos, Livres, Graduação, Pós-Graduação, Idiomas',
-    site: 'senac.br',
-    descricao: 'O SENAC é referência em educação profissional no comércio de bens, serviços e turismo, com metodologia inovadora e infraestrutura de ponta.',
-    svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#F58220" rx="8"/><text x="100" y="50" text-anchor="middle" fill="white" font-size="30" font-weight="900" font-family="Arial">SENAC</text><text x="100" y="68" text-anchor="middle" fill="#FFF" font-size="7" font-weight="600" font-family="Arial">EDUCAÇÃO PROFISSIONAL</text></svg>`
-},
+        id: 'sesi', nome: 'SESI', tipo: 'Serviço Social da Indústria',
+        corGradiente: 'linear-gradient(135deg, #C00510, #E30613)',
+        fundacao: '1946', sede: 'Brasília, DF', campus: '500+ unidades',
+        alunos: '2.000.000+', cursos: 'Ensino Fundamental, Médio, EJA, Técnicos', site: 'sesi.org.br',
+        descricao: 'Referência em educação básica e profissional, formando crianças, jovens e adultos.',
+        bgImage: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=500&h=350&fit=crop',
+        svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#E30613" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">SESI</text></svg>`
+    },
     {
-        id: 'ifrj',
-        nome: 'Instituto Federal do Rio de Janeiro',
-        sigla: 'IFRJ',
-        tipo: 'Instituto Federal',
-        cor: '#006837',
+        id: 'senai', nome: 'SENAI', tipo: 'Formação Profissional',
+        corGradiente: 'linear-gradient(135deg, #002277, #003399)',
+        fundacao: '1942', sede: 'Brasília, DF', campus: '600+ unidades',
+        alunos: '3.500.000+', cursos: 'Técnicos, Aprendizagem, Qualificação', site: 'senai.br',
+        descricao: 'Maior complexo de educação profissional da América Latina, com 80+ anos de história.',
+        bgImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&h=350&fit=crop',
+        svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#003399" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="26" font-weight="900" font-family="Arial">SENAI</text></svg>`
+    },
+    {
+        id: 'senac', nome: 'SENAC', tipo: 'Educação Profissional',
+        corGradiente: 'linear-gradient(135deg, #E07010, #F58220)',
+        fundacao: '1946', sede: 'Rio de Janeiro, RJ', campus: '600+ unidades',
+        alunos: '2.000.000+', cursos: 'Técnicos, Livres, Graduação, Idiomas', site: 'senac.br',
+        descricao: 'Referência em educação profissional no comércio, serviços e turismo.',
+        bgImage: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=500&h=350&fit=crop',
+        svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#F58220" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="26" font-weight="900" font-family="Arial">SENAC</text></svg>`
+    },
+    {
+        id: 'ifrj', nome: 'IFRJ', tipo: 'Instituto Federal',
         corGradiente: 'linear-gradient(135deg, #006837, #009444)',
-        fundacao: '2008',
-        sede: 'Rio de Janeiro, RJ',
-        campus: '15 campi',
-        alunos: '25.000+ alunos',
-        cursos: 'Técnicos, Graduação, Pós-Graduação',
-        site: 'ifrj.edu.br',
-        descricao: 'O IFRJ oferece educação profissional, científica e tecnológica gratuita, com cursos técnicos integrados ao ensino médio, graduações e pós-graduações.',
-        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#006837" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFRJ</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
+        fundacao: '2008', sede: 'Rio de Janeiro, RJ', campus: '15 campi',
+        alunos: '25.000+', cursos: 'Técnicos, Graduação, Pós', site: 'ifrj.edu.br',
+        descricao: 'Educação profissional, científica e tecnológica gratuita de qualidade.',
+        bgImage: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=500&h=350&fit=crop',
+        svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#006837" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="26" font-weight="900" font-family="Arial">IFRJ</text></svg>`
     },
     {
-        id: 'ifsp',
-        nome: 'Instituto Federal de São Paulo',
-        sigla: 'IFSP',
-        tipo: 'Instituto Federal',
-        cor: '#1E6B3E',
+        id: 'ifsp', nome: 'IFSP', tipo: 'Instituto Federal',
         corGradiente: 'linear-gradient(135deg, #1E6B3E, #2D9A5A)',
-        fundacao: '1909',
-        sede: 'São Paulo, SP',
-        campus: '37 campi',
-        alunos: '55.000+ alunos',
-        cursos: 'Técnicos, Graduação, Pós-Graduação',
-        site: 'ifsp.edu.br',
-        descricao: 'O IFSP é uma das instituições mais tradicionais de ensino técnico e tecnológico do Brasil, com mais de um século de história e excelência em educação.',
-        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#1E6B3E" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFSP</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
-    },
-    {
-        id: 'ifrs',
-        nome: 'Instituto Federal do Rio Grande do Sul',
-        sigla: 'IFRS',
-        tipo: 'Instituto Federal',
-        cor: '#8B0000',
-        corGradiente: 'linear-gradient(135deg, #8B0000, #B22222)',
-        fundacao: '2008',
-        sede: 'Porto Alegre, RS',
-        campus: '17 campi',
-        alunos: '30.000+ alunos',
-        cursos: 'Técnicos, Graduação, Pós-Graduação',
-        site: 'ifrs.edu.br',
-        descricao: 'O IFRS é referência em educação profissional no sul do país, oferecendo cursos gratuitos de qualidade em diversas áreas do conhecimento.',
-        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#8B0000" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFRS</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
-    },
-    {
-        id: 'ifba',
-        nome: 'Instituto Federal da Bahia',
-        sigla: 'IFBA',
-        tipo: 'Instituto Federal',
-        cor: '#0033A0',
-        corGradiente: 'linear-gradient(135deg, #0033A0, #0055CC)',
-        fundacao: '1910',
-        sede: 'Salvador, BA',
-        campus: '22 campi',
-        alunos: '40.000+ alunos',
-        cursos: 'Técnicos, Graduação, Pós-Graduação',
-        site: 'ifba.edu.br',
-        descricao: 'O IFBA é uma das mais antigas instituições de ensino técnico do Brasil, com mais de 110 anos formando profissionais para o mercado de trabalho.',
-        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#0033A0" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFBA</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
-    },
-    {
-        id: 'ifmg',
-        nome: 'Instituto Federal de Minas Gerais',
-        sigla: 'IFMG',
-        tipo: 'Instituto Federal',
-        cor: '#4A148C',
-        corGradiente: 'linear-gradient(135deg, #4A148C, #7B1FA2)',
-        fundacao: '2008',
-        sede: 'Belo Horizonte, MG',
-        campus: '18 campi',
-        alunos: '28.000+ alunos',
-        cursos: 'Técnicos, Graduação, Pós-Graduação',
-        site: 'ifmg.edu.br',
-        descricao: 'O IFMG oferece ensino gratuito de qualidade em Minas Gerais, com cursos que atendem às demandas do mercado e contribuem para o desenvolvimento regional.',
-        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#4A148C" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFMG</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
-    },
-    {
-        id: 'ifms',
-        nome: 'Instituto Federal de Mato Grosso do Sul',
-        sigla: 'IFMS',
-        tipo: 'Instituto Federal',
-        cor: '#00695C',
-        corGradiente: 'linear-gradient(135deg, #00695C, #00897B)',
-        fundacao: '2008',
-        sede: 'Campo Grande, MS',
-        campus: '10 campi',
-        alunos: '18.000+ alunos',
-        cursos: 'Técnicos, Graduação, Pós-Graduação',
-        site: 'ifms.edu.br',
-        descricao: 'O IFMS promove educação profissional e tecnológica no Mato Grosso do Sul, formando cidadãos capacitados para o mundo do trabalho.',
-        svgLogo: `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="80" fill="#00695C" rx="8"/><text x="100" y="40" text-anchor="middle" fill="white" font-size="28" font-weight="900" font-family="Arial">IFMS</text><text x="100" y="60" text-anchor="middle" fill="#FFD700" font-size="7" font-weight="600" font-family="Arial">INSTITUTO FEDERAL</text></svg>`
+        fundacao: '1909', sede: 'São Paulo, SP', campus: '37 campi',
+        alunos: '55.000+', cursos: 'Técnicos, Graduação, Pós', site: 'ifsp.edu.br',
+        descricao: 'Mais de um século de excelência em educação técnica e tecnológica.',
+        bgImage: 'https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?w=500&h=350&fit=crop',
+        svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#1E6B3E" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="26" font-weight="900" font-family="Arial">IFSP</text></svg>`
     }
 ];
 
 function renderizarInstituicoes() {
-    document.getElementById('parceirosGrid').innerHTML = INSTITUICOES.map(inst => `
-        <div class="parceiro-card" onclick="abrirModalInstituicao('${inst.id}')">
-            <div class="parceiro-img" style="background:${inst.corGradiente};">
-                ${inst.svgLogo}
+    document.getElementById('parceirosScroll').innerHTML = INSTITUICOES.map(inst => `
+        <div class="parceiro-card-new" onclick="abrirModalInstituicao('${inst.id}')">
+            <div class="parceiro-bg" style="background-image:url('${inst.bgImage}');background-color:${inst.corGradiente.split(',')[0].replace('linear-gradient(135deg,','').trim()};"></div>
+            <div class="parceiro-overlay"></div>
+            <div class="parceiro-content">
+                <div class="parceiro-logo-mini" style="background:${inst.corGradiente};">${inst.svgLogo}</div>
+                <h5>${inst.nome}</h5>
+                <small>${inst.tipo}</small>
             </div>
-            <h4>${inst.nome}</h4>
-            <p>${inst.tipo}</p>
         </div>
     `).join('');
+}
+
+function scrollParceiros(direction) {
+    const carousel = document.getElementById('parceirosScroll');
+    carousel.scrollBy({ left: 220 * direction, behavior: 'smooth' });
 }
 
 function abrirModalInstituicao(id) {
@@ -791,30 +877,31 @@ function abrirModalInstituicao(id) {
     
     Swal.fire({
         html: `
-            <div class="modal-instituicao">
-                <div class="inst-logo-grande" style="background:${inst.corGradiente};">
+            <div style="text-align:center;">
+                <div style="width:80px;height:80px;border-radius:16px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;background:${inst.corGradiente};box-shadow:0 4px 15px rgba(0,0,0,0.2);">
                     ${inst.svgLogo}
                 </div>
-                <h3>${inst.nome}</h3>
-                <div class="inst-tipo">${inst.tipo}</div>
-                <div class="inst-desc">${inst.descricao}</div>
-                <div class="inst-info">
-                    <div class="inst-info-item"><div class="lbl">Fundação</div><div class="val">${inst.fundacao}</div></div>
-                    <div class="inst-info-item"><div class="lbl">Sede</div><div class="val">${inst.sede}</div></div>
-                    <div class="inst-info-item"><div class="lbl">Campus</div><div class="val">${inst.campus}</div></div>
-                    <div class="inst-info-item"><div class="lbl">Alunos</div><div class="val">${inst.alunos}</div></div>
-                    <div class="inst-info-item"><div class="lbl">Cursos</div><div class="val">${inst.cursos}</div></div>
-                    <div class="inst-info-item"><div class="lbl">Site</div><div class="val" style="color:var(--blue);">${inst.site}</div></div>
+                <h3 style="font-size:16px;font-weight:800;margin-bottom:2px;">${inst.nome}</h3>
+                <p style="font-size:9px;color:#1351B4;font-weight:700;text-transform:uppercase;margin-bottom:10px;">${inst.tipo}</p>
+                <p style="font-size:10px;color:#666;line-height:1.6;margin-bottom:10px;">${inst.descricao}</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;text-align:left;">
+                    <div style="background:#F8FAFC;padding:8px;border-radius:6px;"><small style="color:#999;">Fundação</small><br><strong style="font-size:10px;">${inst.fundacao}</strong></div>
+                    <div style="background:#F8FAFC;padding:8px;border-radius:6px;"><small style="color:#999;">Sede</small><br><strong style="font-size:10px;">${inst.sede}</strong></div>
+                    <div style="background:#F8FAFC;padding:8px;border-radius:6px;"><small style="color:#999;">Alunos</small><br><strong style="font-size:10px;">${inst.alunos}</strong></div>
+                    <div style="background:#F8FAFC;padding:8px;border-radius:6px;"><small style="color:#999;">Site</small><br><strong style="font-size:10px;color:#1351B4;">${inst.site}</strong></div>
                 </div>
             </div>
         `,
         showConfirmButton: true,
         confirmButtonText: 'Fechar',
         confirmButtonColor: '#1351B4',
-        width: '520px',
-        customClass: { popup: 'swal-instituicao' }
+        width: '460px'
     });
 }
+
+
+
+
 
 
     // ==================== API ====================
