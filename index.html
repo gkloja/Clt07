@@ -1893,12 +1893,12 @@ body::after {
 
 // ==================== EXEMPLOS DE DOCUMENTOS ====================
 const EXEMPLOS_POR_CATEGORIA = {
-    'Educação': [
-        { nome: '📜 Certificado de Ensino Médio', desc: 'SESI - Conclusão do Ensino Médio', codigo: 'DOC-EDU001', icone: 'fa-graduation-cap', cor: 'blue' },
-        { nome: '📚 Certificado de Ensino Fundamental', desc: 'ENCCEJA - Certificação Nacional', codigo: 'DOC-EDU002', icone: 'fa-book', cor: 'blue' },
-        { nome: '🎓 Diploma de Curso Técnico', desc: 'IFCE - Técnico em Informática', codigo: 'DOC-DIP001', icone: 'fa-award', cor: 'blue' },
-        { nome: '🎓 Diploma Superior', desc: 'UNIFOR - Bacharel em Direito', codigo: 'DOC-SUP001', icone: 'fa-user-graduate', cor: 'blue' }
-    ],
+  'Educação': [
+    { nome: '📜 Certificado Ensino Médio SESI', desc: 'SESI - Conclusão do Ensino Médio', codigo: 'DOC-SESI001', icone: 'fa-graduation-cap', cor: 'blue' },
+    { nome: '📚 Certificado Ensino Fundamental SESI', desc: 'SESI - Ensino Fundamental Completo', codigo: 'DOC-SESI002', icone: 'fa-book', cor: 'blue' },
+    { nome: '🎓 Diploma Técnico IFCE', desc: 'IFCE - Técnico em Informática', codigo: 'DOC-DIP001', icone: 'fa-award', cor: 'blue' },
+    { nome: '🎓 Diploma Superior UNIFOR', desc: 'UNIFOR - Bacharel em Direito', codigo: 'DOC-SUP001', icone: 'fa-user-graduate', cor: 'blue' }
+],
     'Saúde': [
         { nome: '🩺 Atestado Médico', desc: 'Hospital Santa Clara - Consulta', codigo: 'DOC-MED001', icone: 'fa-heartbeat', cor: 'green' },
         { nome: '🏊 Atestado de Aptidão Física', desc: 'Clínica FisioSaúde - Piscina', codigo: 'DOC-APT001', icone: 'fa-person-swimming', cor: 'green' },
@@ -1915,11 +1915,12 @@ const EXEMPLOS_POR_CATEGORIA = {
         { nome: '📜 Procuração Pública', desc: 'Cartório 1º Ofício - Plenos Poderes', codigo: 'DOC-PRO001', icone: 'fa-file-contract', cor: 'purple' },
         { nome: '👨‍👧 Guarda de Menor', desc: 'Vara da Infância - Guarda Compartilhada', codigo: 'DOC-GUA001', icone: 'fa-child', cor: 'purple' }
     ],
-    'Cursos': [
-        { nome: '🔧 Curso SENAI', desc: 'Técnico em Eletrotécnica', codigo: 'DOC-SENAI001', icone: 'fa-gear', cor: 'teal' },
-        { nome: '🏭 Curso SESI', desc: 'Assistente Administrativo', codigo: 'DOC-SESI001', icone: 'fa-industry', cor: 'teal' },
-        { nome: '🎓 Diploma Técnico', desc: 'IFCE - Informática', codigo: 'DOC-DIP001', icone: 'fa-laptop-code', cor: 'teal' }
-    ]
+   'Cursos': [
+    { nome: '🔧 Curso SENAI', desc: 'Técnico em Eletrotécnica', codigo: 'DOC-SENAI001', icone: 'fa-gear', cor: 'teal' },
+    { nome: '🏭 Curso SESI', desc: 'Assistente Administrativo', codigo: 'DOC-SESI001', icone: 'fa-industry', cor: 'teal' },
+    { nome: '📚 Ensino Fundamental SESI', desc: 'Escola SESI - 9º ano', codigo: 'DOC-SESI002', icone: 'fa-school', cor: 'teal' },
+    { nome: '📜 Ensino Médio SESI', desc: 'Escola SESI - 3º ano', codigo: 'DOC-SESI003', icone: 'fa-graduation-cap', cor: 'teal' }
+]
 };
 
 function mostrarExemplos(categoria) {
