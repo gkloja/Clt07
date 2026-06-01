@@ -1687,6 +1687,88 @@ body::after {
         font-size: clamp(22px, 7vw, 30px);
     }
 }
+/* Centralizar título da página */
+.page-title {
+    text-align: center !important;
+}
+.page-title h1 {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+.page-title h1::after {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
+.page-title p {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 100% !important;
+}
+.page-title .title-icon {
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+/* Ajuste da animação da barra inferior */
+@keyframes underlinePulse {
+    0%, 100% { 
+        width: 100px; 
+        opacity: 0.7;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    50% { 
+        width: 80%; 
+        opacity: 1;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+/* ========== CARDS DE SERVIÇO - ÍCONE E NOME NA MESMA LINHA ========== */
+#servicos .svc-card {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 16px 18px !important;
+}
+
+#servicos .svc-card .svc-icon {
+    flex-shrink: 0;
+    margin-bottom: 0 !important;
+}
+
+#servicos .svc-card .svc-card-content {
+    flex: 1;
+    min-width: 0;
+}
+
+#servicos .svc-card h3 {
+    margin-bottom: 2px !important;
+}
+
+#servicos .svc-card p {
+    margin: 0 !important;
+}
+
+/* Ajuste nas imagens de fundo */
+#servicos .svc-card::before {
+    opacity: 0.25 !important;
+}
+
+#servicos .svc-card:hover::before {
+    opacity: 0.5 !important;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    #servicos .svc-card {
+        gap: 10px !important;
+        padding: 14px 12px !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -1787,38 +1869,50 @@ body::after {
 <div class="section" id="servicos">
     <div class="section-hdr"><h2><i class="fas fa-star"></i> Serviços Disponíveis</h2></div>
     <p style="font-size:10px;color:var(--gray-60);margin-bottom:10px;">Clique em um serviço para ver exemplos de documentos disponíveis para validação.</p>
-    <div class="svc-grid">
-        <div class="svc-card card-educacao" onclick="mostrarExemplos('Educação')">
-            <div class="svc-icon blue"><i class="fas fa-graduation-cap"></i></div>
+<div class="svc-grid">
+    <div class="svc-card card-educacao" onclick="mostrarExemplos('Educação')">
+        <div class="svc-icon blue"><i class="fas fa-graduation-cap"></i></div>
+        <div class="svc-card-content">
             <h3>Certificados e Diplomas</h3>
             <p>Ensino Fundamental, Médio, Técnico e Superior</p>
         </div>
-        <div class="svc-card card-saude" onclick="mostrarExemplos('Saúde')">
-            <div class="svc-icon green"><i class="fas fa-heartbeat"></i></div>
+    </div>
+    <div class="svc-card card-saude" onclick="mostrarExemplos('Saúde')">
+        <div class="svc-icon green"><i class="fas fa-heartbeat"></i></div>
+        <div class="svc-card-content">
             <h3>Atestados Médicos</h3>
             <p>Consultas, exames, laudos e aptidão física</p>
         </div>
-        <div class="svc-card card-pessoais" onclick="mostrarExemplos('Documentos Pessoais')">
-            <div class="svc-icon orange"><i class="fas fa-id-card"></i></div>
+    </div>
+    <div class="svc-card card-pessoais" onclick="mostrarExemplos('Documentos Pessoais')">
+        <div class="svc-icon orange"><i class="fas fa-id-card"></i></div>
+        <div class="svc-card-content">
             <h3>Documentos Pessoais</h3>
             <p>RG, CNH, Certidões e Título de Eleitor</p>
         </div>
-        <div class="svc-card card-juridico" onclick="mostrarExemplos('Legal')">
-            <div class="svc-icon purple"><i class="fas fa-scale-balanced"></i></div>
+    </div>
+    <div class="svc-card card-juridico" onclick="mostrarExemplos('Legal')">
+        <div class="svc-icon purple"><i class="fas fa-scale-balanced"></i></div>
+        <div class="svc-card-content">
             <h3>Documentos Jurídicos</h3>
             <p>Alvarás, Procurações e Licenças</p>
         </div>
-        <div class="svc-card card-cursos" onclick="mostrarExemplos('Cursos')">
-            <div class="svc-icon teal"><i class="fas fa-building-columns"></i></div>
+    </div>
+    <div class="svc-card card-cursos" onclick="mostrarExemplos('Cursos')">
+        <div class="svc-icon teal"><i class="fas fa-building-columns"></i></div>
+        <div class="svc-card-content">
             <h3>Cursos e Qualificações</h3>
             <p>SESI, SENAI e cursos técnicos</p>
         </div>
-        <div class="svc-card card-consulta" onclick="irParaConsulta()">
-            <div class="svc-icon red"><i class="fas fa-search"></i></div>
+    </div>
+    <div class="svc-card card-consulta" onclick="irParaConsulta()">
+        <div class="svc-icon red"><i class="fas fa-search"></i></div>
+        <div class="svc-card-content">
             <h3>Consulta por Código</h3>
             <p>Valide qualquer documento pelo código</p>
         </div>
     </div>
+</div>
 </div>
 
 <!-- EXEMPLOS DE DOCUMENTOS -->
