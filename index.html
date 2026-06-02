@@ -1769,6 +1769,104 @@ body::after {
         padding: 14px 12px !important;
     }
 }
+/* Estilo para detalhes extras dentro do modal */
+.detail-cell-2 {
+    display: inline-block;
+    width: 48%;
+    margin-bottom: 6px;
+    margin-right: 2%;
+}
+.detail-cell-2 .lbl {
+    font-size: 7px;
+    text-transform: uppercase;
+    color: #999;
+    font-weight: 700;
+}
+.detail-cell-2 .val {
+    font-size: 10px;
+    font-weight: 600;
+    color: #333;
+}
+/* ========== IMAGENS DE FUNDO NOS CARDS DE SERVIÇO - MAIS SUAVE ========== */
+#servicos .svc-card::before {
+    opacity: 0.50 !important;
+    transition: all 0.4s ease;
+}
+
+#servicos .svc-card:hover::before {
+    opacity: 0.70 !important;
+    transform: scale(1.03);
+}
+
+/* Ajuste do gradiente */
+.card-educacao::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.80) 100%),
+        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKw-7Gqn3jDYNV-TUOGddbaZCENE5dN-stual3-ZqapWZee1iIctoiSFI&s=10') center/cover no-repeat !important;
+}
+
+.card-saude::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.80) 100%),
+        url('https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=500&h=350&fit=crop') center/cover no-repeat !important;
+}
+
+.card-pessoais::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.80) 100%),
+        url('https://www.gov.br/inss/pt-br/noticias/fique-atento-a-documentacao-pessoal-e-profissional/documentos.jpeg/@@images/400412ee-1c02-4d21-8451-2493de92b3aa.jpeg') center/cover no-repeat !important;
+}
+
+.card-juridico::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.80) 100%),
+        url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=500&h=350&fit=crop') center/cover no-repeat !important;
+}
+
+.card-cursos::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.80) 100%),
+        url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=500&h=350&fit=crop') center/cover no-repeat !important;
+}
+
+.card-consulta::before {
+    background: 
+        linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.80) 100%),
+        url('https://me-qr.com/static/pages/qr-code-for-image-img/image-qr-code.webp') center/cover no-repeat !important;
+}
+
+#servicos .svc-card .svc-icon,
+#servicos .svc-card h3,
+#servicos .svc-card p,
+#servicos .svc-card .svc-card-content {
+    position: relative;
+    z-index: 2;
+}
+
+#servicos .svc-card h3 {
+    text-shadow: 0 1px 2px rgba(255,255,255,0.6);
+    font-weight: 700;
+}
+
+#servicos .svc-card p {
+    text-shadow: 0 1px 1px rgba(255,255,255,0.5);
+}
+/* ========== TÍTULO E SUBTÍTULO DOS CARDS DE SERVIÇO ========== */
+#servicos .svc-card h3 {
+    font-size: 15px !important; /* Bem maior */
+    font-weight: 800 !important;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.8);
+    margin-bottom: 4px !important;
+    color: #0a0a0a !important; /* Quase preto */
+}
+
+#servicos .svc-card p {
+    font-size: 11px !important; /* Maior */
+    font-weight: 500 !important; /* Mais visível */
+    text-shadow: 0 1px 2px rgba(255,255,255,0.7);
+    color: #1a1a1a !important; /* Escuro para melhor leitura */
+    line-height: 1.4 !important;
+}
     </style>
 </head>
 <body>
@@ -1859,7 +1957,7 @@ body::after {
             <button class="btn-out" onclick="mostrarInfo()"><i class="fas fa-question-circle"></i></button>
         </div>
         <div class="search-stats">
-            <span class="search-stat-item"><i class="fas fa-check-circle"></i> <strong>+50mil</strong> documentos validados</span>
+            <span class="search-stat-item"><i class="fas fa-check-circle"></i> <strong>+5milhões</strong> documentos validados</span>
             <span class="search-stat-item"><i class="fas fa-lock"></i> <strong>100%</strong> seguro</span>
             <span class="search-stat-item"><i class="fas fa-bolt"></i> <strong>Instantâneo</strong></span>
         </div>
@@ -1960,6 +2058,8 @@ body::after {
     </p>
     <div class="parceiros-scroll" id="parceirosScroll"></div>
 </div>
+<!-- Adicione após a div parceiros-scroll -->
+<div style="display:flex;gap:6px;justify-content:center;margin-top:8px;" id="parceirosIndicadores"></div>
     
     
 <!-- AJUDA -->
@@ -2051,6 +2151,70 @@ function buscarExemplo(codigo) {
 // ==================== INSTITUIÇÕES PARCEIRAS ====================
 // Imagens de fundo reais (Unsplash) para cada instituição
 const INSTITUICOES = [
+  // Adicione estes novos parceiros no array INSTITUICOES, após o último parceiro existente:
+{
+    id: 'detran-rj', nome: 'DETRAN RJ', tipo: 'Departamento de Trânsito',
+    corGradiente: 'linear-gradient(135deg, #1A3A6B, #2B5CB0)',
+    fundacao: '1970', sede: 'Rio de Janeiro, RJ', campus: 'Postos em todo estado',
+    alunos: '7 milhões+', cursos: 'CNH, Licenciamento, Multas', site: 'detran.rj.gov.br',
+    descricao: 'Departamento de Trânsito do Estado do Rio de Janeiro, responsável por habilitação e fiscalização.',
+    bgImage: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=500&h=350&fit=crop',
+    svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#1A3A6B" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="20" font-weight="900" font-family="Arial">DETRAN RJ</text></svg>`
+},
+{
+    id: 'detran-sp', nome: 'DETRAN SP', tipo: 'Departamento de Trânsito',
+    corGradiente: 'linear-gradient(135deg, #C00510, #E30613)',
+    fundacao: '1969', sede: 'São Paulo, SP', campus: 'Postos em todo estado',
+    alunos: '25 milhões+', cursos: 'CNH, Licenciamento, Multas', site: 'detran.sp.gov.br',
+    descricao: 'Maior DETRAN do Brasil, responsável por 25 milhões de condutores no estado de São Paulo.',
+    bgImage: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=500&h=350&fit=crop',
+    svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#C00510" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="20" font-weight="900" font-family="Arial">DETRAN SP</text></svg>`
+},
+{
+    id: 'detran-rs', nome: 'DETRAN RS', tipo: 'Departamento de Trânsito',
+    corGradiente: 'linear-gradient(135deg, #006837, #009444)',
+    fundacao: '1970', sede: 'Porto Alegre, RS', campus: 'Postos em todo estado',
+    alunos: '5 milhões+', cursos: 'CNH, Licenciamento, Multas', site: 'detran.rs.gov.br',
+    descricao: 'Referência em gestão de trânsito no sul do Brasil, com serviços digitais inovadores.',
+    bgImage: 'https://images.unsplash.com/photo-1494522855154-9297ac14b55f?w=500&h=350&fit=crop',
+    svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#006837" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="20" font-weight="900" font-family="Arial">DETRAN RS</text></svg>`
+},
+{
+    id: 'detran-mg', nome: 'DETRAN MG', tipo: 'Departamento de Trânsito',
+    corGradiente: 'linear-gradient(135deg, #7B2CBF, #9B59B6)',
+    fundacao: '1970', sede: 'Belo Horizonte, MG', campus: 'Postos em todo estado',
+    alunos: '10 milhões+', cursos: 'CNH, Licenciamento, Multas', site: 'detran.mg.gov.br',
+    descricao: 'DETRAN de Minas Gerais, comprometido com a segurança e educação no trânsito.',
+    bgImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=500&h=350&fit=crop',
+    svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#7B2CBF" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="20" font-weight="900" font-family="Arial">DETRAN MG</text></svg>`
+},
+{
+    id: 'detran-ba', nome: 'DETRAN BA', tipo: 'Departamento de Trânsito',
+    corGradiente: 'linear-gradient(135deg, #E07010, #F58220)',
+    fundacao: '1970', sede: 'Salvador, BA', campus: 'Postos em todo estado',
+    alunos: '6 milhões+', cursos: 'CNH, Licenciamento, Multas', site: 'detran.ba.gov.br',
+    descricao: 'DETRAN da Bahia, trabalhando por um trânsito mais seguro no maior estado do Nordeste.',
+    bgImage: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500&h=350&fit=crop',
+    svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#E07010" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="20" font-weight="900" font-family="Arial">DETRAN BA</text></svg>`
+},
+{
+    id: 'stf', nome: 'STF', tipo: 'Supremo Tribunal Federal',
+    corGradiente: 'linear-gradient(135deg, #1a1a1a, #333333)',
+    fundacao: '1890', sede: 'Brasília, DF', campus: 'Tribunal Constitucional',
+    alunos: '11 ministros', cursos: 'Jurisprudência, Súmulas Vinculantes', site: 'portal.stf.jus.br',
+    descricao: 'Supremo Tribunal Federal, guardião da Constituição Federal do Brasil.',
+    bgImage: 'https://images.unsplash.com/photo-1589391886645-d51941baf7fb?w=500&h=350&fit=crop',
+    svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#1a1a1a" rx="6"/><text x="100" y="38" text-anchor="middle" fill="#FFD700" font-size="24" font-weight="900" font-family="Arial">STF</text></svg>`
+},
+{
+    id: 'ssp', nome: 'SSP', tipo: 'Secretaria de Segurança Pública',
+    corGradiente: 'linear-gradient(135deg, #002277, #003399)',
+    fundacao: '1823', sede: 'São Paulo, SP', campus: 'Polícia Civil e Militar',
+    alunos: '100 mil+ servidores', cursos: 'Segurança Pública, Perícia', site: 'ssp.sp.gov.br',
+    descricao: 'Secretaria de Segurança Pública de São Paulo, responsável pela segurança da maior metrópole do país.',
+    bgImage: 'https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=500&h=350&fit=crop',
+    svgLogo: `<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="60" fill="#002277" rx="6"/><text x="100" y="38" text-anchor="middle" fill="white" font-size="22" font-weight="900" font-family="Arial">SSP</text></svg>`
+},
     {
         id: 'estacio', nome: 'Universidade Estácio de Sá', tipo: 'Universidade Privada',
         corGradiente: 'linear-gradient(135deg, #1A3A6B, #2B5CB0)',
@@ -2116,6 +2280,21 @@ const INSTITUICOES = [
     }
 ];
 
+let autoScrollInterval;
+function atualizarIndicadores() {
+    const carousel = document.getElementById('parceirosScroll');
+    const total = INSTITUICOES.length;
+    const visiveis = Math.floor(carousel.clientWidth / 220);
+    const paginaAtual = Math.floor(carousel.scrollLeft / 220);
+    
+    let html = '';
+    for (let i = 0; i < Math.ceil(total / visiveis); i++) {
+        html += `<span style="width:8px;height:8px;border-radius:50%;background:${i === paginaAtual ? '#1351B4' : '#ccc'};display:inline-block;transition:all 0.3s;"></span>`;
+    }
+    
+    const indicadores = document.getElementById('parceirosIndicadores');
+    if (indicadores) indicadores.innerHTML = html;
+}
 function renderizarInstituicoes() {
     document.getElementById('parceirosScroll').innerHTML = INSTITUICOES.map(inst => `
         <div class="parceiro-card-new" onclick="abrirModalInstituicao('${inst.id}')">
@@ -2128,6 +2307,63 @@ function renderizarInstituicoes() {
             </div>
         </div>
     `).join('');
+    
+    // Iniciar carrossel automático
+    iniciarAutoScroll();
+}
+
+function iniciarAutoScroll() {
+    // Parar qualquer intervalo existente
+    if (autoScrollInterval) clearInterval(autoScrollInterval);
+    
+    const carousel = document.getElementById('parceirosScroll');
+    
+    autoScrollInterval = setInterval(() => {
+        // Verificar se chegou ao final
+        if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
+            // Voltar ao início
+            carousel.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            // Avançar
+            carousel.scrollBy({ left: 220, behavior: 'smooth' });
+        }
+    }, 3000); // Muda a cada 3 segundos
+}
+
+// Parar auto-scroll quando o usuário interagir
+document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.getElementById('parceirosScroll');
+    
+    if (carousel) {
+        // Parar ao passar o mouse
+        carousel.addEventListener('mouseenter', () => {
+            if (autoScrollInterval) clearInterval(autoScrollInterval);
+        });
+        
+        // Retomar ao tirar o mouse
+        carousel.addEventListener('mouseleave', () => {
+            iniciarAutoScroll();
+        });
+        
+        // Parar ao tocar (mobile)
+        carousel.addEventListener('touchstart', () => {
+            if (autoScrollInterval) clearInterval(autoScrollInterval);
+        });
+        
+        // Retomar após 3 segundos sem tocar
+        carousel.addEventListener('touchend', () => {
+            setTimeout(iniciarAutoScroll, 3000);
+        });
+    }
+});
+
+function scrollParceiros(direction) {
+    const carousel = document.getElementById('parceirosScroll');
+    carousel.scrollBy({ left: 220 * direction, behavior: 'smooth' });
+    
+    // Reiniciar o timer do auto-scroll
+    if (autoScrollInterval) clearInterval(autoScrollInterval);
+    iniciarAutoScroll();
 }
 
 function scrollParceiros(direction) {
@@ -2439,17 +2675,14 @@ function toggleVerMaisCards() {
     const exp = dv && dv < new Date();
     const urlQR = `${window.location.origin}/?codigo=${d.codigo}`;
     
-    // Detectar tipo de documento para mostrar campos específicos
     const tipo = d.tipo || '';
     const isCertificado = tipo.includes('certificado') || tipo.includes('ensino') || d.categoria === 'Educação';
     const isCurso = tipo.includes('curso') || tipo.includes('senai') || tipo.includes('sesi') || tipo.includes('tecnico');
     const isDiploma = tipo.includes('diploma') || tipo.includes('superior');
     
-    // Construir grid de detalhes específicos
     let detalhesExtras = '';
     
     if (isCertificado || isCurso || isDiploma) {
-        // Campos para Certificados e Cursos
         detalhesExtras = `
             ${d.instituicao || d.emissor ? `<div class="detail-cell"><div class="lbl">Instituição</div><div class="val">${d.instituicao || d.emissor}</div></div>` : ''}
             ${d.endereco_instituicao || d.local ? `<div class="detail-cell"><div class="lbl">Local/Endereço</div><div class="val">${d.endereco_instituicao || d.local || 'N/I'}</div></div>` : ''}
@@ -2463,45 +2696,70 @@ function toggleVerMaisCards() {
     }
     
     document.getElementById('modalContent').innerHTML = `
-        <div class="result-box ${exp?'expired':'valid'}">
-            <div class="ri"><i class="fas fa-${exp?'circle-xmark':'circle-check'}"></i></div>
-            <h4>${exp?'EXPIRADO':'VÁLIDO'}</h4>
-            <p style="font-size:9px;">${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</p>
+        <!-- NOME DO DOCUMENTO EM CIMA COM IMAGEM DE FUNDO -->
+        <div style="text-align:center;margin-bottom:16px;padding:20px 16px;background:linear-gradient(135deg, rgba(19,81,180,0.9), rgba(12,50,111,0.95)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=200&fit=crop') center/cover no-repeat;border-radius:12px;color:#fff;position:relative;overflow:hidden;">
+            <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);z-index:0;"></div>
+            <div style="position:relative;z-index:1;">
+                <div style="font-size:9px;opacity:0.9;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">
+                    <i class="fas fa-shield-alt"></i> Documento Oficial
+                </div>
+                <h3 style="font-size:16px;font-weight:800;margin:4px 0;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.3);">
+                    ${d.tipo_nome || '📄 Documento'}
+                </h3>
+                ${d.instituicao && d.instituicao !== d.emissor ? `<p style="font-size:10px;opacity:0.95;margin:0;text-shadow:0 1px 2px rgba(0,0,0,0.3);">${d.instituicao}</p>` : ''}
+            </div>
         </div>
         
-        <!-- QR CODE -->
-        <div style="text-align:center;margin-bottom:12px;padding:10px;background:#F8FAFC;border-radius:8px;border:1px solid var(--gray-20);">
-            <p style="font-size:9px;font-weight:700;color:var(--gray-70);margin-bottom:6px;">
-                <i class="fas fa-qrcode"></i> Escaneie para validar este documento
-            </p>
-            <div id="qrCodeContainer" style="display:inline-block;padding:8px;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.1);"></div>
-            <p style="font-size:8px;color:var(--gray-60);margin-top:4px;word-break:break-all;">${urlQR}</p>
+        <!-- DADOS DO TITULAR -->
+        <div style="background:#F8FAFC;border-radius:10px;padding:14px;margin-bottom:12px;border:1px solid #E5E7EB;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div>
+                    <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Titular</span><br>
+                    <strong style="font-size:11px;">${d.titular}</strong>
+                </div>
+                <div>
+                    <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Código</span><br>
+                    <span class="code-tag" style="font-size:10px;">${d.codigo}</span>
+                </div>
+                ${d.cpf ? `
+                <div>
+                    <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF</span><br>
+                    <strong style="font-size:11px;">${d.cpf}</strong>
+                </div>` : ''}
+                ${d.rg ? `
+                <div>
+                    <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">RG</span><br>
+                    <strong style="font-size:11px;">${d.rg}</strong>
+                </div>` : ''}
+                <div>
+                    <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Emissão</span><br>
+                    <strong style="font-size:11px;">${d.data_emissao ? new Date(d.data_emissao).toLocaleDateString('pt-BR') : 'N/A'}</strong>
+                </div>
+                <div>
+                    <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Validade</span><br>
+                    <strong style="font-size:11px;">${dv ? dv.toLocaleDateString('pt-BR') : 'Indeterminada'}</strong>
+                </div>
+            </div>
+            ${detalhesExtras ? `<div style="margin-top:10px;padding-top:10px;border-top:1px solid #E5E7EB;"><div class="detail-grid">${detalhesExtras}</div></div>` : ''}
         </div>
         
-        <!-- Título do documento -->
-        <div style="text-align:center;margin-bottom:10px;">
-            <h4 style="font-size:14px;color:var(--gray-90);">${d.tipo_nome || '📄 Documento Oficial'}</h4>
-            ${d.instituicao && d.instituicao !== d.emissor ? `<p style="font-size:10px;color:var(--gray-60);">${d.instituicao}</p>` : ''}
-        </div>
-        
-        <div class="detail-grid">
-            <div class="detail-cell"><div class="lbl">Código</div><div class="val code-tag">${d.codigo}</div></div>
-            <div class="detail-cell"><div class="lbl">Nome do Aluno/Titular</div><div class="val"><strong>${d.titular}</strong></div></div>
-            ${d.cpf ? `<div class="detail-cell"><div class="lbl">CPF</div><div class="val">${d.cpf}</div></div>` : ''}
-            ${d.rg ? `<div class="detail-cell"><div class="lbl">RG</div><div class="val">${d.rg}</div></div>` : ''}
-            ${d.nascimento ? `<div class="detail-cell"><div class="lbl">Nascimento</div><div class="val">${d.nascimento}</div></div>` : ''}
+        <!-- STATUS DE VALIDAÇÃO + QR CODE EM BAIXO -->
+        <div style="display:flex;gap:12px;align-items:stretch;margin-bottom:12px;">
+            <!-- STATUS DE VALIDAÇÃO -->
+            <div class="result-box ${exp?'expired':'valid'}" style="flex:1;margin-bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">
+                <div class="ri" style="font-size:32px;"><i class="fas fa-${exp?'circle-xmark':'circle-check'}"></i></div>
+                <h4 style="font-size:14px;">${exp?'EXPIRADO':'VÁLIDO'}</h4>
+                <p style="font-size:8px;">${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</p>
+            </div>
             
-            <!-- Campos específicos para certificados/cursos -->
-            ${detalhesExtras}
-            
-            <!-- Campos padrão -->
-            ${!isCertificado && !isCurso && !isDiploma ? `
-                <div class="detail-cell"><div class="lbl">Tipo</div><div class="val">${d.tipo_nome||'📄'}</div></div>
-                <div class="detail-cell"><div class="lbl">Emissor</div><div class="val">${d.emissor||'N/A'}</div></div>
-            ` : ''}
-            <div class="detail-cell"><div class="lbl">Data de Emissão</div><div class="val">${d.data_emissao?new Date(d.data_emissao).toLocaleDateString('pt-BR'):'N/A'}</div></div>
-            <div class="detail-cell"><div class="lbl">Validade</div><div class="val">${dv?dv.toLocaleDateString('pt-BR'):'Indeterminada'}</div></div>
-            ${d.informacoes && !isCertificado && !isCurso ? `<div class="detail-cell" style="grid-column:1/-1;"><div class="lbl">Informações</div><div class="val">${d.informacoes}</div></div>` : ''}
+            <!-- QR CODE PRETO -->
+            <div style="background:#fff;border-radius:10px;padding:12px;text-align:center;border:2px solid #000;min-width:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <p style="font-size:8px;font-weight:700;color:#000;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">
+                    <i class="fas fa-qrcode"></i> QR Code
+                </p>
+                <div id="qrCodeContainer" style="display:inline-block;padding:4px;background:#fff;"></div>
+                <p style="font-size:6px;color:#666;margin-top:4px;word-break:break-all;max-width:110px;line-height:1.2;">${urlQR}</p>
+            </div>
         </div>
         
         <div class="stamp"><i class="fas fa-shield-haltered"></i><strong>Documento Autenticado pelo Sistema GOV.BR</strong></div>
@@ -2512,20 +2770,24 @@ function toggleVerMaisCards() {
     
     showModal();
     
+    // GERAR QR CODE PRETO
     setTimeout(() => {
         const qrContainer = document.getElementById('qrCodeContainer');
         if (qrContainer && typeof QRCode !== 'undefined') {
             qrContainer.innerHTML = '';
             new QRCode(qrContainer, {
-                text: urlQR, width: 130, height: 130,
-                colorDark: '#1351B4', colorLight: '#ffffff',
+                text: urlQR, 
+                width: 110, 
+                height: 110,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.M
             });
         }
     }, 200);
 }
     
-    function modalRastreamento(d) {
+function modalRastreamento(d) {
     document.getElementById('modalTitle').textContent = 'Acompanhamento';
     const etapas = d.etapas||d.rastreamento?.etapas||[];
     const ok = etapas.filter(e=>e.ok||e.concluida).length;
@@ -2534,27 +2796,45 @@ function toggleVerMaisCards() {
     const urlQR = `${window.location.origin}/?codigo=${d.codigo}`;
     
     document.getElementById('modalContent').innerHTML = `
+        <!-- NOME DO DOCUMENTO COM IMAGEM DE FUNDO -->
+        <div style="text-align:center;margin-bottom:16px;padding:20px 16px;background:linear-gradient(135deg, rgba(242,140,40,0.9), rgba(230,126,34,0.95)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=200&fit=crop') center/cover no-repeat;border-radius:12px;color:#fff;position:relative;overflow:hidden;">
+            <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);z-index:0;"></div>
+            <div style="position:relative;z-index:1;">
+                <div style="font-size:9px;opacity:0.9;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">
+                    <i class="fas fa-clock"></i> Em Andamento
+                </div>
+                <h3 style="font-size:16px;font-weight:800;margin:4px 0;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.3);">
+                    ${d.tipo_nome||'📄 Documento'}
+                </h3>
+                <p style="font-size:10px;opacity:0.95;margin:0;text-shadow:0 1px 2px rgba(0,0,0,0.3);">Titular: <strong>${d.titular}</strong></p>
+            </div>
+        </div>
+        
         <div style="text-align:center;margin-bottom:10px;">
             <span class="code-tag" style="font-size:12px;">${d.codigo}</span>
-            <h4 style="margin-top:4px;">${d.tipo_nome||'📄'}</h4>
-            <p style="font-size:10px;">Titular: <strong>${d.titular}</strong></p>
         </div>
         
-        <!-- QR CODE -->
-        <div style="text-align:center;margin-bottom:12px;padding:10px;background:#F8FAFC;border-radius:8px;border:1px solid var(--gray-20);">
-            <p style="font-size:9px;font-weight:700;color:var(--gray-70);margin-bottom:6px;">
-                <i class="fas fa-qrcode"></i> Escaneie para acompanhar este documento
+        <!-- PROGRESSO E ETAPAS (OCUPA TUDO EM CIMA) -->
+        <div style="background:#F8FAFC;border-radius:10px;padding:14px;border:1px solid #E5E7EB;margin-bottom:12px;">
+            <div class="track-bar-wrap" style="margin-bottom:0;">
+                <div class="track-bar"><div class="track-fill" style="width:${pct}%;"></div></div>
+                <p class="track-pct"><strong>${pct}%</strong> — ${ok} de ${tot} etapas concluídas</p>
+            </div>
+            <div style="margin-top:10px;">
+                ${etapas.map(e=>`<div class="track-step ${(e.ok||e.concluida)?'done':''}"><div class="step-info"><strong>${(e.ok||e.concluida)?'✅ ':'⏳ '}${e.nome}</strong>${e.data?`<span class="step-date">📅 ${e.data}</span>`:'<span class="step-date" style="color:#999;">Aguardando</span>'}</div></div>`).join('')}
+            </div>
+            ${d.prev||d.previsao_entrega?`<p style="text-align:center;font-size:11px;margin-top:10px;padding-top:8px;border-top:1px solid #E5E7EB;">📦 Previsão de Entrega: <strong>${d.prev||d.previsao_entrega}</strong></p>`:''}
+        </div>
+        
+        <!-- QR CODE EM BAIXO (OCUPA LARGURA TOTAL) -->
+        <div style="background:#fff;border-radius:10px;padding:16px;text-align:center;border:2px solid #000;margin-bottom:12px;">
+            <p style="font-size:9px;font-weight:700;color:#000;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">
+                <i class="fas fa-qrcode"></i> QR Code para Acompanhamento
             </p>
-            <div id="qrCodeContainer" style="display:inline-block;padding:8px;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.1);"></div>
-            <p style="font-size:8px;color:var(--gray-60);margin-top:4px;word-break:break-all;">${urlQR}</p>
+            <div id="qrCodeContainer" style="display:inline-block;padding:6px;background:#fff;border-radius:8px;"></div>
+            <p style="font-size:7px;color:#666;margin-top:6px;word-break:break-all;line-height:1.3;">${urlQR}</p>
         </div>
         
-        <div class="track-bar-wrap">
-            <div class="track-bar"><div class="track-fill" style="width:${pct}%;"></div></div>
-            <p class="track-pct"><strong>${pct}%</strong> — ${ok} de ${tot} etapas</p>
-        </div>
-        ${etapas.map(e=>`<div class="track-step ${(e.ok||e.concluida)?'done':''}"><div class="step-info"><strong>${(e.ok||e.concluida)?'✅ ':'⏳ '}${e.nome}</strong>${e.data?`<span class="step-date">📅 ${e.data}</span>`:'<span class="step-date" style="color:#999;">Aguardando</span>'}</div></div>`).join('')}
-        ${d.prev||d.previsao_entrega?`<p style="text-align:center;font-size:10px;margin-top:8px;">📦 Previsão: <strong>${d.prev||d.previsao_entrega}</strong></p>`:''}
         <div class="modal-btns" style="margin-top:10px;">
             <button class="btn-close-m" onclick="fecharModal()">Fechar</button>
             <button class="btn-new-m" onclick="novaConsulta()">Nova Consulta</button>
@@ -2562,23 +2842,23 @@ function toggleVerMaisCards() {
     
     showModal();
     
-    // Gerar QR Code
+    // GERAR QR CODE PRETO
     setTimeout(() => {
         const qrContainer = document.getElementById('qrCodeContainer');
         if (qrContainer && typeof QRCode !== 'undefined') {
             qrContainer.innerHTML = '';
             new QRCode(qrContainer, {
                 text: urlQR,
-                width: 130,
-                height: 130,
-                colorDark: '#1351B4',
+                width: 120,
+                height: 120,
+                colorDark: '#000000',
                 colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.M
             });
         } else if (qrContainer) {
             qrContainer.innerHTML = `
-                <div style="width:130px;height:130px;display:flex;align-items:center;justify-content:center;background:#f0f0f0;border:2px dashed #ccc;border-radius:4px;">
-                    <i class="fas fa-qrcode" style="font-size:40px;color:#999;"></i>
+                <div style="width:120px;height:120px;display:flex;align-items:center;justify-content:center;background:#f0f0f0;border:2px dashed #000;border-radius:4px;">
+                    <i class="fas fa-qrcode" style="font-size:40px;color:#000;"></i>
                 </div>`;
         }
     }, 200);
