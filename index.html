@@ -2955,13 +2955,11 @@ function modalRastreamento(d) {
     const urlQR = `${window.location.origin}/?codigo=${d.codigo}`;
     const tipo = d.tipo || '';
     
-    // Construir campos específicos baseado no tipo
     let infoCardsHTML = '';
     
     // VEÍCULOS - Transferência
     if (tipo === 'transferencia_veiculo') {
         infoCardsHTML = `
-            <!-- Card do Veículo -->
             <div style="background:linear-gradient(135deg, #1e3a5f, #2c5282);border-radius:14px;padding:16px;margin-bottom:10px;color:#fff;position:relative;overflow:hidden;">
                 <div style="position:absolute;top:-15px;right:-15px;font-size:60px;opacity:0.1;">🚗</div>
                 <div style="position:relative;z-index:1;">
@@ -2980,21 +2978,18 @@ function modalRastreamento(d) {
                 </div>
             </div>
             
-            <!-- Cards Vendedor e Comprador lado a lado -->
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-                <!-- Vendedor -->
                 <div style="background:#FFF5F5;border:2px solid #FECACA;border-radius:12px;padding:12px;position:relative;">
                     <div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;color:#DC2626;font-weight:700;margin-bottom:6px;">
-                        <i class="fas fa-arrow-up"></i> VENDEDOR
+                        <i class="fas fa-user"></i> PROPRIETÁRIO ATUAL
                     </div>
                     ${d.antigo_dono ? `<div style="margin-bottom:4px;"><span style="font-size:7px;color:#999;">Nome</span><br><strong style="font-size:10px;color:#111;">${d.antigo_dono}</strong></div>` : ''}
                     ${d.cpf_antigo ? `<div><span style="font-size:7px;color:#999;">CPF</span><br><strong style="font-size:10px;color:#111;">${d.cpf_antigo}</strong></div>` : ''}
                 </div>
                 
-                <!-- Comprador -->
                 <div style="background:#F0FDF4;border:2px solid #BBF7D0;border-radius:12px;padding:12px;position:relative;">
                     <div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;color:#16A34A;font-weight:700;margin-bottom:6px;">
-                        <i class="fas fa-arrow-down"></i> COMPRADOR
+                        <i class="fas fa-user-check"></i> NOVO PROPRIETÁRIO
                     </div>
                     ${d.novo_dono ? `<div style="margin-bottom:4px;"><span style="font-size:7px;color:#999;">Nome</span><br><strong style="font-size:10px;color:#111;">${d.novo_dono}</strong></div>` : ''}
                     ${d.cpf_novo ? `<div><span style="font-size:7px;color:#999;">CPF</span><br><strong style="font-size:10px;color:#111;">${d.cpf_novo}</strong></div>` : ''}
@@ -3002,7 +2997,6 @@ function modalRastreamento(d) {
             </div>
             
             ${d.endereco_detran ? `
-            <!-- DETRAN -->
             <div style="background:#F8FAFC;border:1px solid #E5E7EB;border-radius:10px;padding:10px;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
                 <div style="width:32px;height:32px;background:#1351B4;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;">
                     <i class="fas fa-building"></i>
@@ -3015,7 +3009,7 @@ function modalRastreamento(d) {
         `;
     }
     
-    // RG - Documentos Pessoais
+    // DOCUMENTOS PESSOAIS
     if (['rg','cnh','certidao_nascimento','certidao_casamento','certidao_obito','titulo_eleitor'].includes(tipo)) {
         infoCardsHTML = `
             <div style="background:linear-gradient(135deg, #1e3a5f, #2c5282);border-radius:14px;padding:16px;margin-bottom:10px;color:#fff;position:relative;overflow:hidden;">
@@ -3037,21 +3031,53 @@ function modalRastreamento(d) {
         `;
     }
     
+    // TIMELINE COM LINHAS CONECTANDO
+    let timelineHTML = `
+        <div style="position:relative;padding-left:30px;">
+            <!-- Linha principal -->
+            <div style="position:absolute;left:13px;top:0;bottom:0;width:2px;background:#E5E7EB;z-index:0;"></div>
+    `;
+    
+    etapas.forEach((e, i) => {
+        const isDone = e.ok || e.concluida;
+        const isLast = i === etapas.length - 1;
+        
+        timelineHTML += `
+            <div style="position:relative;z-index:1;margin-bottom:${isLast ? '0' : '16px'};">
+                <!-- Círculo -->
+                <div style="position:absolute;left:-30px;top:4px;width:28px;height:28px;border-radius:50%;background:${isDone ? '#22C55E' : '#fff'};border:3px solid ${isDone ? '#22C55E' : '#D1D5DB'};display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 2px 8px ${isDone ? 'rgba(34,197,94,0.3)' : 'rgba(0,0,0,0.05)'};">
+                    ${isDone ? '<i class="fas fa-check" style="color:#fff;font-size:10px;"></i>' : '<i class="fas fa-circle" style="color:#D1D5DB;font-size:6px;"></i>'}
+                </div>
+                
+                <!-- Card da etapa -->
+                <div style="background:${isDone ? '#F0FDF4' : '#fff'};border:2px solid ${isDone ? '#BBF7D0' : '#E5E7EB'};border-radius:10px;padding:10px 12px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <strong style="font-size:10px;color:${isDone ? '#166534' : '#111'};">${e.nome}</strong>
+                        ${isDone ? '<span style="font-size:8px;color:#22C55E;font-weight:700;background:#DCFCE7;padding:2px 8px;border-radius:10px;">✓</span>' : '<span style="font-size:8px;color:#999;font-weight:500;background:#F3F4F6;padding:2px 8px;border-radius:10px;">⏳</span>'}
+                    </div>
+                    <span style="font-size:8px;color:${isDone && e.data ? '#166534' : '#999'};display:block;margin-top:2px;">
+                        ${isDone && e.data ? `📅 ${e.data}` : 'Aguardando...'}
+                    </span>
+                </div>
+            </div>
+        `;
+    });
+    
+    timelineHTML += `</div>`;
+    
     document.getElementById('modalContent').innerHTML = `
-        <!-- CABEÇALHO DO DOCUMENTO -->
         <div style="text-align:center;margin-bottom:16px;padding:20px 16px;background:linear-gradient(135deg, rgba(242,140,40,0.9), rgba(230,126,34,0.95)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=200&fit=crop') center/cover no-repeat;border-radius:14px;color:#fff;position:relative;overflow:hidden;">
             <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);z-index:0;"></div>
             <div style="position:relative;z-index:1;">
                 <div style="font-size:9px;opacity:0.9;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">
                     <i class="fas fa-clock"></i> Em Andamento
                 </div>
-                <h3 style="font-size:16px;font-weight:800;margin:4px 0;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.3);">
+                <h3 style="font-size:16px;font-weight:800;margin:4px 0;color:#fff;">
                     ${d.tipo_nome||'📄 Documento'}
                 </h3>
             </div>
         </div>
         
-        <!-- TITULAR E CÓDIGO -->
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;background:#F8FAFC;border-radius:10px;padding:12px;border:1px solid #E5E7EB;">
             <div style="flex:1;">
                 <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Titular</span><br>
@@ -3063,38 +3089,22 @@ function modalRastreamento(d) {
             </div>
         </div>
         
-        <!-- INFORMAÇÕES ESPECÍFICAS -->
         ${infoCardsHTML}
         
-        <!-- ETAPAS DO PROCESSO -->
+        <!-- ETAPAS COM TIMELINE -->
         <div style="background:#F8FAFC;border-radius:12px;padding:14px;border:1px solid #E5E7EB;margin-bottom:12px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
                 <h4 style="font-size:11px;font-weight:700;color:#111;">
                     <i class="fas fa-route" style="color:#E67E22;"></i> Etapas do Processo
                 </h4>
-                <span style="font-size:9px;font-weight:700;color:#E67E22;">${pct}%</span>
+                <span style="font-size:9px;font-weight:700;color:#E67E22;background:#FFF8E1;padding:3px 10px;border-radius:10px;">${pct}%</span>
             </div>
             
-            <!-- Barra de progresso -->
-            <div style="background:#E5E7EB;border-radius:10px;height:8px;margin-bottom:12px;overflow:hidden;">
+            <div style="background:#E5E7EB;border-radius:10px;height:6px;margin-bottom:16px;overflow:hidden;">
                 <div style="background:linear-gradient(90deg, #E67E22, #F28C28);height:100%;border-radius:10px;width:${pct}%;transition:width 0.5s;"></div>
             </div>
             
-            <!-- Etapas -->
-            <div style="display:flex;flex-direction:column;gap:6px;">
-                ${etapas.map((e, i) => `
-                    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:${(e.ok||e.concluida)?'#F0FDF4':'#fff'};border-radius:8px;border:1px solid ${(e.ok||e.concluida)?'#BBF7D0':'#E5E7EB'};">
-                        <div style="width:28px;height:28px;border-radius:50%;background:${(e.ok||e.concluida)?'#22C55E':'#E5E7EB'};display:flex;align-items:center;justify-content:center;flex-shrink:0;color:${(e.ok||e.concluida)?'#fff':'#999'};font-size:11px;">
-                            <i class="fas fa-${(e.ok||e.concluida)?'check':'clock'}"></i>
-                        </div>
-                        <div style="flex:1;">
-                            <strong style="font-size:10px;">${e.nome}</strong>
-                            <span style="font-size:8px;color:#999;display:block;">${e.data?e.data:'Aguardando...'}</span>
-                        </div>
-                        ${(e.ok||e.concluida) ? '<span style="font-size:8px;color:#22C55E;font-weight:700;">✓</span>' : ''}
-                    </div>
-                `).join('')}
-            </div>
+            ${timelineHTML}
         </div>
         
         ${d.prev||d.previsao_entrega?`
@@ -3103,13 +3113,11 @@ function modalRastreamento(d) {
             <strong style="font-size:11px;color:#E67E22;">${d.prev||d.previsao_entrega}</strong>
         </div>`:''}
         
-        <!-- QR CODE -->
         <div style="background:#fff;border-radius:12px;padding:14px;text-align:center;border:2px solid #000;margin-bottom:12px;">
-            <p style="font-size:9px;font-weight:700;color:#000;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">
+            <p style="font-size:9px;font-weight:700;color:#000;margin-bottom:8px;">
                 <i class="fas fa-qrcode"></i> QR Code para Acompanhamento
             </p>
             <div id="qrCodeContainer" style="display:inline-block;padding:6px;background:#fff;border-radius:8px;"></div>
-            <p style="font-size:7px;color:#666;margin-top:6px;word-break:break-all;">${urlQR}</p>
         </div>
         
         <div class="modal-btns">
