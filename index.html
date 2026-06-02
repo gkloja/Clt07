@@ -1997,7 +1997,43 @@ table td .code-tag {
 
 <a href="#conteudo" class="skip-link">Ir para o conteúdo</a>
 
-<div class="topbar"><div class="inner"><div class="links"><a href="#">Início</a><span class="sep">|</span><a href="#">Serviços</a><span class="sep">|</span><a href="#">Órgãos do Governo</a><span class="sep">|</span><a href="#">Acesso à Informação</a><span class="sep">|</span><a href="#">Legislação</a><span class="sep">|</span><a href="#">Acessibilidade</a></div><div class="a11y-btns"><button onclick="ajustarFonte(-1)">A−</button><button onclick="ajustarFonte(1)">A+</button><button onclick="toggleContraste()">◐</button></div></div></div>
+<div class="topbar">
+    <div class="inner">
+        <div class="links">
+            <a href="#">Início</a><span class="sep">|</span>
+            <a href="#">Serviços</a><span class="sep">|</span>
+            <a href="#">Órgãos do Governo</a><span class="sep">|</span>
+            <a href="#">Acesso à Informação</a><span class="sep">|</span>
+            <a href="#">Legislação</a><span class="sep">|</span>
+            <a href="#">Acessibilidade</a>
+            
+            <!-- BOTÕES DE ACESSIBILIDADE AO LADO -->
+            <span style="display:inline-flex;align-items:center;gap:3px;margin-left:4px;">
+                <button onclick="ajustarFonte(-1)" style="background:none;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.8);padding:2px 6px;font-size:9px;cursor:pointer;border-radius:3px;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='none'">A−</button>
+                <button onclick="ajustarFonte(1)" style="background:none;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.8);padding:2px 6px;font-size:9px;cursor:pointer;border-radius:3px;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='none'">A+</button>
+                <button onclick="toggleContraste()" style="background:none;border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.8);padding:2px 6px;font-size:9px;cursor:pointer;border-radius:3px;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='none'">◐</button>
+            </span>
+        </div>
+        
+        <!-- ESPAÇO PREENCHIDO COM INFORMAÇÕES ÚTEIS -->
+        <div class="topbar-info" style="display:flex;align-items:center;gap:12px;font-size:9px;">
+            <span style="display:flex;align-items:center;gap:4px;color:rgba(255,255,255,0.7);">
+                <i class="fas fa-shield-alt" style="color:#FFD700;font-size:9px;"></i>
+                <span>Site Oficial</span>
+            </span>
+            <span style="color:rgba(255,255,255,0.3);">|</span>
+            <span style="display:flex;align-items:center;gap:4px;color:rgba(255,255,255,0.7);">
+                <i class="fas fa-lock" style="color:#22C55E;font-size:9px;"></i>
+                <span>Conexão Segura</span>
+            </span>
+            <span style="color:rgba(255,255,255,0.3);">|</span>
+            <span style="display:flex;align-items:center;gap:4px;color:rgba(255,255,255,0.7);">
+                <i class="fas fa-check-circle" style="color:#22C55E;font-size:9px;"></i>
+                <span>Documentos Autenticados</span>
+            </span>
+        </div>
+    </div>
+</div>
 
 <header class="header"><div class="inner">
 <a href="#" class="logo-link">
