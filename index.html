@@ -2953,10 +2953,93 @@ function modalRastreamento(d) {
     const tot = etapas.length;
     const pct = tot>0?Math.round((ok/tot)*100):0;
     const urlQR = `${window.location.origin}/?codigo=${d.codigo}`;
+    const tipo = d.tipo || '';
+    
+    // Construir campos específicos baseado no tipo
+    let infoCardsHTML = '';
+    
+    // VEÍCULOS - Transferência
+    if (tipo === 'transferencia_veiculo') {
+        infoCardsHTML = `
+            <!-- Card do Veículo -->
+            <div style="background:linear-gradient(135deg, #1e3a5f, #2c5282);border-radius:14px;padding:16px;margin-bottom:10px;color:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:-15px;right:-15px;font-size:60px;opacity:0.1;">🚗</div>
+                <div style="position:relative;z-index:1;">
+                    <div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;margin-bottom:6px;">
+                        <i class="fas fa-car"></i> Dados do Veículo
+                    </div>
+                    ${d.placa_veiculo ? `
+                    <div style="background:rgba(255,255,255,0.15);display:inline-block;padding:6px 14px;border-radius:8px;margin-bottom:8px;backdrop-filter:blur(5px);">
+                        <span style="font-size:7px;opacity:0.7;display:block;">PLACA</span>
+                        <strong style="font-size:18px;font-family:monospace;letter-spacing:2px;">${d.placa_veiculo}</strong>
+                    </div>` : ''}
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                        ${d.modelo_veiculo ? `<div><span style="font-size:7px;opacity:0.7;">Modelo</span><br><strong style="font-size:10px;">${d.modelo_veiculo}</strong></div>` : ''}
+                        ${d.ano_veiculo ? `<div><span style="font-size:7px;opacity:0.7;">Ano</span><br><strong style="font-size:10px;">${d.ano_veiculo}</strong></div>` : ''}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards Vendedor e Comprador lado a lado -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+                <!-- Vendedor -->
+                <div style="background:#FFF5F5;border:2px solid #FECACA;border-radius:12px;padding:12px;position:relative;">
+                    <div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;color:#DC2626;font-weight:700;margin-bottom:6px;">
+                        <i class="fas fa-arrow-up"></i> VENDEDOR
+                    </div>
+                    ${d.antigo_dono ? `<div style="margin-bottom:4px;"><span style="font-size:7px;color:#999;">Nome</span><br><strong style="font-size:10px;color:#111;">${d.antigo_dono}</strong></div>` : ''}
+                    ${d.cpf_antigo ? `<div><span style="font-size:7px;color:#999;">CPF</span><br><strong style="font-size:10px;color:#111;">${d.cpf_antigo}</strong></div>` : ''}
+                </div>
+                
+                <!-- Comprador -->
+                <div style="background:#F0FDF4;border:2px solid #BBF7D0;border-radius:12px;padding:12px;position:relative;">
+                    <div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;color:#16A34A;font-weight:700;margin-bottom:6px;">
+                        <i class="fas fa-arrow-down"></i> COMPRADOR
+                    </div>
+                    ${d.novo_dono ? `<div style="margin-bottom:4px;"><span style="font-size:7px;color:#999;">Nome</span><br><strong style="font-size:10px;color:#111;">${d.novo_dono}</strong></div>` : ''}
+                    ${d.cpf_novo ? `<div><span style="font-size:7px;color:#999;">CPF</span><br><strong style="font-size:10px;color:#111;">${d.cpf_novo}</strong></div>` : ''}
+                </div>
+            </div>
+            
+            ${d.endereco_detran ? `
+            <!-- DETRAN -->
+            <div style="background:#F8FAFC;border:1px solid #E5E7EB;border-radius:10px;padding:10px;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+                <div style="width:32px;height:32px;background:#1351B4;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div>
+                    <span style="font-size:7px;color:#999;text-transform:uppercase;">DETRAN Responsável</span><br>
+                    <strong style="font-size:10px;">${d.endereco_detran}</strong>
+                </div>
+            </div>` : ''}
+        `;
+    }
+    
+    // RG - Documentos Pessoais
+    if (['rg','cnh','certidao_nascimento','certidao_casamento','certidao_obito','titulo_eleitor'].includes(tipo)) {
+        infoCardsHTML = `
+            <div style="background:linear-gradient(135deg, #1e3a5f, #2c5282);border-radius:14px;padding:16px;margin-bottom:10px;color:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:-15px;right:-15px;font-size:60px;opacity:0.1;">🆔</div>
+                <div style="position:relative;z-index:1;">
+                    <div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;margin-bottom:6px;">
+                        <i class="fas fa-id-card"></i> Dados do Documento
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                        ${d.cpf ? `<div><span style="font-size:7px;opacity:0.7;">CPF</span><br><strong style="font-size:10px;">${d.cpf}</strong></div>` : ''}
+                        ${d.rg ? `<div><span style="font-size:7px;opacity:0.7;">RG</span><br><strong style="font-size:10px;">${d.rg}</strong></div>` : ''}
+                        ${d.nascimento ? `<div><span style="font-size:7px;opacity:0.7;">Nascimento</span><br><strong style="font-size:10px;">${d.nascimento}</strong></div>` : ''}
+                        ${d.orgao_emissor || d.emissor ? `<div><span style="font-size:7px;opacity:0.7;">Órgão Emissor</span><br><strong style="font-size:10px;">${d.orgao_emissor || d.emissor}</strong></div>` : ''}
+                        ${d.categoria_cnh ? `<div><span style="font-size:7px;opacity:0.7;">Categoria CNH</span><br><strong style="font-size:10px;">${d.categoria_cnh}</strong></div>` : ''}
+                        ${d.endereco_orgao ? `<div><span style="font-size:7px;opacity:0.7;">Endereço</span><br><strong style="font-size:9px;">${d.endereco_orgao}</strong></div>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
     
     document.getElementById('modalContent').innerHTML = `
-        <!-- NOME DO DOCUMENTO COM IMAGEM DE FUNDO -->
-        <div style="text-align:center;margin-bottom:16px;padding:20px 16px;background:linear-gradient(135deg, rgba(242,140,40,0.9), rgba(230,126,34,0.95)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=200&fit=crop') center/cover no-repeat;border-radius:12px;color:#fff;position:relative;overflow:hidden;">
+        <!-- CABEÇALHO DO DOCUMENTO -->
+        <div style="text-align:center;margin-bottom:16px;padding:20px 16px;background:linear-gradient(135deg, rgba(242,140,40,0.9), rgba(230,126,34,0.95)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=200&fit=crop') center/cover no-repeat;border-radius:14px;color:#fff;position:relative;overflow:hidden;">
             <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);z-index:0;"></div>
             <div style="position:relative;z-index:1;">
                 <div style="font-size:9px;opacity:0.9;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">
@@ -2965,60 +3048,86 @@ function modalRastreamento(d) {
                 <h3 style="font-size:16px;font-weight:800;margin:4px 0;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.3);">
                     ${d.tipo_nome||'📄 Documento'}
                 </h3>
-                <p style="font-size:10px;opacity:0.95;margin:0;text-shadow:0 1px 2px rgba(0,0,0,0.3);">Titular: <strong>${d.titular}</strong></p>
             </div>
         </div>
         
-        <div style="text-align:center;margin-bottom:10px;">
-            <span class="code-tag" style="font-size:12px;">${d.codigo}</span>
+        <!-- TITULAR E CÓDIGO -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;background:#F8FAFC;border-radius:10px;padding:12px;border:1px solid #E5E7EB;">
+            <div style="flex:1;">
+                <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Titular</span><br>
+                <strong style="font-size:13px;">${d.titular}</strong>
+            </div>
+            <div style="text-align:right;">
+                <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Código</span><br>
+                <span class="code-tag" style="font-size:11px;">${d.codigo}</span>
+            </div>
         </div>
         
-        <!-- PROGRESSO E ETAPAS (OCUPA TUDO EM CIMA) -->
-        <div style="background:#F8FAFC;border-radius:10px;padding:14px;border:1px solid #E5E7EB;margin-bottom:12px;">
-            <div class="track-bar-wrap" style="margin-bottom:0;">
-                <div class="track-bar"><div class="track-fill" style="width:${pct}%;"></div></div>
-                <p class="track-pct"><strong>${pct}%</strong> — ${ok} de ${tot} etapas concluídas</p>
+        <!-- INFORMAÇÕES ESPECÍFICAS -->
+        ${infoCardsHTML}
+        
+        <!-- ETAPAS DO PROCESSO -->
+        <div style="background:#F8FAFC;border-radius:12px;padding:14px;border:1px solid #E5E7EB;margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                <h4 style="font-size:11px;font-weight:700;color:#111;">
+                    <i class="fas fa-route" style="color:#E67E22;"></i> Etapas do Processo
+                </h4>
+                <span style="font-size:9px;font-weight:700;color:#E67E22;">${pct}%</span>
             </div>
-            <div style="margin-top:10px;">
-                ${etapas.map(e=>`<div class="track-step ${(e.ok||e.concluida)?'done':''}"><div class="step-info"><strong>${(e.ok||e.concluida)?'✅ ':'⏳ '}${e.nome}</strong>${e.data?`<span class="step-date">📅 ${e.data}</span>`:'<span class="step-date" style="color:#999;">Aguardando</span>'}</div></div>`).join('')}
+            
+            <!-- Barra de progresso -->
+            <div style="background:#E5E7EB;border-radius:10px;height:8px;margin-bottom:12px;overflow:hidden;">
+                <div style="background:linear-gradient(90deg, #E67E22, #F28C28);height:100%;border-radius:10px;width:${pct}%;transition:width 0.5s;"></div>
             </div>
-            ${d.prev||d.previsao_entrega?`<p style="text-align:center;font-size:11px;margin-top:10px;padding-top:8px;border-top:1px solid #E5E7EB;">📦 Previsão de Entrega: <strong>${d.prev||d.previsao_entrega}</strong></p>`:''}
+            
+            <!-- Etapas -->
+            <div style="display:flex;flex-direction:column;gap:6px;">
+                ${etapas.map((e, i) => `
+                    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:${(e.ok||e.concluida)?'#F0FDF4':'#fff'};border-radius:8px;border:1px solid ${(e.ok||e.concluida)?'#BBF7D0':'#E5E7EB'};">
+                        <div style="width:28px;height:28px;border-radius:50%;background:${(e.ok||e.concluida)?'#22C55E':'#E5E7EB'};display:flex;align-items:center;justify-content:center;flex-shrink:0;color:${(e.ok||e.concluida)?'#fff':'#999'};font-size:11px;">
+                            <i class="fas fa-${(e.ok||e.concluida)?'check':'clock'}"></i>
+                        </div>
+                        <div style="flex:1;">
+                            <strong style="font-size:10px;">${e.nome}</strong>
+                            <span style="font-size:8px;color:#999;display:block;">${e.data?e.data:'Aguardando...'}</span>
+                        </div>
+                        ${(e.ok||e.concluida) ? '<span style="font-size:8px;color:#22C55E;font-weight:700;">✓</span>' : ''}
+                    </div>
+                `).join('')}
+            </div>
         </div>
         
-        <!-- QR CODE EM BAIXO (OCUPA LARGURA TOTAL) -->
-        <div style="background:#fff;border-radius:10px;padding:16px;text-align:center;border:2px solid #000;margin-bottom:12px;">
+        ${d.prev||d.previsao_entrega?`
+        <div style="background:#FFF8E1;border:2px solid #FFE082;border-radius:10px;padding:10px;text-align:center;margin-bottom:12px;">
+            <span style="font-size:8px;color:#E67E22;">📦 Previsão de Entrega</span><br>
+            <strong style="font-size:11px;color:#E67E22;">${d.prev||d.previsao_entrega}</strong>
+        </div>`:''}
+        
+        <!-- QR CODE -->
+        <div style="background:#fff;border-radius:12px;padding:14px;text-align:center;border:2px solid #000;margin-bottom:12px;">
             <p style="font-size:9px;font-weight:700;color:#000;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">
                 <i class="fas fa-qrcode"></i> QR Code para Acompanhamento
             </p>
             <div id="qrCodeContainer" style="display:inline-block;padding:6px;background:#fff;border-radius:8px;"></div>
-            <p style="font-size:7px;color:#666;margin-top:6px;word-break:break-all;line-height:1.3;">${urlQR}</p>
+            <p style="font-size:7px;color:#666;margin-top:6px;word-break:break-all;">${urlQR}</p>
         </div>
         
-        <div class="modal-btns" style="margin-top:10px;">
+        <div class="modal-btns">
             <button class="btn-close-m" onclick="fecharModal()">Fechar</button>
             <button class="btn-new-m" onclick="novaConsulta()">Nova Consulta</button>
         </div>`;
     
     showModal();
     
-    // GERAR QR CODE PRETO
     setTimeout(() => {
         const qrContainer = document.getElementById('qrCodeContainer');
         if (qrContainer && typeof QRCode !== 'undefined') {
             qrContainer.innerHTML = '';
             new QRCode(qrContainer, {
-                text: urlQR,
-                width: 120,
-                height: 120,
-                colorDark: '#000000',
-                colorLight: '#ffffff',
+                text: urlQR, width: 110, height: 110,
+                colorDark: '#000000', colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.M
             });
-        } else if (qrContainer) {
-            qrContainer.innerHTML = `
-                <div style="width:120px;height:120px;display:flex;align-items:center;justify-content:center;background:#f0f0f0;border:2px dashed #000;border-radius:4px;">
-                    <i class="fas fa-qrcode" style="font-size:40px;color:#000;"></i>
-                </div>`;
         }
     }, 200);
 }
