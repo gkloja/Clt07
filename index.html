@@ -1867,6 +1867,56 @@ body::after {
     color: #1a1a1a !important; /* Escuro para melhor leitura */
     line-height: 1.4 !important;
 }
+/* ========== SELO GOV.BR COM CORES DA LOGO ========== */
+.stamp-govbr {
+    background: #fff;
+    text-align: center;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border: 2px solid #E5E7EB;
+    position: relative;
+    overflow: hidden;
+}
+
+.stamp-govbr::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #1351B4 33%, #FFD700 33%, #FFD700 66%, #0F7B3A 66%);
+}
+
+.stamp-govbr-content {
+    position: relative;
+    z-index: 1;
+}
+
+.stamp-govbr .govbr-logo {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.stamp-govbr .govbr-logo .g { color: #1351B4; }
+.stamp-govbr .govbr-logo .o { color: #FFD700; }
+.stamp-govbr .govbr-logo .v { color: #0F7B3A; }
+.stamp-govbr .govbr-logo .dot { color: #999; font-weight: 500; }
+.stamp-govbr .govbr-logo .b { color: #1351B4; }
+.stamp-govbr .govbr-logo .r { color: #FFD700; }
+
+.stamp-govbr .stamp-label {
+    font-size: 7px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-top: 2px;
+}
     </style>
 </head>
 <body>
@@ -2676,93 +2726,206 @@ function toggleVerMaisCards() {
     const urlQR = `${window.location.origin}/?codigo=${d.codigo}`;
     
     const tipo = d.tipo || '';
-    const isCertificado = tipo.includes('certificado') || tipo.includes('ensino') || d.categoria === 'Educação';
-    const isCurso = tipo.includes('curso') || tipo.includes('senai') || tipo.includes('sesi') || tipo.includes('tecnico');
-    const isDiploma = tipo.includes('diploma') || tipo.includes('superior');
     
-    let detalhesExtras = '';
+    // Construir campos específicos que vão DIRETO no grid principal
+    let camposExtras = '';
     
-    if (isCertificado || isCurso || isDiploma) {
-        detalhesExtras = `
-            ${d.instituicao || d.emissor ? `<div class="detail-cell"><div class="lbl">Instituição</div><div class="val">${d.instituicao || d.emissor}</div></div>` : ''}
-            ${d.endereco_instituicao || d.local ? `<div class="detail-cell"><div class="lbl">Local/Endereço</div><div class="val">${d.endereco_instituicao || d.local || 'N/I'}</div></div>` : ''}
-            ${d.grau_formacao ? `<div class="detail-cell"><div class="lbl">Grau de Formação</div><div class="val">${d.grau_formacao}</div></div>` : ''}
-            ${d.curso ? `<div class="detail-cell"><div class="lbl">Curso</div><div class="val">${d.curso}</div></div>` : ''}
-            ${d.ano_conclusao || d.ano_formacao ? `<div class="detail-cell"><div class="lbl">Ano de Formação/Conclusão</div><div class="val">${d.ano_conclusao || d.ano_formacao}</div></div>` : ''}
-            ${d.carga_horaria ? `<div class="detail-cell"><div class="lbl">Carga Horária</div><div class="val">${d.carga_horaria}</div></div>` : ''}
-            ${d.reconhecimento ? `<div class="detail-cell"><div class="lbl">Reconhecimento</div><div class="val">${d.reconhecimento}</div></div>` : ''}
-            <div class="detail-cell"><div class="lbl">Status</div><div class="val" style="color:${d.status === 'valid' ? 'var(--green)' : 'var(--red)'};font-weight:700;">${d.status === 'valid' ? '✅ APROVADO' : d.status === 'expired' ? '⚠️ EXPIRADO' : '📋 ' + d.status}</div></div>
-        `;
+    // EDUCAÇÃO
+    if (['certificado_ensino_medio','certificado_ensino_fundamental','ensino_medio_sesi',
+         'ensino_fundamental_sesi','ensino_fund_medio_sesi','declaracao_escolaridade',
+         'diploma_superior','senai_certificado','sesi_curso','senac_curso'].includes(tipo)) {
+        camposExtras += d.instituicao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Instituição</span><br><strong style="font-size:11px;">${d.instituicao}</strong></div>` : '';
+        camposExtras += d.endereco_instituicao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Endereço</span><br><strong style="font-size:10px;">${d.endereco_instituicao}</strong></div>` : '';
+        camposExtras += d.curso ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Curso</span><br><strong style="font-size:11px;">${d.curso}</strong></div>` : '';
+        camposExtras += d.ano_conclusao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Ano Conclusão</span><br><strong style="font-size:11px;">${d.ano_conclusao}</strong></div>` : '';
+        camposExtras += d.carga_horaria ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Carga Horária</span><br><strong style="font-size:11px;">${d.carga_horaria}</strong></div>` : '';
+        camposExtras += d.duracao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Duração</span><br><strong style="font-size:11px;">${d.duracao}</strong></div>` : '';
+        camposExtras += d.reconhecimento ? `<div style="grid-column:1/-1;"><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Reconhecimento</span><br><strong style="font-size:11px;">${d.reconhecimento}</strong></div>` : '';
+    }
+    
+    // SAÚDE
+    if (['atestado_medico','laudo_inss'].includes(tipo)) {
+        camposExtras += d.estabelecimento ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Estabelecimento</span><br><strong style="font-size:11px;">${d.estabelecimento}</strong></div>` : '';
+        camposExtras += d.endereco_estabelecimento ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Endereço</span><br><strong style="font-size:10px;">${d.endereco_estabelecimento}</strong></div>` : '';
+        camposExtras += d.medico ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Médico</span><br><strong style="font-size:11px;">${d.medico}</strong></div>` : '';
+        camposExtras += d.crm ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CRM</span><br><strong style="font-size:11px;">${d.crm}</strong></div>` : '';
+        camposExtras += d.cid ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CID</span><br><strong style="font-size:11px;">${d.cid}</strong></div>` : '';
+    }
+    
+    // DOCUMENTOS PESSOAIS
+    if (['rg','cnh','certidao_nascimento','certidao_casamento','certidao_obito','titulo_eleitor'].includes(tipo)) {
+        camposExtras += d.endereco_orgao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Endereço Órgão</span><br><strong style="font-size:10px;">${d.endereco_orgao}</strong></div>` : '';
+        camposExtras += d.categoria_cnh ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Categoria CNH</span><br><strong style="font-size:11px;">${d.categoria_cnh}</strong></div>` : '';
+        camposExtras += d.registro_cnh ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Registro CNH</span><br><strong style="font-size:11px;">${d.registro_cnh}</strong></div>` : '';
+        camposExtras += d.zona_eleitoral ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Zona Eleitoral</span><br><strong style="font-size:11px;">${d.zona_eleitoral}</strong></div>` : '';
+        camposExtras += d.secao_eleitoral ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Seção</span><br><strong style="font-size:11px;">${d.secao_eleitoral}</strong></div>` : '';
+        camposExtras += d.livro ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Livro</span><br><strong style="font-size:11px;">${d.livro}</strong></div>` : '';
+        camposExtras += d.folha ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Folha</span><br><strong style="font-size:11px;">${d.folha}</strong></div>` : '';
+        camposExtras += d.termo ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Termo</span><br><strong style="font-size:11px;">${d.termo}</strong></div>` : '';
+    }
+    
+    // VEÍCULOS
+    if (tipo === 'transferencia_veiculo') {
+        camposExtras += d.placa_veiculo ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Placa</span><br><strong style="font-size:14px;font-family:monospace;">${d.placa_veiculo}</strong></div>` : '';
+        camposExtras += d.endereco_detran ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">DETRAN</span><br><strong style="font-size:10px;">${d.endereco_detran}</strong></div>` : '';
+        camposExtras += d.antigo_dono ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Vendedor</span><br><strong style="font-size:11px;">${d.antigo_dono}</strong></div>` : '';
+        camposExtras += d.cpf_antigo ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF Vendedor</span><br><strong style="font-size:11px;">${d.cpf_antigo}</strong></div>` : '';
+        camposExtras += d.novo_dono ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Comprador</span><br><strong style="font-size:11px;">${d.novo_dono}</strong></div>` : '';
+        camposExtras += d.cpf_novo ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF Comprador</span><br><strong style="font-size:11px;">${d.cpf_novo}</strong></div>` : '';
+        camposExtras += d.modelo_veiculo ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Modelo</span><br><strong style="font-size:11px;">${d.modelo_veiculo}</strong></div>` : '';
+        camposExtras += d.ano_veiculo ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Ano</span><br><strong style="font-size:11px;">${d.ano_veiculo}</strong></div>` : '';
+    }
+    
+    // NOTA FISCAL
+    if (tipo === 'nota_fiscal') {
+        camposExtras += d.numero_nota ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Nº Nota</span><br><strong style="font-size:11px;">${d.numero_nota}</strong></div>` : '';
+        camposExtras += d.valor_nota ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Valor</span><br><strong style="font-size:11px;">R$ ${d.valor_nota}</strong></div>` : '';
+        camposExtras += d.emitente_nota ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Emitente</span><br><strong style="font-size:11px;">${d.emitente_nota}</strong></div>` : '';
+        camposExtras += d.cnpj_emitente ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CNPJ Emitente</span><br><strong style="font-size:11px;">${d.cnpj_emitente}</strong></div>` : '';
+        camposExtras += d.endereco_emitente ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Endereço</span><br><strong style="font-size:10px;">${d.endereco_emitente}</strong></div>` : '';
+        camposExtras += d.destinatario_nota ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Destinatário</span><br><strong style="font-size:11px;">${d.destinatario_nota}</strong></div>` : '';
+        camposExtras += d.cpf_destinatario ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF Destinatário</span><br><strong style="font-size:11px;">${d.cpf_destinatario}</strong></div>` : '';
+    }
+    
+    // ALVARÁS
+    if (['alvara_vigilancia','alvara_funcionamento','alvara_bombeiros','licenca_geral'].includes(tipo)) {
+        camposExtras += d.endereco_orgao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Endereço</span><br><strong style="font-size:10px;">${d.endereco_orgao}</strong></div>` : '';
+        camposExtras += d.cnpj ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CNPJ</span><br><strong style="font-size:11px;">${d.cnpj}</strong></div>` : '';
+        camposExtras += d.processo ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Processo</span><br><strong style="font-size:11px;">${d.processo}</strong></div>` : '';
+        camposExtras += d.tipo_alvara ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Tipo</span><br><strong style="font-size:11px;">${d.tipo_alvara}</strong></div>` : '';
+        camposExtras += d.validade_alvara ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Validade Alvará</span><br><strong style="font-size:11px;">${d.validade_alvara}</strong></div>` : '';
+    }
+    
+    // TERMO DE GUARDA
+    if (tipo === 'termo_guarda') {
+        camposExtras += d.nome_crianca ? `<div><span style="font-size:7px;text-transform:uppercase;color:#E67E22;font-weight:700;">👶 Criança</span><br><strong style="font-size:12px;">${d.nome_crianca}</strong></div>` : '';
+        camposExtras += d.cpf_crianca ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF Criança</span><br><strong style="font-size:11px;">${d.cpf_crianca}</strong></div>` : '';
+        camposExtras += d.responsavel1 ? `<div><span style="font-size:7px;text-transform:uppercase;color:#1351B4;font-weight:700;">👤 Responsável</span><br><strong style="font-size:12px;">${d.responsavel1}</strong></div>` : '';
+        camposExtras += d.cpf_responsavel1 ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF Responsável</span><br><strong style="font-size:11px;">${d.cpf_responsavel1}</strong></div>` : '';
+        camposExtras += d.parentesco1 ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Parentesco</span><br><strong style="font-size:11px;">${d.parentesco1}</strong></div>` : '';
+        camposExtras += d.nome_juiz ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Juiz</span><br><strong style="font-size:11px;">${d.nome_juiz}</strong></div>` : '';
+        camposExtras += d.tipo_guarda ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Tipo de Guarda</span><br><strong style="font-size:11px;">${d.tipo_guarda}</strong></div>` : '';
+    }
+    
+    // UNIÃO ESTÁVEL
+    if (tipo === 'uniao_estavel') {
+        camposExtras += d.declarante1 ? `<div><span style="font-size:7px;text-transform:uppercase;color:#C02669;font-weight:700;">💑 Declarante 1</span><br><strong style="font-size:12px;">${d.declarante1}</strong></div>` : '';
+        camposExtras += d.cpf_declarante1 ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF</span><br><strong style="font-size:11px;">${d.cpf_declarante1}</strong></div>` : '';
+        camposExtras += d.declarante2 ? `<div><span style="font-size:7px;text-transform:uppercase;color:#C02669;font-weight:700;">💑 Declarante 2</span><br><strong style="font-size:12px;">${d.declarante2}</strong></div>` : '';
+        camposExtras += d.cpf_declarante2 ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF</span><br><strong style="font-size:11px;">${d.cpf_declarante2}</strong></div>` : '';
+        camposExtras += d.data_uniao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Data da União</span><br><strong style="font-size:11px;">${d.data_uniao}</strong></div>` : '';
+        camposExtras += d.regime_bens ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Regime de Bens</span><br><strong style="font-size:11px;">${d.regime_bens}</strong></div>` : '';
+        camposExtras += d.cartorio_uniao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Cartório</span><br><strong style="font-size:11px;">${d.cartorio_uniao}</strong></div>` : '';
+    }
+    
+    // PROCURAÇÃO PÚBLICA
+    if (tipo === 'procuracao_publica') {
+        camposExtras += d.outorgante ? `<div><span style="font-size:7px;text-transform:uppercase;color:#1351B4;font-weight:700;">📜 Outorgante</span><br><strong style="font-size:12px;">${d.outorgante}</strong></div>` : '';
+        camposExtras += d.cpf_outorgante ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF Outorgante</span><br><strong style="font-size:11px;">${d.cpf_outorgante}</strong></div>` : '';
+        camposExtras += d.procurador ? `<div><span style="font-size:7px;text-transform:uppercase;color:#E67E22;font-weight:700;">📜 Procurador</span><br><strong style="font-size:12px;">${d.procurador}</strong></div>` : '';
+        camposExtras += d.cpf_procurador ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF Procurador</span><br><strong style="font-size:11px;">${d.cpf_procurador}</strong></div>` : '';
+        camposExtras += d.tipo_procuracao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Tipo</span><br><strong style="font-size:11px;">${d.tipo_procuracao}</strong></div>` : '';
+        camposExtras += d.cartorio_procuracao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Cartório</span><br><strong style="font-size:11px;">${d.cartorio_procuracao}</strong></div>` : '';
     }
     
     document.getElementById('modalContent').innerHTML = `
-        <!-- NOME DO DOCUMENTO EM CIMA COM IMAGEM DE FUNDO -->
+        <!-- NOME DO DOCUMENTO -->
         <div style="text-align:center;margin-bottom:16px;padding:20px 16px;background:linear-gradient(135deg, rgba(19,81,180,0.9), rgba(12,50,111,0.95)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=200&fit=crop') center/cover no-repeat;border-radius:12px;color:#fff;position:relative;overflow:hidden;">
             <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);z-index:0;"></div>
             <div style="position:relative;z-index:1;">
                 <div style="font-size:9px;opacity:0.9;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;">
                     <i class="fas fa-shield-alt"></i> Documento Oficial
                 </div>
-                <h3 style="font-size:16px;font-weight:800;margin:4px 0;color:#fff;text-shadow:0 2px 4px rgba(0,0,0,0.3);">
+                <h3 style="font-size:16px;font-weight:800;margin:4px 0;color:#fff;">
                     ${d.tipo_nome || '📄 Documento'}
                 </h3>
-                ${d.instituicao && d.instituicao !== d.emissor ? `<p style="font-size:10px;opacity:0.95;margin:0;text-shadow:0 1px 2px rgba(0,0,0,0.3);">${d.instituicao}</p>` : ''}
             </div>
         </div>
         
-        <!-- DADOS DO TITULAR -->
+        <!-- DADOS PRINCIPAIS + CAMPOS ESPECÍFICOS JUNTOS -->
         <div style="background:#F8FAFC;border-radius:10px;padding:14px;margin-bottom:12px;border:1px solid #E5E7EB;">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
                 <div>
                     <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Titular</span><br>
-                    <strong style="font-size:11px;">${d.titular}</strong>
+                    <strong style="font-size:11px;">${d.titular || 'N/I'}</strong>
                 </div>
                 <div>
                     <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Código</span><br>
                     <span class="code-tag" style="font-size:10px;">${d.codigo}</span>
                 </div>
-                ${d.cpf ? `
-                <div>
-                    <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF</span><br>
-                    <strong style="font-size:11px;">${d.cpf}</strong>
-                </div>` : ''}
-                ${d.rg ? `
-                <div>
-                    <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">RG</span><br>
-                    <strong style="font-size:11px;">${d.rg}</strong>
-                </div>` : ''}
-                <div>
-                    <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Emissão</span><br>
-                    <strong style="font-size:11px;">${d.data_emissao ? new Date(d.data_emissao).toLocaleDateString('pt-BR') : 'N/A'}</strong>
-                </div>
-                <div>
-                    <span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Validade</span><br>
-                    <strong style="font-size:11px;">${dv ? dv.toLocaleDateString('pt-BR') : 'Indeterminada'}</strong>
-                </div>
+                ${d.cpf ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF</span><br><strong style="font-size:11px;">${d.cpf}</strong></div>` : ''}
+                ${d.rg ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">RG</span><br><strong style="font-size:11px;">${d.rg}</strong></div>` : ''}
+                ${d.emissor ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Emissor</span><br><strong style="font-size:10px;">${d.emissor}</strong></div>` : ''}
+                ${d.categoria ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Categoria</span><br><strong style="font-size:11px;">${d.categoria}</strong></div>` : ''}
+                <div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Emissão</span><br><strong style="font-size:11px;">${d.data_emissao ? new Date(d.data_emissao).toLocaleDateString('pt-BR') : 'N/A'}</strong></div>
+                <div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Validade</span><br><strong style="font-size:11px;">${dv ? dv.toLocaleDateString('pt-BR') : 'Indeterminada'}</strong></div>
+                ${d.informacoes ? `<div style="grid-column:1/-1;"><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Informações</span><br><strong style="font-size:10px;">${d.informacoes}</strong></div>` : ''}
+                
+                <!-- CAMPOS ESPECÍFICOS APARECEM DIRETO AQUI -->
+                ${camposExtras}
             </div>
-            ${detalhesExtras ? `<div style="margin-top:10px;padding-top:10px;border-top:1px solid #E5E7EB;"><div class="detail-grid">${detalhesExtras}</div></div>` : ''}
         </div>
         
-        <!-- STATUS DE VALIDAÇÃO + QR CODE EM BAIXO -->
-        <div style="display:flex;gap:12px;align-items:stretch;margin-bottom:12px;">
-            <!-- STATUS DE VALIDAÇÃO -->
-            <div class="result-box ${exp?'expired':'valid'}" style="flex:1;margin-bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;">
-                <div class="ri" style="font-size:32px;"><i class="fas fa-${exp?'circle-xmark':'circle-check'}"></i></div>
-                <h4 style="font-size:14px;">${exp?'EXPIRADO':'VÁLIDO'}</h4>
-                <p style="font-size:8px;">${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</p>
-            </div>
+<!-- STATUS DE VALIDAÇÃO COM DESIGN PREMIUM -->
+<div style="background:${exp ? 'linear-gradient(135deg, #FEF2F2, #FEE2E2)' : 'linear-gradient(135deg, #F0FDF4, #DCFCE7)'};border:2px solid ${exp ? '#EF4444' : '#22C55E'};border-radius:16px;padding:20px;margin-bottom:16px;text-align:center;position:relative;overflow:hidden;">
+    <!-- Círculo decorativo -->
+    <div style="position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:${exp ? 'rgba(239,68,68,0.1)' : 'rgba(34,197,94,0.1)'};z-index:0;"></div>
+    <div style="position:absolute;bottom:-30px;left:-30px;width:80px;height:80px;border-radius:50%;background:${exp ? 'rgba(239,68,68,0.08)' : 'rgba(34,197,94,0.08)'};z-index:0;"></div>
+    
+    <div style="position:relative;z-index:1;">
+        <!-- Ícone grande -->
+        <div style="font-size:48px;margin-bottom:8px;color:${exp ? '#EF4444' : '#22C55E'};filter:drop-shadow(0 4px 6px ${exp ? 'rgba(239,68,68,0.3)' : 'rgba(34,197,94,0.3)'});">
+            <i class="fas fa-${exp ? 'times-circle' : 'check-circle'}"></i>
+        </div>
+        
+        <!-- Status -->
+        <h3 style="font-size:20px;font-weight:900;color:${exp ? '#991B1B' : '#166534'};margin-bottom:2px;letter-spacing:-0.5px;">
+            ${exp ? 'DOCUMENTO EXPIRADO' : 'DOCUMENTO VÁLIDO'}
+        </h3>
+        <p style="font-size:10px;color:${exp ? '#B91C1C' : '#15803D'};margin-bottom:10px;font-weight:500;">
+            ${exp ? 'Este documento já não possui mais validade' : 'Autenticado e verificado com sucesso'}
+        </p>
+        
+        <!-- Data da validação -->
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.8);padding:6px 14px;border-radius:20px;font-size:9px;color:#666;backdrop-filter:blur(5px);">
+            <i class="fas fa-clock"></i>
+            <span>Verificado em <strong>${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'})}</strong> às <strong>${new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</strong></span>
+        </div>
+    </div>
+</div>
+
+<!-- QR CODE COM DESIGN ELEGANTE -->
+<div style="background:#fff;border:2px solid #E5E7EB;border-radius:16px;padding:16px;margin-bottom:16px;display:flex;align-items:center;gap:16px;transition:all 0.3s;">
+    <!-- QR Code -->
+    <div style="flex-shrink:0;">
+        <div id="qrCodeContainer" style="width:100px;height:100px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:10px;padding:6px;box-shadow:0 2px 8px rgba(0,0,0,0.08);"></div>
+    </div>
+    
+    <!-- Informações do QR Code -->
+    <div style="flex:1;min-width:0;">
+        <h4 style="font-size:11px;font-weight:700;color:#111;margin-bottom:4px;display:flex;align-items:center;gap:6px;">
+            <i class="fas fa-qrcode" style="color:#000;"></i> Código QR de Verificação
+        </h4>
+        <p style="font-size:8px;color:#666;margin-bottom:6px;line-height:1.4;">
+            Escaneie este código para verificar a autenticidade deste documento a qualquer momento
+        </p>
+        <div style="background:#F8FAFC;padding:6px 10px;border-radius:6px;border:1px dashed #E5E7EB;">
+            <p style="font-size:7px;color:#999;margin-bottom:2px;">CÓDIGO DO DOCUMENTO</p>
+            <p style="font-size:10px;font-weight:700;color:#111;font-family:monospace;">${d.codigo}</p>
+        </div>
+    </div>
+</div>
             
-            <!-- QR CODE PRETO -->
-            <div style="background:#fff;border-radius:10px;padding:12px;text-align:center;border:2px solid #000;min-width:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-                <p style="font-size:8px;font-weight:700;color:#000;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">
-                    <i class="fas fa-qrcode"></i> QR Code
-                </p>
-                <div id="qrCodeContainer" style="display:inline-block;padding:4px;background:#fff;"></div>
-                <p style="font-size:6px;color:#666;margin-top:4px;word-break:break-all;max-width:110px;line-height:1.2;">${urlQR}</p>
-            </div>
+
+<!-- SELO GOV.BR -->
+<div class="stamp-govbr">
+    <div class="stamp-govbr-content">
+        <div class="govbr-logo">
+            <span class="g">G</span><span class="o">O</span><span class="v">V</span><span class="dot">.</span><span class="b">B</span><span class="r">R</span>
         </div>
-        
-        <div class="stamp"><i class="fas fa-shield-haltered"></i><strong>Documento Autenticado pelo Sistema GOV.BR</strong></div>
+        <div class="stamp-label">Documento Autenticado</div>
+    </div>
+</div>
         <div class="modal-btns">
             <button class="btn-close-m" onclick="fecharModal()">Fechar</button>
             <button class="btn-new-m" onclick="novaConsulta()">Nova Consulta</button>
@@ -2770,17 +2933,13 @@ function toggleVerMaisCards() {
     
     showModal();
     
-    // GERAR QR CODE PRETO
     setTimeout(() => {
         const qrContainer = document.getElementById('qrCodeContainer');
         if (qrContainer && typeof QRCode !== 'undefined') {
             qrContainer.innerHTML = '';
             new QRCode(qrContainer, {
-                text: urlQR, 
-                width: 110, 
-                height: 110,
-                colorDark: '#000000',
-                colorLight: '#ffffff',
+                text: urlQR, width: 110, height: 110,
+                colorDark: '#000000', colorLight: '#ffffff',
                 correctLevel: QRCode.CorrectLevel.M
             });
         }
