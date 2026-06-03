@@ -2897,14 +2897,17 @@ function toggleVerMaisCards() {
         camposExtras += d.cpf_destinatario ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF Destinatário</span><br><strong style="font-size:11px;">${d.cpf_destinatario}</strong></div>` : '';
     }
     
-    // ALVARÁS
-    if (['alvara_vigilancia','alvara_funcionamento','alvara_bombeiros','licenca_geral'].includes(tipo)) {
-        camposExtras += d.endereco_orgao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Endereço</span><br><strong style="font-size:10px;">${d.endereco_orgao}</strong></div>` : '';
-        camposExtras += d.cnpj ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CNPJ</span><br><strong style="font-size:11px;">${d.cnpj}</strong></div>` : '';
-        camposExtras += d.processo ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Processo</span><br><strong style="font-size:11px;">${d.processo}</strong></div>` : '';
-        camposExtras += d.tipo_alvara ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Tipo</span><br><strong style="font-size:11px;">${d.tipo_alvara}</strong></div>` : '';
-        camposExtras += d.validade_alvara ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Validade Alvará</span><br><strong style="font-size:11px;">${d.validade_alvara}</strong></div>` : '';
-    }
+// ALVARÁS E LICENÇAS
+if (['alvara_vigilancia','alvara_funcionamento','alvara_bombeiros','licenca_geral'].includes(tipo)) {
+    camposExtras += d.nome_titular_alvara ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Titular</span><br><strong style="font-size:11px;">${d.nome_titular_alvara}</strong></div>` : '';
+    camposExtras += d.cpf_cnpj_titular ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF/CNPJ Titular</span><br><strong style="font-size:11px;">${d.cpf_cnpj_titular}</strong></div>` : '';
+    camposExtras += d.endereco_titular ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Endereço Titular</span><br><strong style="font-size:10px;">${d.endereco_titular}</strong></div>` : '';
+    camposExtras += d.endereco_orgao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Endereço Órgão</span><br><strong style="font-size:10px;">${d.endereco_orgao}</strong></div>` : '';
+    camposExtras += d.cnpj ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CNPJ Órgão</span><br><strong style="font-size:11px;">${d.cnpj}</strong></div>` : '';
+    camposExtras += d.processo ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Processo</span><br><strong style="font-size:11px;">${d.processo}</strong></div>` : '';
+    camposExtras += d.tipo_alvara ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Tipo</span><br><strong style="font-size:11px;">${d.tipo_alvara}</strong></div>` : '';
+    camposExtras += d.validade_alvara ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Validade Alvará</span><br><strong style="font-size:11px;">${d.validade_alvara}</strong></div>` : '';
+}
     
     // TERMO DE GUARDA
     if (tipo === 'termo_guarda') {
