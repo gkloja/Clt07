@@ -2702,7 +2702,7 @@ function renderDocRow(d, escondido = false) {
         <td>${d.categoria || 'Outros'}</td>
         <td>${d.titular}</td>
         <td>${(d.emissor || '').substring(0, 18)}</td>
-        <td>${dv ? dv.toLocaleDateString('pt-BR') : 'N/A'}</td>
+<td>${dv ? (dv.getFullYear() >= 2099 ? '♾️ Vitalício' : dv.toLocaleDateString('pt-BR')) : 'N/A'}</td>
         <td><span class="badge ${cls}">${lbl}</span></td>
         <td><button class="btn-sm ${temRast ? '' : 'primary'}" onclick="event.stopPropagation();openModalDoc(${d.id})"><i class="fas fa-${temRast ? 'route' : 'check-double'}"></i> ${temRast ? 'Rastrear' : 'Validar'}</button></td>
     </tr>`;
@@ -2840,18 +2840,23 @@ function toggleVerMaisCards() {
     // Construir campos específicos que vão DIRETO no grid principal
     let camposExtras = '';
     
-    // EDUCAÇÃO
-    if (['certificado_ensino_medio','certificado_ensino_fundamental','ensino_medio_sesi',
-         'ensino_fundamental_sesi','ensino_fund_medio_sesi','declaracao_escolaridade',
-         'diploma_superior','senai_certificado','sesi_curso','senac_curso'].includes(tipo)) {
-        camposExtras += d.instituicao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Instituição</span><br><strong style="font-size:11px;">${d.instituicao}</strong></div>` : '';
-        camposExtras += d.endereco_instituicao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Endereço</span><br><strong style="font-size:10px;">${d.endereco_instituicao}</strong></div>` : '';
-        camposExtras += d.curso ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Curso</span><br><strong style="font-size:11px;">${d.curso}</strong></div>` : '';
-        camposExtras += d.ano_conclusao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Ano Conclusão</span><br><strong style="font-size:11px;">${d.ano_conclusao}</strong></div>` : '';
-        camposExtras += d.carga_horaria ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Carga Horária</span><br><strong style="font-size:11px;">${d.carga_horaria}</strong></div>` : '';
-        camposExtras += d.duracao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Duração</span><br><strong style="font-size:11px;">${d.duracao}</strong></div>` : '';
-        camposExtras += d.reconhecimento ? `<div style="grid-column:1/-1;"><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Reconhecimento</span><br><strong style="font-size:11px;">${d.reconhecimento}</strong></div>` : '';
-    }
+// ==================== CAMPOS PARA EDUCAÇÃO ====================
+// EDUCAÇÃO
+if (['certificado_ensino_medio','certificado_ensino_fundamental','ensino_medio_sesi',
+     'ensino_fundamental_sesi','ensino_fund_medio_sesi','declaracao_escolaridade',
+     'diploma_superior','senai_certificado','sesi_curso','senac_curso'].includes(tipo)) {
+    camposExtras += d.nome_aluno ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Aluno</span><br><strong style="font-size:11px;">${d.nome_aluno}</strong></div>` : '';
+    camposExtras += d.cpf_aluno ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CPF Aluno</span><br><strong style="font-size:11px;">${d.cpf_aluno}</strong></div>` : '';
+    camposExtras += d.rg_aluno ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">RG Aluno</span><br><strong style="font-size:11px;">${d.rg_aluno}</strong></div>` : '';
+    camposExtras += d.nascimento_aluno ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Nascimento</span><br><strong style="font-size:11px;">${d.nascimento_aluno}</strong></div>` : '';
+    camposExtras += d.instituicao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Instituição</span><br><strong style="font-size:11px;">${d.instituicao}</strong></div>` : '';
+    camposExtras += d.endereco_instituicao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Endereço</span><br><strong style="font-size:10px;">${d.endereco_instituicao}</strong></div>` : '';
+    camposExtras += d.curso ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Curso</span><br><strong style="font-size:11px;">${d.curso}</strong></div>` : '';
+    camposExtras += d.ano_conclusao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Ano Conclusão</span><br><strong style="font-size:11px;">${d.ano_conclusao}</strong></div>` : '';
+    camposExtras += d.carga_horaria ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Carga Horária</span><br><strong style="font-size:11px;">${d.carga_horaria}</strong></div>` : '';
+    camposExtras += d.duracao ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Duração</span><br><strong style="font-size:11px;">${d.duracao}</strong></div>` : '';
+    camposExtras += d.reconhecimento ? `<div style="grid-column:1/-1;"><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Reconhecimento</span><br><strong style="font-size:11px;">${d.reconhecimento}</strong></div>` : '';
+}
     
     // SAÚDE
     if (['atestado_medico','laudo_inss'].includes(tipo)) {
@@ -2970,8 +2975,8 @@ if (['alvara_vigilancia','alvara_funcionamento','alvara_bombeiros','licenca_gera
                 ${d.rg ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">RG</span><br><strong style="font-size:11px;">${d.rg}</strong></div>` : ''}
                 ${d.emissor ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Emissor</span><br><strong style="font-size:10px;">${d.emissor}</strong></div>` : ''}
                 ${d.categoria ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Categoria</span><br><strong style="font-size:11px;">${d.categoria}</strong></div>` : ''}
-                <div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Emissão</span><br><strong style="font-size:11px;">${d.data_emissao ? new Date(d.data_emissao).toLocaleDateString('pt-BR') : 'N/A'}</strong></div>
-                <div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Validade</span><br><strong style="font-size:11px;">${dv ? dv.toLocaleDateString('pt-BR') : 'Indeterminada'}</strong></div>
+<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Emissão</span><br><strong style="font-size:11px;">${d.data_emissao ? new Date(d.data_emissao).toLocaleDateString('pt-BR') : 'N/A'}</strong></div>
+<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Validade</span><br><strong style="font-size:11px;">${dv ? (dv.getFullYear() >= 2099 ? '♾️ Vitalício' : dv.toLocaleDateString('pt-BR')) : 'Indeterminada'}</strong></div>
                 ${d.informacoes ? `<div style="grid-column:1/-1;"><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">Informações</span><br><strong style="font-size:10px;">${d.informacoes}</strong></div>` : ''}
                 
                 <!-- CAMPOS ESPECÍFICOS APARECEM DIRETO AQUI -->
@@ -3070,6 +3075,55 @@ function modalRastreamento(d) {
     
     let infoCardsHTML = '';
     
+    // ALVARÁS E LICENÇAS
+if (['alvara_vigilancia','alvara_funcionamento','alvara_bombeiros','licenca_geral'].includes(tipo)) {
+    infoCardsHTML = `
+        <div style="background:linear-gradient(135deg, #1e3a5f, #2c5282);border-radius:14px;padding:16px;margin-bottom:10px;color:#fff;position:relative;overflow:hidden;">
+            <div style="position:absolute;top:-15px;right:-15px;font-size:60px;opacity:0.1;">📋</div>
+            <div style="position:relative;z-index:1;">
+                <div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;margin-bottom:6px;">
+                    <i class="fas fa-clipboard-list"></i> Dados do Alvará
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                    ${d.nome_titular_alvara ? `<div><span style="font-size:7px;opacity:0.7;">Titular</span><br><strong style="font-size:10px;">${d.nome_titular_alvara}</strong></div>` : ''}
+                    ${d.cpf_cnpj_titular ? `<div><span style="font-size:7px;opacity:0.7;">CPF/CNPJ Titular</span><br><strong style="font-size:10px;">${d.cpf_cnpj_titular}</strong></div>` : ''}
+                    ${d.endereco_titular ? `<div style="grid-column:1/-1;"><span style="font-size:7px;opacity:0.7;">Endereço Titular</span><br><strong style="font-size:9px;">${d.endereco_titular}</strong></div>` : ''}
+                    ${d.cnpj ? `<div><span style="font-size:7px;opacity:0.7;">CNPJ</span><br><strong style="font-size:10px;">${d.cnpj}</strong></div>` : ''}
+                    ${d.processo ? `<div><span style="font-size:7px;opacity:0.7;">Processo</span><br><strong style="font-size:10px;">${d.processo}</strong></div>` : ''}
+                    ${d.tipo_alvara ? `<div><span style="font-size:7px;opacity:0.7;">Tipo</span><br><strong style="font-size:10px;">${d.tipo_alvara}</strong></div>` : ''}
+                </div>
+            </div>
+        </div>
+        
+        <div style="background:#F8FAFC;border:1px solid #E5E7EB;border-radius:10px;padding:10px;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+            <div style="width:32px;height:32px;background:#7B2CBF;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;">
+                <i class="fas fa-building"></i>
+            </div>
+            <div>
+                <span style="font-size:7px;color:#999;text-transform:uppercase;">Órgão Emissor</span><br>
+                <strong style="font-size:10px;">${d.emissor || 'N/I'}</strong>
+            </div>
+        </div>
+        
+        ${d.endereco_orgao ? `
+        <div style="background:#F8FAFC;border:1px solid #E5E7EB;border-radius:10px;padding:10px;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+            <div style="width:32px;height:32px;background:#7B2CBF;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+                <span style="font-size:7px;color:#999;text-transform:uppercase;">Endereço do Órgão</span><br>
+                <strong style="font-size:10px;">${d.endereco_orgao}</strong>
+            </div>
+        </div>` : ''}
+        
+        ${d.validade_alvara ? `
+        <div style="background:#FFF8E1;border:2px solid #FFE082;border-radius:10px;padding:10px;text-align:center;margin-bottom:10px;">
+            <span style="font-size:8px;color:#E67E22;">📅 Validade do Alvará</span><br>
+            <strong style="font-size:11px;color:#E67E22;">${d.validade_alvara}</strong>
+        </div>` : ''}
+    `;
+}
+    
     // VEÍCULOS - Transferência
     if (tipo === 'transferencia_veiculo') {
         infoCardsHTML = `
@@ -3143,7 +3197,48 @@ function modalRastreamento(d) {
             </div>
         `;
     }
-    
+    // EDUCAÇÃO
+if (['certificado_ensino_medio','certificado_ensino_fundamental','ensino_medio_sesi',
+     'ensino_fundamental_sesi','ensino_fund_medio_sesi','declaracao_escolaridade',
+     'diploma_superior','senai_certificado','sesi_curso','senac_curso'].includes(tipo)) {
+    infoCardsHTML = `
+        <div style="background:linear-gradient(135deg, #1e3a5f, #2c5282);border-radius:14px;padding:16px;margin-bottom:10px;color:#fff;position:relative;overflow:hidden;">
+            <div style="position:absolute;top:-15px;right:-15px;font-size:60px;opacity:0.1;">🎓</div>
+            <div style="position:relative;z-index:1;">
+                <div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;margin-bottom:6px;">
+                    <i class="fas fa-graduation-cap"></i> Dados do Aluno
+                </div>
+                ${d.nome_aluno ? `<div style="margin-bottom:6px;"><span style="font-size:7px;opacity:0.7;">Aluno</span><br><strong style="font-size:12px;">${d.nome_aluno}</strong></div>` : ''}
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                    ${d.cpf_aluno ? `<div><span style="font-size:7px;opacity:0.7;">CPF</span><br><strong style="font-size:10px;">${d.cpf_aluno}</strong></div>` : ''}
+                    ${d.rg_aluno ? `<div><span style="font-size:7px;opacity:0.7;">RG</span><br><strong style="font-size:10px;">${d.rg_aluno}</strong></div>` : ''}
+                    ${d.nascimento_aluno ? `<div><span style="font-size:7px;opacity:0.7;">Nascimento</span><br><strong style="font-size:10px;">${d.nascimento_aluno}</strong></div>` : ''}
+                </div>
+            </div>
+        </div>
+        
+        <div style="background:#F8FAFC;border:1px solid #E5E7EB;border-radius:10px;padding:10px;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+            <div style="width:32px;height:32px;background:#1351B4;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;">
+                <i class="fas fa-school"></i>
+            </div>
+            <div>
+                <span style="font-size:7px;color:#999;text-transform:uppercase;">Instituição</span><br>
+                <strong style="font-size:10px;">${d.instituicao || 'N/I'}</strong>
+            </div>
+        </div>
+        
+        ${d.curso ? `
+        <div style="background:#F8FAFC;border:1px solid #E5E7EB;border-radius:10px;padding:10px;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+            <div style="width:32px;height:32px;background:#1351B4;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;">
+                <i class="fas fa-book"></i>
+            </div>
+            <div>
+                <span style="font-size:7px;color:#999;text-transform:uppercase;">Curso</span><br>
+                <strong style="font-size:10px;">${d.curso}</strong>
+            </div>
+        </div>` : ''}
+    `;
+}
     // TIMELINE COM LINHAS CONECTANDO
     let timelineHTML = `
         <div style="position:relative;padding-left:30px;">
