@@ -2881,6 +2881,28 @@ function modalValidacao(d) {
         camposExtras += d.crm ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CRM</span><br><strong style="font-size:11px;">${d.crm}</strong></div>` : '';
         camposExtras += d.cid ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">CID</span><br><strong style="font-size:11px;">${d.cid}</strong></div>` : '';
     }
+    // RECEITA MÉDICA
+if (tipo === 'receita_medica') {
+    camposExtras += d.instituicao_receita ? `<div style="grid-column:1/-1;"><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">🏥 Instituição/Hospital</span><br><strong style="font-size:11px;">${d.instituicao_receita}</strong></div>` : '';
+    camposExtras += d.endereco_instituicao_receita ? `<div style="grid-column:1/-1;"><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">📍 Endereço</span><br><strong style="font-size:10px;">${d.endereco_instituicao_receita}</strong></div>` : '';
+    camposExtras += d.nome_medico ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">👨‍⚕️ Médico(a)</span><br><strong style="font-size:11px;">${d.nome_medico}</strong></div>` : '';
+    camposExtras += d.crm_medico ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">📋 CRM</span><br><strong style="font-size:11px;">${d.crm_medico}</strong></div>` : '';
+    camposExtras += d.descricao_receita ? `<div style="grid-column:1/-1;"><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">💊 Medicamentos/Descrição</span><br><strong style="font-size:10px;">${d.descricao_receita}</strong></div>` : '';
+}
+// LIMPA NOME SPC/SERASA
+if (tipo === 'limpa_nome') {
+    camposExtras += d.nome_titular_limpa ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">👤 Titular</span><br><strong style="font-size:12px;">${d.nome_titular_limpa}</strong></div>` : '';
+    camposExtras += d.cpf_titular_limpa ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">📄 CPF</span><br><strong style="font-size:11px;">${d.cpf_titular_limpa}</strong></div>` : '';
+    camposExtras += d.procedimento_limpa ? `<div style="grid-column:1/-1;background:#F0FDF4;padding:8px;border-radius:8px;margin-top:4px;"><span style="font-size:7px;text-transform:uppercase;color:#16A34A;font-weight:700;">📋 Procedimento / Finalidade</span><br><strong style="font-size:11px;">${d.procedimento_limpa}</strong></div>` : '';
+    camposExtras += d.emissor_limpa ? `<div><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">🏢 Emissor</span><br><strong style="font-size:11px;">${d.emissor_limpa}</strong></div>` : '';
+    camposExtras += d.observacoes_limpa ? `<div style="grid-column:1/-1;"><span style="font-size:7px;text-transform:uppercase;color:#999;font-weight:700;">📝 Observações</span><br><strong style="font-size:10px;">${d.observacoes_limpa}</strong></div>` : '';
+    // Adicionar selo "Nome Limpo"
+    if (d.status !== 'expired' && d.status !== 'solicitado') {
+        camposExtras += `<div style="grid-column:1/-1;background:linear-gradient(135deg, #22C55E, #16A34A);color:#fff;text-align:center;padding:8px;border-radius:8px;margin-top:4px;">
+            <i class="fas fa-check-circle"></i> <strong>✅ NOME LIMPO / NEGATIVAÇÃO REMOVIDA</strong>
+        </div>`;
+    }
+}
     
     // DOCUMENTOS PESSOAIS
     if (['rg','cnh','certidao_nascimento','certidao_casamento','certidao_obito','titulo_eleitor'].includes(tipo)) {
